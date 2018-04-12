@@ -5,7 +5,7 @@ Cells store and transmit information via post-translationa modification (PTM) of
 
 ## Prerequisites
 
-Make sure you have Python3. Yau also have to install Biopython available on http://biopython.org/
+Make sure you have Python3. You also have to install Biopython available on http://biopython.org/
 
 
 ## How to use it ?
