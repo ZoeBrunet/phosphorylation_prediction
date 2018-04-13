@@ -8,7 +8,6 @@
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
-# This program is distributed in the hope that it will be useful,
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
@@ -28,6 +27,8 @@ def parse_args(args):
                         help='Input Python regular expression you want to detect')
     parser.add_argument('file',
                         help='Input file containing examples')
+    parser.add_argument('max_window', type=int, nargs='?', default=15,
+                        help='Size of the windows which contain your pattern')
     return parser.parse_args(args)
 
 

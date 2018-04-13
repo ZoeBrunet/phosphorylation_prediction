@@ -8,7 +8,6 @@
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
-# This program is distributed in the hope that it will be useful,
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
@@ -18,21 +17,21 @@ import unittest
 from utils import scoring, parse_args
 
 
-class TestScoring(unittest.TestCase):
-    def test_zero_score(self):
+class TestUtils(unittest.TestCase):
+    def test_scorint_zero_score(self):
         parser = parse_args(['X', 'example.fasta'])
         score = scoring(parser.pattern, parser.file)
         for s in score:
             self.assertEqual(s, 0)
 
-    def test_normal_score(self):
+    def test_scoring_normal_score(self):
         parser = parse_args(['T', 'example.fasta'])
         score = scoring(parser.pattern, parser.file)
         for s in score:
             assert(s >= 0)
             assert (s < 1)
 
-    def test_max_score(self):
+    def test_scoring_max_score(self):
         parser = parse_args(['A', 'example.fasta'])
         score = scoring(parser.pattern, parser.file)
         for s in score:
