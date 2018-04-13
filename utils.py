@@ -65,4 +65,3 @@ def scoring(string, file):
             fill_score_table(score, m, align)
     return score
 
-print(scoring("T*", "example.fasta"))
