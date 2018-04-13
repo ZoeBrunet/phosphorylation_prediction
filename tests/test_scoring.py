@@ -27,14 +27,17 @@ class TestUtils(unittest.TestCase):
     # Example5: ----------CACCGATG-
     # Example6: AAAAAAAAAAAAAAAAAAA
 
+    global example
+    example = 'tests/example.fasta'
+
     def test_scoring_zero_score(self):
-        parser = parse_args(['X', 'example.fasta'])
+        parser = parse_args(['X', example])
         score = scoring(parser.pattern, parser.file, parser.max_window)
         for s in score:
             self.assertEqual(s, 0)
 
     def test_scoring_normal_score(self):
-        parser = parse_args(['T', 'example.fasta'])
+        parser = parse_args(['T', example])
         score = scoring(parser.pattern, parser.file, parser.max_window)
         for s in score:
             assert(s >= 0)
@@ -42,7 +45,7 @@ class TestUtils(unittest.TestCase):
         self.assertAlmostEqual(score[16], 3/6)
 
     def test_scoring_max_score(self):
-        parser = parse_args(['A', 'example.fasta'])
+        parser = parse_args(['A', example])
         score = scoring(parser.pattern, parser.file, parser.max_window)
         for s in score:
             assert (s >= 0)
@@ -53,7 +56,7 @@ class TestUtils(unittest.TestCase):
     # 2/(3 * 6) + 2/(3 * 6), 2/(3 * 6) + 2/(3 * 6) + 1/(3 * 6),
     # 1/(3 * 6) + 1/(3 * 6) + 2/(3 * 6), 1/(3 * 6), 0]
     def test_scoring_regexpr(self):
-        parser = parse_args(['A.G', 'example.fasta'])
+        parser = parse_args(['A.G', example])
         score = scoring(parser.pattern, parser.file, parser.max_window)
         for i in range(0, 13):
             self.assertEqual(score[i], 0)
