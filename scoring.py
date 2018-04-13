@@ -18,4 +18,4 @@ from utils import scoring, parse_args
 
 
 args = parse_args(sys.argv[1:])
-print(scoring(args.pattern, args.file))
+print(scoring(args.pattern, args.file, args.max_window))

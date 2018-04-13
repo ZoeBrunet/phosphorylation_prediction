@@ -40,29 +40,28 @@ def find_pattern(pattern, seq):
     return result
 
 
-def fill_score_table(score, m, align):
+def fill_score_table(score, m, align, max_window):
     window_length = m.end() - m.start()
     upper = round((window_length / 2))
-    if window_length > 0:
+    if window_length > 0 & window_length <= max_window:
         for i in range(0, upper + 1):
             coef = (i + 1) / (align.__len__() * window_length)
-            score[m.start() + i] += coef
-            if m.end() - i - 1 != m.start() + i:
+            if m.start() + i <= m.end() - i - 1:
+                score[m.start() + i] += coef
+            if m.end() - i - 1 > m.start() + i:
                 score[m.end() - i - 1] += coef
 
 
-def scoring(string, file):
+def scoring(string, file, max_window):
     muscle_cline = MuscleCommandline(input=file)
     stdout, stderr = muscle_cline()
     align = AlignIO.read(StringIO(stdout), "fasta")
     length = align.get_alignment_length()
     score = [0] * length
-    # TODO : manage when the align score is too low
     for record in align:
         pattern = r"%s" % string
         seq = str(record.seq)
         tmp = find_pattern(pattern, seq)
         for m in tmp:
-            fill_score_table(score, m, align)
+            fill_score_table(score, m, align, max_window)
     return score
-
