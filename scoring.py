@@ -55,6 +55,5 @@ def scoring(string, file):
     return score
 
 
-print(scoring("AT", "example.fasta"))
 if len(sys.argv) > 2:
     print(scoring(sys.argv[1], sys.argv[2]))
