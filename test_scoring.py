@@ -15,23 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
-from scoring import scoring
+from utils import scoring, parse_args
 
 
 class TestScoring(unittest.TestCase):
     def test_zero_score(self):
-        score = scoring('X', 'example.fasta')
+        parser = parse_args(['X', 'example.fasta'])
+        score = scoring(parser.pattern, parser.file)
         for s in score:
             self.assertEqual(s, 0)
 
     def test_normal_score(self):
-        score = scoring('T', 'example.fasta')
+        parser = parse_args(['T', 'example.fasta'])
+        score = scoring(parser.pattern, parser.file)
         for s in score:
             assert(s >= 0)
             assert (s < 1)
 
     def test_max_score(self):
-        score = scoring('A', 'example.fasta')
+        parser = parse_args(['A', 'example.fasta'])
+        score = scoring(parser.pattern, parser.file)
         for s in score:
             assert (s >= 0)
         self.assertEqual(score[1], 1)

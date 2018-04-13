@@ -15,45 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
-import re
-from io import StringIO
-from Bio.Align.Applications import MuscleCommandline
-from Bio import AlignIO
+from utils import scoring, parse_args
 
 
-def find_pattern(pattern, seq):
-    p = re.compile(pattern)
-    result = []
-    for m in p.finditer(seq):
-        result.append(m)
-    return result
-
-
-def fill_score_table(score, m, align):
-    window_length = m.end() - m.start()
-    upper = round((window_length / 2))
-    for i in range(0, upper + 1):
-        coef = (i + 1) / (align.__len__() * window_length)
-        score[m.start() + i] += coef
-        if m.end() - i - 1 != m.start() + i:
-            score[m.end() - i - 1] += coef
-
-
-def scoring(string, file):
-    muscle_cline = MuscleCommandline(input=file)
-    stdout, stderr = muscle_cline()
-    align = AlignIO.read(StringIO(stdout), "fasta")
-    length = align.get_alignment_length()
-    score = [0] * length
-    # TODO : manage when the align score is too low
-    for record in align:
-        pattern = r"%s" % string
-        seq = str(record.seq)
-        tmp = find_pattern(pattern, seq)
-        for m in tmp:
-            fill_score_table(score, m, align)
-    return score
-
-
-if len(sys.argv) > 2:
-    print(scoring(sys.argv[1], sys.argv[2]))
+args = parse_args(sys.argv[1:])
+print(scoring(args.pattern, args.file))
