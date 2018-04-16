@@ -1,6 +1,11 @@
-# Prediction of active protein phosphorylation sites using machine learning
+# Prediction of active protein phosphorylation sites using machine learning (student projetc)
 
 Cells store and transmit information via post-translationa modification (PTM) of proteins. A prominent example of PTMs is reversible phosphorylation of serine, threonine or tyrosine side chains catalyzed by hundreds of protein kinases in human. Studies using low- and high-throughput techniques have reported hundreds of thousands of phosphorylation sites located in approximately 45% of eukaryotic proteomes. Phosphorylation regulates various cellular processes and its deregulation has been associated to diseases such as cancers or diabetes. As only a small percentage of human substrates and modification sites are linked to responsible protein kinases, novel computer algorithms able to to identify kinase-substrate relationships are required for the better understanding of such deleterious phosphorylation-dependent regulations. The work will focus on the analysis of homolog protein sequences in a broad set of organisms (from bacteria to mammals) to identify phosphorylation sites. Various parameters will be investigated for relevant scoring schemes and machine learning classification (e.g. site-specific conservation, window-based conservation, conservation across subsets of closely related species, and local sequence context). For validation, the results will be contrasted to unpublished experimental datasets of kinase- substrate relationships. We expect results to outperform a preliminary approach.
+
+
+## Advertisement 
+
+This project is a student project. This is a beta version . 
 
 
 ## Prerequisites
@@ -22,9 +27,9 @@ It will return you a list with the frequency of the pattern you choose in each p
 
 | Name          |     type           |           description              | Default value|
 | ------------- |    -------------   | -------------                    | :-------------: |
-| pattern       | regular expression | amino acid sequence you want to detect | |
-| file          |       fasta file   | sequence of orthologs protein you want to compare     | |
-| max_window    | int (optional)     | Max size of the amino acid sequence in which on pattern can be find| 15 |
+| pattern       | regular expression | Amino acid sequence you want to detect | |
+| file          |       fasta file   | Sequence of orthologs protein you want to compare     | |
+| max_window    | int (optional)     | Max size of the amino acid sequence in which the pattern can be find| 15 |
 
 
 ## Example

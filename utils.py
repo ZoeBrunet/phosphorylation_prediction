@@ -52,10 +52,14 @@ def fill_score_table(score, m, align, max_window):
                 score[m.end() - i - 1] += coef
 
 
-def scoring(string, file, max_window):
+def run_muscle(file):
     muscle_cline = MuscleCommandline(input=file)
     stdout, stderr = muscle_cline()
-    align = AlignIO.read(StringIO(stdout), "fasta")
+    return AlignIO.read(StringIO(stdout), "fasta")
+
+
+def scoring(string, file, max_window):
+    align = run_muscle(file)
     length = align.get_alignment_length()
     score = [0] * length
     for record in align:
