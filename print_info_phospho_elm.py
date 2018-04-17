@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import plotly
-plotly.tools.set_credentials_file(username='zoebrunet', api_key='xZ2okGRfzJFkJb6a3mr9')
+plotly.tools.set_credentials_file(username='usernam', api_key='apikey')
 
 import pandas as pd
 import plotly.plotly as py
