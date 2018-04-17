@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import plotly
-plotly.tools.set_credentials_file(username='usernam', api_key='apikey')
-
 import pandas as pd
 import plotly.plotly as py
 import plotly.graph_objs as go
@@ -31,6 +29,7 @@ def import_csv(csv):
 
 
 def print_pie(df):
+    plotly.tools.set_credentials_file(username='usernam', api_key='apikey')
     label = df['code'].value_counts().keys().tolist()
     values = df['code'].value_counts().tolist()
     trace = go.Pie(labels=label, values=values, textinfo='value')
