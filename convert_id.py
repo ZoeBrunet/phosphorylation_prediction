@@ -15,11 +15,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import mygene
+from print_info_phospho_elm import import_csv
 
 
-def uniprot2geneID(uniprotidlist):
+def gen_uniprot_id_list(csv):
+    df = import_csv(csv)
+    return df['acc'].value_counts().keys().tolist()
+
+
+def uniprot2geneID(csv):
     mg = mygene.MyGeneInfo()
+    uniprotidlist = gen_uniprot_id_list(csv)
     return mg.querymany(uniprotidlist,
                         scopes='symbol,accession',
                         fields='uniprot')
 
+
+print(uniprot2geneID("table.csv"))

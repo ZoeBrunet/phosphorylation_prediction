@@ -20,16 +20,19 @@ import pandas as pd
 import plotly.plotly as py
 import plotly.graph_objs as go
 
-df = pd.read_csv('table.csv')
 
-# Convert data into category
-for cat in df.columns:
-    if cat != "position":
-        df[cat] = df[cat].astype('category')
+def import_csv(csv):
+    df = pd.read_csv(csv)
+    # Convert data into category
+    for cat in df.columns:
+        if cat != "position":
+            df[cat] = df[cat].astype('category')
+    return df
 
-label = df['code'].value_counts().keys().tolist()
-values = df['code'].value_counts().tolist()
-trace = go.Pie(labels=label, values=values, textinfo='value')
 
-py.plot([trace], filename='Nature_phosphorylation_sites')
+def print_pie(df):
+    label = df['code'].value_counts().keys().tolist()
+    values = df['code'].value_counts().tolist()
+    trace = go.Pie(labels=label, values=values, textinfo='value')
+    py.plot([trace], filename='Nature_phosphorylation_sites')
 
