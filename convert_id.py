@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import mygene
+import requests
 from print_info_phospho_elm import import_csv
 
 
@@ -23,12 +24,18 @@ def gen_uniprot_id_list(csv):
     return df['acc'].value_counts().keys().tolist()
 
 
-def uniprot2geneID(csv):
+def listgeneID(list):
     mg = mygene.MyGeneInfo()
-    uniprotidlist = gen_uniprot_id_list(csv)
-    return mg.querymany(uniprotidlist,
+    return mg.querymany(list,
                         scopes='symbol,accession',
                         fields='uniprot')
 
 
-print(uniprot2geneID("table.csv"))
+def uniprot2geneID(csv):
+    uniprotidlist = gen_uniprot_id_list(csv)
+    return listgeneID(uniprotidlist)
+
+def call_odb_api(geneID):
+    request = 'http://www.orthodb.org/search?query=%s&ncbi=1' % geneID
+    response = requests.get(request)
+    return response.json()

@@ -14,19 +14,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
-from convert_id import *
+from convert_id import listgeneID
 
 
 class TestConvertID(unittest.TestCase):
 
     def test_convert_single_id(self):
         uniprotidlist = ["O08539"]
-        data = uniprot2geneID(uniprotidlist)[0]
+        data = listgeneID(uniprotidlist)[0]
         self.assertEqual(data['_id'], '30948')
 
     def test_missmatch_id(self):
         uniprotidlist = ["t0t0", "tata_de_toto", "O08539"]
-        data = uniprot2geneID(uniprotidlist)
+        data = listgeneID(uniprotidlist)
         self.assertTrue(data[0]['notfound'])
         self.assertTrue(data[1]['notfound'])
         self.assertEqual(data[2]['_id'], '30948')
