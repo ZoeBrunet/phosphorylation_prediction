@@ -28,7 +28,7 @@ class TestUtils(unittest.TestCase):
     # Example6: AAAAAAAAAAAAAAAAAAA
 
     global example
-    example = 'tests/example.fasta'
+    example = '~/dev/phosphorylation_prediction/data/example.fasta'
 
     def test_scoring_zero_score(self):
         parser = parse_args(['X', example])

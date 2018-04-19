@@ -15,15 +15,23 @@ Make sure you have Python3. You also have to install Biopython available on http
 
 ## How to use it ?
 
-To run the program you have to put your fasta file in the same file than scoring.py.
+To run the scoring program you have to put your fasta file in the same file than scoring.py.
 The pattern you want scoring can be any Python regular expression
 ```console
-foo@bar:~$ python3 scoring.py pattern file.fasta
+foo@bar:~$ python scoring.py pattern file.fasta
 ```
 It will return you a list with the frequency of the pattern you choose in each position of the alignment.
 
+To create a data set you will need a dump of Phospho.ELM database. The program align_fasta_file.py, will automatically request the orthoDB database to find ortholog of each protein.
+It will return an alignment score for each pull of protein
+```console
+foo@bar:~$ python align_fasta_file.py path file
+```
+/!\ For the moment align_fasta_file.py is a very slow program
 
 ## Parameters 
+
+For scoring.py
 
 | Name          |     type           |           description              | Default value|
 | ------------- |    -------------   | -------------                    | :-------------: |
@@ -31,25 +39,24 @@ It will return you a list with the frequency of the pattern you choose in each p
 | file          |       fasta file   | Sequence of orthologs protein you want to compare     | |
 | max_window    | int (optional)     | Max size of the amino acid sequence in which the pattern can be find| 15 |
 
+For align_fasta_file.py
+
+| Name          |     type           |           description              | Default value|
+| ------------- |    -------------   | -------------                    | :-------------: |
+| path       | string | path to access your file input | |
+| file          |       csv file   | dump of Phospho.ELM data base  | |
+
 
 ## Example
 
 ```console
-foo@bar:~$ python3 scoring.py T example.fasta
+foo@bar:~$ python scoring.py T example.fasta
 [0, 0, 0, 0, 0.2, 0.6000000000000001, 0.4, 0.2, 0.2]
 ```
 
 ```console
-foo@bar:~$ python3 scoring.py T.A example.fasta
+foo@bar:~$ python scoring.py T.A example.fasta
 [0, 0, 0, 0.5333333333333333, 0.26666666666666666, 0.8, 0.13333333333333333, 0.26666666666666666, 0]
-```
-
-## Run test
-
-Copy paste this command line 
-
-```console
-foo@bar:~$ python3 test_scoring.py
 ```
 
 ## License
