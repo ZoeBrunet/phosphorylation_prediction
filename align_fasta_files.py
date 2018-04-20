@@ -33,15 +33,16 @@ def parse_args(args):
 
 
 def align_file(path, file_name):
-    import_ortholog("%s/%s" %(path, file_name))
-    string = "S"
     path2fastas = '%s/fastas' % path
+    import_ortholog(path, file_name)
+    # import_ortholog("%s/%s" % (path, file_name))
+    string = "S"
     for file in os.listdir(path2fastas):
         max_window = 15
         path2file = '%s/%s' % (path2fastas, file)
         print(scoring(string, path2file, max_window))
-        remove_useless_file = "rm %s" % path2file
-        os.system(remove_useless_file)
+        #remove_useless_file = "rm %s" % path2file
+        #os.system(remove_useless_file)
 
 
 args = parse_args(sys.argv[1:])
