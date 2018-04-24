@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
-from utils import parse_args, scoring, find_pattern
+from utils import *
 
 
 class TestUtils(unittest.TestCase):
@@ -31,13 +31,13 @@ class TestUtils(unittest.TestCase):
     example = '~/dev/phosphorylation_prediction/data/example.fasta'
 
     def test_scoring_zero_score(self):
-        parser = parse_args(['X', example])
+        parser = parse_args_scoring(['X', example])
         score = scoring(parser.pattern, parser.file, parser.max_window)
         for s in score:
             self.assertEqual(s, 0)
 
     def test_scoring_normal_score(self):
-        parser = parse_args(['T', example])
+        parser = parse_args_scoring(['T', example])
         score = scoring(parser.pattern, parser.file, parser.max_window)
         for s in score:
             assert(s >= 0)
@@ -45,7 +45,7 @@ class TestUtils(unittest.TestCase):
         self.assertAlmostEqual(score[16], 3/6)
 
     def test_scoring_max_score(self):
-        parser = parse_args(['A', example])
+        parser = parse_args_scoring(['A', example])
         score = scoring(parser.pattern, parser.file, parser.max_window)
         for s in score:
             assert (s >= 0)
@@ -56,7 +56,7 @@ class TestUtils(unittest.TestCase):
     # 2/(3 * 6) + 2/(3 * 6), 2/(3 * 6) + 2/(3 * 6) + 1/(3 * 6),
     # 1/(3 * 6) + 1/(3 * 6) + 2/(3 * 6), 1/(3 * 6), 0]
     def test_scoring_regexpr(self):
-        parser = parse_args(['A.G', example])
+        parser = parse_args_scoring(['A.G', example])
         score = scoring(parser.pattern, parser.file, parser.max_window)
         for i in range(0, 13):
             self.assertEqual(score[i], 0)
@@ -75,6 +75,10 @@ class TestUtils(unittest.TestCase):
         result_without_pattern = find_pattern(pattern, seq_without_pattern)
         assert result_with_pattern
         assert not result_without_pattern
+
+    def test_relative_position(self):
+        seq = "A___A_AD___A_A"
+        print(relative_position(seq, 4))
 
 
 if __name__ == '__main__':

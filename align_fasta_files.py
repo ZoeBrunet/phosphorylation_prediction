@@ -15,35 +15,26 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import os
-import argparse
 import sys
-from convert_id import import_ortholog
-from utils import scoring
+from convert_id import import_ortholog, parse_args_align
+from utils import *
 
 
-def parse_args(args):
-    parser = argparse.ArgumentParser(description='Run align-file to create'
-                                                 'dataset from phospho.ELM dump')
-    parser.add_argument('path',
-                        help='Where is your folder ?')
-    parser.add_argument('file',
-                        help='Input file containing examples')
-    return parser.parse_args(args)
-
-
-def align_file(path, file_name):
+def align_file(path, string, file_name, max_window):
+    pattern = r"%s" % string
     path2fastas = '%s/fastas' % path
-    import_ortholog(path, file_name)
-    # import_ortholog("%s/%s" % (path, file_name))
-    string = "S"
-    for file in os.listdir(path2fastas):
-        max_window = 15
-        path2file = '%s/%s' % (path2fastas, file)
-        print(scoring(string, path2file, max_window))
-        #remove_useless_file = "rm %s" % path2file
-        #os.system(remove_useless_file)
+    gene_list = import_ortholog(path, file_name, pattern)
+    for gene in gene_list:
+        if str(gene._get_code()) in pattern:
+            cluster_name = "%s.fasta" % gene._get_cluster()
+            path2file = '%s/%s' % (path2fastas, cluster_name)
+            score = score_in_window(path2file,
+                                    gene, max_window,
+                                    pattern)
+            print(score)
+        # remove_useless_file = "rm %s" % path2file
+        # os.system(remove_useless_file)
 
 
-args = parse_args(sys.argv[1:])
-align_file(args.path, args.file)
+args = parse_args_align(sys.argv[1:])
+align_file(args.path, args.pattern, args.file, args.max_window)

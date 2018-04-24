@@ -13,60 +13,76 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import mygene
 import requests
 import os
+import argparse
+from utils import common_parse
 from print_info_phospho_elm import import_csv
 
 
+def parse_args_align(args):
+    parser = argparse.ArgumentParser(description='Run align-file to create'
+                                                 'dataset from phospho.ELM dump')
+    parser.add_argument('path',
+                        help='Where is your folder ?')
+    common_parse(parser)
+    return parser.parse_args(args)
+
+
 class Gene:
-
-    def __init__(self, uniprotID, geneID):
+    def __init__(self, uniprotID, position, code, sequence):
         self.uniprotID = uniprotID
-        self.geneID = geneID
-        self.cluster = []
+        self.position = position
+        self.code = code
+        self.sequence = sequence
+        self.geneID = None
+        self.taxID = None
+        self.cluster = None
 
-    def _set_cluster(self, cluster):
-        self.cluster = cluster
+    def _get_uniprotID(self):
+        return self.uniprotID
+
+    def _get_taxID(self):
+        return self.taxID
 
     def _get_geneID(self):
         return self.geneID
 
+    def _get_cluster(self):
+        return self.cluster
 
-def gen_uniprot_id_list(csv):
-    df = import_csv(csv)
-    return df['acc'].value_counts().keys().tolist()
+    def _get_position(self):
+        return self.position
 
+    def _get_code(self):
+        return self.code
 
-def listgeneID(list):
-    mg = mygene.MyGeneInfo()
-    return mg.querymany(list,
-                        scopes='symbol,accession',
-                        fields='uniprot',
-                        returnall=True)
+    def _get_sequence(self):
+        return self.sequence
 
+    def _set_geneID(self, mg, i, length):
+        self.geneID = None
+        print_trace(i, length, "gene id")
+        response = mg.query(self.uniprotID,
+                            scope='symbol,accession',
+                            fields='uniprot')["hits"]
+        if len(response):
+            self.geneID = response[0]["_id"]
 
-def uniprot2geneID(csv):
-    uniprotidlist = gen_uniprot_id_list(csv)
-    return listgeneID(uniprotidlist)
+    def _set_taxID(self, mg):
+        if self.geneID is not None:
+            self.taxID = mg.getgene(self.geneID)['taxid']
 
+    def _set_cluster(self):
+        request = request_gene_id(self.geneID)
+        if len(request["data"]):
+            self.cluster = request["data"][0]
 
-def request_cluster_id(clusterID, path):
-    request = "'http://www.orthodb.org/fasta?id=%s'" % clusterID
-    name = "%s.fasta" % clusterID
-    path2fastas = "%s/fastas" % path
-    create_fastas_folder = "touch %s" % path2fastas
-    request_api = "curl %s -o %s/%s" % (request, path2fastas, name)
-    final_request = "%s ; %s" % (create_fastas_folder, request_api)
-    os.system(final_request)
-
-
-def request_gene_id(geneID):
-    request = 'http://www.orthodb.org/search?query=%s&ncbi=1&singlecopy=1' \
-              % geneID
-    response = requests.get(request)
-    return response.json()
+    def set_info(self, mg, i, length_gene_list):
+        self._set_geneID(mg, i, length_gene_list)
+        self._set_taxID(mg)
+        self._set_cluster()
 
 
 def print_trace(i, length, request):
@@ -75,29 +91,59 @@ def print_trace(i, length, request):
              str(round(((i + 1) / length) * 100, 2)) + "%"))
 
 
-def import_ortholog(path, file_name):
-    csv = "%s/%s" % (path, file_name)
-    index = uniprot2geneID(csv)
-    id_gene = []
-    clusterlist = []
-    for g in index["out"]:
-        if '_id' in g:
-            id_gene.append(Gene(g['query'], g['_id']))
-        else:
-            id_gene.append(Gene(g['query'], None))
-    length = len(id_gene)
-    for i, id in enumerate(id_gene):
-        print_trace(i, length, "gene id")
-        id_gene = id._get_geneID()
-        if id_gene is not None:
-            clusters = request_gene_id(id_gene)
-            id._set_cluster(clusters)
-            for cluster in clusters["data"]:
-                if cluster not in clusterlist:
-                    clusterlist.append(cluster)
-    length_cluster = len(clusterlist)
-    for k, clusterid in enumerate(clusterlist):
-        print_trace(k, length_cluster, "cluster id")
-        request_cluster_id(clusterid, path)
-    return id_gene
+def gen_uniprot_id_list(csv, pattern):
+    df = import_csv(csv)
+    genelist = []
+    for acc, position, code, sequence in zip(df["acc"],
+                                             df["position"],
+                                             df["code"],
+                                             df["sequence"]):
+        unique = True
+        if len(genelist):
+            for gene in genelist:
+                if (((gene._get_uniprotID() == acc
+                        and gene._get_position() == position
+                        and gene._get_sequence() == sequence))
+                        or str(code) not in str(pattern)):
+                    unique = False
+                    break
+        if unique:
+            genelist.append(Gene(acc, position, code, sequence))
+            print("Import %s from the csv file" % acc)
+    return list(set(genelist))
 
+
+def request_gene_id(geneID):
+    request = 'http://www.orthodb.org/search?query=%s&ncbi=1' \
+              '&singlecopy=1&limit=1' % geneID
+    response = requests.get(request)
+    return response.json()
+
+
+def request_cluster_id(clusterID, path):
+    name = "%s.fasta" % clusterID
+    path2fastas = "%s/fastas" % path
+    request_odb = "'http://www.orthodb.org/fasta?id=%s'" % clusterID
+    request_api = "curl %s -o %s/%s" % (request_odb, path2fastas, name)
+    create_fastas_folder = "touch %s" % path2fastas
+    final_request = "%s; " \
+                    "cd %s; " \
+                    "if [ ! -f %s ] ; " \
+                    "then %s;" \
+                    "fi" % (create_fastas_folder,
+                            path2fastas,
+                            name,
+                            request_api)
+    os.system(final_request)
+
+
+def import_ortholog(path, file_name, pattern):
+    mg = mygene.MyGeneInfo()
+    csv = "%s/%s" % (path, file_name)
+    gene_list = gen_uniprot_id_list(csv, pattern)
+    length_gene_list = len(gene_list)
+    for i, gene in enumerate(gene_list):
+        gene.set_info(mg, i, length_gene_list)
+        if gene._get_cluster() is not None:
+            request_cluster_id(gene._get_cluster(), path)
+    return gene_list

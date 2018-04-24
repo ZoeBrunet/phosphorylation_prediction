@@ -20,15 +20,19 @@ from Bio.Align.Applications import MuscleCommandline
 from Bio import AlignIO
 
 
-def parse_args(args):
-    parser = argparse.ArgumentParser(description='Run scoring to detect '
-                                                 'the frequency of some pattern')
+def common_parse(parser):
     parser.add_argument('pattern',
                         help='Input Python regular expression you want to detect')
     parser.add_argument('file',
                         help='Input file containing examples')
     parser.add_argument('max_window', type=int, nargs='?', default=15,
                         help='Size of the windows which contain your pattern')
+
+
+def parse_args_scoring(args):
+    parser = argparse.ArgumentParser(description='Run scoring to detect '
+                                                 'the frequency of some pattern')
+    common_parse(parser)
     return parser.parse_args(args)
 
 
@@ -58,14 +62,58 @@ def run_muscle(file):
     return AlignIO.read(StringIO(stdout), "fasta")
 
 
+def relative_position(seq, position):
+    j = 0
+    for i, char in enumerate(seq):
+        if char.isalnum():
+            j += 1
+        if j >= position:
+            break
+    return i
+
+
+def create_window(pos, max_window, length):
+    if max_window % 2 == 0:
+        max_window += 1
+    half_window = (max_window - 1) / 2
+    if max_window >= length:
+        return [0, length]
+    if pos - half_window < 0:
+        return [0, max_window]
+    if pos + half_window > length:
+        return [int(length - max_window), int(length)]
+    return [int(pos - half_window), int(pos + half_window)]
+
+
 def scoring(string, file, max_window):
     align = run_muscle(file)
     length = align.get_alignment_length()
     score = [0] * length
     for record in align:
         pattern = r"%s" % string
+        print(pattern)
         seq = str(record.seq)
         tmp = find_pattern(pattern, seq)
         for m in tmp:
             fill_score_table(score, m, align, max_window)
     return score
+
+
+def score_in_window(file, gene, max_window, pattern):
+    align = run_muscle(file)
+    length = align.get_alignment_length()
+    pos = None
+    for record in align:
+        if len(find_pattern(str(gene._get_taxID()), str(record.id))):
+            pos = relative_position(record.seq, gene._get_position())
+            break
+    if pos is not None:
+        window = create_window(pos, max_window, length)
+        score = [0] * max_window
+        for record in align:
+            seq = str(record.seq[window[0]:window[1] + 1])
+            tmp = find_pattern(pattern, seq)
+            for m in tmp:
+                fill_score_table(score, m, align, max_window)
+    return score
+
