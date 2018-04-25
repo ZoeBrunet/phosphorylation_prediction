@@ -63,7 +63,7 @@ class Gene:
 
     def _set_geneID(self, mg, i, length):
         self.geneID = None
-        print_trace(i, length, "gene id")
+        print_trace(i, length, "request the orthodb API for gene id")
         response = mg.query(self.uniprotID,
                             scope='symbol,accession',
                             fields='uniprot')["hits"]
@@ -86,7 +86,7 @@ class Gene:
 
 
 def print_trace(i, length, request):
-    print("request the orthodb API %s %s/%s = %s"
+    print("%s %s/%s = %s"
           % (request, str(i + 1), str(length),
              str(round(((i + 1) / length) * 100, 2)) + "%"))
 
@@ -99,6 +99,8 @@ def gen_uniprot_id_list(csv, pattern):
                                              df["code"],
                                              df["sequence"]):
         unique = True
+        if str(code) not in str(pattern):
+            unique = False
         if len(genelist):
             for gene in genelist:
                 if (((gene._get_uniprotID() == acc
@@ -125,7 +127,9 @@ def request_cluster_id(clusterID, path):
     path2fastas = "%s/fastas" % path
     request_odb = "'http://www.orthodb.org/fasta?id=%s'" % clusterID
     request_api = "curl %s -o %s/%s" % (request_odb, path2fastas, name)
-    create_fastas_folder = "touch %s" % path2fastas
+    create_fastas_folder = "if [ ! -d %s ] ; " \
+                           "then mkdir %s; " \
+                           "fi" % (path2fastas, path2fastas)
     final_request = "%s; " \
                     "cd %s; " \
                     "if [ ! -f %s ] ; " \

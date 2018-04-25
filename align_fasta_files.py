@@ -14,9 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
+import csv
 import sys
-from convert_id import import_ortholog, parse_args_align
+from convert_id import *
 from utils import *
 
 
@@ -24,14 +24,28 @@ def align_file(path, string, file_name, max_window):
     pattern = r"%s" % string
     path2fastas = '%s/fastas' % path
     gene_list = import_ortholog(path, file_name, pattern)
-    for gene in gene_list:
-        if str(gene._get_code()) in pattern:
-            cluster_name = "%s.fasta" % gene._get_cluster()
-            path2file = '%s/%s' % (path2fastas, cluster_name)
-            score = score_in_window(path2file,
-                                    gene, max_window,
-                                    pattern)
-            print(score)
+    length = len(gene_list)
+    with open('%s/%s_%s_train_table.csv' % (path, file_name[:-4], string), 'w', newline='') as csv:
+        columnTitleRow = "uniprotID;geneID;code;position;" \
+                         "taxID;clusterID;sequence;score\n"
+        csv.write(columnTitleRow)
+        for i, gene in enumerate(gene_list):
+            print_trace(i, length, "run muscle ")
+            if gene._get_cluster() is not None:
+                cluster_name = "%s.fasta" % gene._get_cluster()
+                path2file = '%s/%s' % (path2fastas, cluster_name)
+                score = score_in_window(path2file, gene, max_window,
+                                        pattern, gene._get_cluster(),
+                                        path)
+            row = "%s; %s; %s; %s; %s; %s; %s; %s \n" % (gene._get_uniprotID(),
+                                                         gene._get_geneID(),
+                                                         gene._get_code(),
+                                                         gene._get_position(),
+                                                         gene._get_taxID(),
+                                                         gene._get_clusterID(),
+                                                         gene._get_sequence(),
+                                                         score)
+            csv.write(row)
         # remove_useless_file = "rm %s" % path2file
         # os.system(remove_useless_file)
 

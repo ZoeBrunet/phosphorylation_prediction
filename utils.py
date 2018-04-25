@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import re
 import argparse
+import os
 from io import StringIO
 from Bio.Align.Applications import MuscleCommandline
 from Bio import AlignIO
@@ -56,9 +57,18 @@ def fill_score_table(score, m, align, max_window):
                 score[m.end() - i - 1] += coef
 
 
-def run_muscle(file):
+def run_muscle(file, cluster_name, path):
     muscle_cline = MuscleCommandline(input=file)
     stdout, stderr = muscle_cline()
+    file_name = "%s_align.fasta" % cluster_name
+    create_align_file = "if [ ! -d %s/align ] ; " \
+                        "then mkdir %s/align; " \
+                        "fi" % (path, path)
+    os.system(create_align_file)
+    path2file = "%s/align/%s" %(path, file_name)
+    if not os.path.exists(path2file):
+        with open(path2file, "w") as g:
+            g.write(str(AlignIO.read(StringIO(stdout), "fasta")))
     return AlignIO.read(StringIO(stdout), "fasta")
 
 
@@ -99,8 +109,9 @@ def scoring(string, file, max_window):
     return score
 
 
-def score_in_window(file, gene, max_window, pattern):
-    align = run_muscle(file)
+def score_in_window(file, gene, max_window,
+                    pattern, cluster_name, path):
+    align = run_muscle(file, cluster_name, path)
     length = align.get_alignment_length()
     pos = None
     for record in align:
