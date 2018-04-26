@@ -36,14 +36,14 @@ For scoring.py and align.py
 | Name          |     type           |           description              | Default value|
 | ------------- |    -------------   | -------------                    | :-------------: |
 | pattern       | regular expression | Amino acid sequence you want to detect | |
-| file          |       fasta file   | Sequence of orthologs protein you want to compare     | |
+| file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare     | |
 | max_window    | int (optional)     | Max size of the amino acid sequence in which the pattern can be find| 15 |
 
 For align_fasta_file.py
 
 | Name          |     type           |           description              | Default value|
 | ------------- |    -------------   | -------------                    | :-------------: |
-| path       | string | path to access your file input | |
+| path       | string | path to access your file input  | |
 | file          |       csv file   | dump of Phospho.ELM data base  | |
 
 

@@ -56,23 +56,20 @@ def fill_score_table(score, m, align, max_window):
             if m.end() - i - 1 > m.start() + i:
                 score[m.end() - i - 1] += coef
 
-def run_muscle(file):
-    muscle_cline = MuscleCommandline(input=file)
-    stdout, stderr = muscle_cline()
-    return AlignIO.read(StringIO(stdout), "fasta")
 
-def run_muscle_with_cluster(file, cluster_name, path):
-    align = run_muscle(file)
-    file_name = "%s_align.fasta" % cluster_name
+def run_muscle(file_input, path):
+    file = os.path.basename(file_input)
+    file_output = "%s_align.fasta" % file[:-6]
     create_align_file = "if [ ! -d %s/align ] ; " \
                         "then mkdir %s/align; " \
                         "fi" % (path, path)
     os.system(create_align_file)
-    path2file = "%s/align/%s" %(path, file_name)
-    if not os.path.exists(path2file):
-        with open(path2file, "w") as g:
-            g.write(str(align))
-    return align
+    path2outfile = "%s/align/%s" % (path, file_output)
+    if not os.path.exists(path2outfile):
+        muscle_cline = MuscleCommandline(input=file_input, out=path2outfile)
+        os.system(str(muscle_cline))
+    alignment = AlignIO.read(open(path2outfile), "fasta")
+    return alignment
 
 
 def relative_position(seq, position):
@@ -99,7 +96,8 @@ def create_window(pos, max_window, length):
 
 
 def scoring(string, file, max_window):
-    align = run_muscle(file)
+    path = os.path.dirname(file)
+    align = run_muscle(file, path)
     length = align.get_alignment_length()
     score = [0] * length
     for record in align:
@@ -113,7 +111,7 @@ def scoring(string, file, max_window):
 
 def score_in_window(file, gene, max_window,
                     pattern, cluster_name, path):
-    align = run_muscle_with_cluster(file, cluster_name, path)
+    align = run_muscle(file, path)
     length = align.get_alignment_length()
     pos = None
     for record in align:

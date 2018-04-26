@@ -24,7 +24,8 @@ def align_file(path, string, file_name, max_window):
     path2fastas = '%s/fastas' % path
     gene_list = import_ortholog(path, file_name, pattern)
     length = len(gene_list)
-    with open('%s/%s_%s_train_table.csv' % (path, file_name[:-4], string), 'w', newline='') as csv:
+    with open('%s/%s_%s_train_table.csv' % (path, file_name[:-4], string),
+              'w', newline='') as csv:
         columnTitleRow = "uniprotID;geneID;code;position;" \
                          "taxID;clusterID;sequence;score\n"
         csv.write(columnTitleRow)
