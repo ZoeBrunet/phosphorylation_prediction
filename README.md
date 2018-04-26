@@ -23,15 +23,15 @@ foo@bar:~$ python scoring.py pattern file.fasta
 It will return you a list with the frequency of the pattern you choose in each position of the alignment.
 
 To create a data set you will need a dump of Phospho.ELM database. The program align_fasta_file.py, will automatically request the orthoDB database to find ortholog of each protein.
-It will return an alignment score for each pull of protein
+It will return a csv file where you can find alignment score for each pull of protein
 ```console
-foo@bar:~$ python align_fasta_file.py path file
+foo@bar:~$ python align_fasta_file.py path pattern file
 ```
 /!\ For the moment align_fasta_file.py is a very slow program
 
 ## Parameters 
 
-For scoring.py
+For scoring.py and align.py
 
 | Name          |     type           |           description              | Default value|
 | ------------- |    -------------   | -------------                    | :-------------: |
@@ -45,6 +45,7 @@ For align_fasta_file.py
 | ------------- |    -------------   | -------------                    | :-------------: |
 | path       | string | path to access your file input | |
 | file          |       csv file   | dump of Phospho.ELM data base  | |
+
 
 
 ## Example
