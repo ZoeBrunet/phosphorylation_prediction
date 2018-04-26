@@ -78,7 +78,7 @@ class TestUtils(unittest.TestCase):
 
     def test_relative_position(self):
         seq = "A___A_AD___A_A"
-        print(relative_position(seq, 4))
+        self.assertEqual(relative_position(seq, 4), 7)
 
 
 if __name__ == '__main__':

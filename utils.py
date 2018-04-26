@@ -56,10 +56,13 @@ def fill_score_table(score, m, align, max_window):
             if m.end() - i - 1 > m.start() + i:
                 score[m.end() - i - 1] += coef
 
-
-def run_muscle(file, cluster_name, path):
+def run_muscle(file):
     muscle_cline = MuscleCommandline(input=file)
     stdout, stderr = muscle_cline()
+    return AlignIO.read(StringIO(stdout), "fasta")
+
+def run_muscle_with_cluster(file, cluster_name, path):
+    align = run_muscle(file)
     file_name = "%s_align.fasta" % cluster_name
     create_align_file = "if [ ! -d %s/align ] ; " \
                         "then mkdir %s/align; " \
@@ -68,8 +71,8 @@ def run_muscle(file, cluster_name, path):
     path2file = "%s/align/%s" %(path, file_name)
     if not os.path.exists(path2file):
         with open(path2file, "w") as g:
-            g.write(str(AlignIO.read(StringIO(stdout), "fasta")))
-    return AlignIO.read(StringIO(stdout), "fasta")
+            g.write(str(align))
+    return align
 
 
 def relative_position(seq, position):
@@ -101,7 +104,6 @@ def scoring(string, file, max_window):
     score = [0] * length
     for record in align:
         pattern = r"%s" % string
-        print(pattern)
         seq = str(record.seq)
         tmp = find_pattern(pattern, seq)
         for m in tmp:
@@ -111,7 +113,7 @@ def scoring(string, file, max_window):
 
 def score_in_window(file, gene, max_window,
                     pattern, cluster_name, path):
-    align = run_muscle(file, cluster_name, path)
+    align = run_muscle_with_cluster(file, cluster_name, path)
     length = align.get_alignment_length()
     pos = None
     for record in align:

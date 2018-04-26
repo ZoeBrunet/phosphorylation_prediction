@@ -20,21 +20,36 @@ from convert_id import *
 class TestConvertID(unittest.TestCase):
 
     def test_convert_single_id(self):
-        uniprotidlist = ["O08539"]
-        data = listgeneID(uniprotidlist)["out"][0]
-        self.assertEqual(data['_id'], '30948')
+        mg = mygene.MyGeneInfo()
+        uniprotID = "O08539"
+        position = 304
+        code = "S"
+        sequence = "ceci est un test"
+        gene = Gene(uniprotID, position, code, sequence)
+        gene._set_geneID(mg, 1, 1)
+        self.assertEqual(gene._get_geneID(), '30948')
 
     def test_missmatch_id(self):
-        uniprotidlist = ["t0t0", "tata_de_toto", "O08539"]
-        data = listgeneID(uniprotidlist)["out"]
-        self.assertFalse('_id' in data[0])
-        self.assertTrue(data[1]['notfound'])
-        self.assertEqual(data[2]['_id'], '30948')
+        mg = mygene.MyGeneInfo()
+        uniprotID = "tata_de_toto"
+        position = 304
+        code = "S"
+        sequence = "ceci est un autre test"
+        gene = Gene(uniprotID, position, code, sequence)
+        gene._set_geneID(mg, 1, 1)
+        self.assertTrue(gene._get_geneID() is None)
 
-    def test_missmatch_id(self):
-        geneID = '30948'
-        json = request_gene_id(geneID)
-        self.assertTrue(json["data"][0] == "EOG090406M5")
+
+    def test_cluster_id(self):
+        mg = mygene.MyGeneInfo()
+        uniprotID = "O08539"
+        position = 304
+        code = "S"
+        sequence = "ceci est un autre test"
+        gene = Gene(uniprotID, position, code, sequence)
+        gene._set_geneID(mg, 1, 1)
+        gene._set_cluster()
+        self.assertTrue(gene._get_cluster() == "EOG090406M5")
 
 
 if __name__ == '__main__':

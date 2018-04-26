@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import csv
 import sys
 from convert_id import *
 from utils import *
@@ -37,18 +36,17 @@ def align_file(path, string, file_name, max_window):
                 score = score_in_window(path2file, gene, max_window,
                                         pattern, gene._get_cluster(),
                                         path)
-            row = "%s; %s; %s; %s; %s; %s; %s; %s \n" % (gene._get_uniprotID(),
-                                                         gene._get_geneID(),
-                                                         gene._get_code(),
-                                                         gene._get_position(),
-                                                         gene._get_taxID(),
-                                                         gene._get_clusterID(),
-                                                         gene._get_sequence(),
-                                                         score)
+            row = "%s;%s;%s;%s;%s;%s;%s;%s \n" % (gene._get_uniprotID(),
+                                                  gene._get_geneID(),
+                                                  gene._get_code(),
+                                                  gene._get_position(),
+                                                  gene._get_taxID(),
+                                                  gene._get_cluster(),
+                                                  gene._get_sequence(),
+                                                  score)
             csv.write(row)
         # remove_useless_file = "rm %s" % path2file
         # os.system(remove_useless_file)
-
 
 args = parse_args_align(sys.argv[1:])
 align_file(args.path, args.pattern, args.file, args.max_window)
