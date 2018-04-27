@@ -13,11 +13,19 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import sys
-from utils.parser import IC_parser
-from utils.score import get_information_content
+import os
+from Bio.Align.Applications import MuscleCommandline
 
 
-args = IC_parser(sys.argv[1:])
-window = [0, args.max_window]
-print(get_information_content(window, args.file))
+def run_muscle(file_input):
+    file = os.path.basename(file_input)
+    file_output = "%s_align.fasta" % file[:-6]
+    path = os.path.dirname(os.path.dirname(file_input))
+    path2align = "%s/align" % path
+    if not os.path.exists(path2align):
+        os.mkdir(path2align)
+    path2outfile = "%s/%s" % (path2align, file_output)
+    if not os.path.exists(path2outfile):
+        muscle_cline = MuscleCommandline(input=file_input, out=path2outfile)
+        os.system(str(muscle_cline))
+    return(path2outfile)

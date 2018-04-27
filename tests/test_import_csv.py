@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
-from convert_id import *
+from utils.import_csv import *
 
 
-class TestConvertID(unittest.TestCase):
+class TestImportCSV(unittest.TestCase):
 
     def test_convert_single_id(self):
         mg = mygene.MyGeneInfo()

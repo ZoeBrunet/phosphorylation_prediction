@@ -16,18 +16,8 @@
 import mygene
 import requests
 import os
-import argparse
-from utils import common_parse
+from utils.tools import print_trace
 from print_info_phospho_elm import import_csv
-
-
-def parse_args_align(args):
-    parser = argparse.ArgumentParser(description='Run align-file to create'
-                                                 'dataset from phospho.ELM dump')
-    parser.add_argument('path',
-                        help='Where is your folder ?')
-    common_parse(parser)
-    return parser.parse_args(args)
 
 
 class Gene:
@@ -85,12 +75,6 @@ class Gene:
         self._set_cluster()
 
 
-def print_trace(i, length, request):
-    print("%s %s/%s = %s"
-          % (request, str(i + 1), str(length),
-             str(round(((i + 1) / length) * 100, 2)) + "%"))
-
-
 def gen_uniprot_id_list(csv, pattern):
     df = import_csv(csv)
     genelist = []
@@ -125,25 +109,18 @@ def request_gene_id(geneID):
 def request_cluster_id(clusterID, path):
     name = "%s.fasta" % clusterID
     path2fastas = "%s/fastas" % path
-    request_odb = "'http://www.orthodb.org/fasta?id=%s'" % clusterID
-    request_api = "curl %s -o %s/%s" % (request_odb, path2fastas, name)
-    create_fastas_folder = "if [ ! -d %s ] ; " \
-                           "then mkdir %s; " \
-                           "fi" % (path2fastas, path2fastas)
-    final_request = "%s; " \
-                    "cd %s; " \
-                    "if [ ! -f %s ] ; " \
-                    "then %s;" \
-                    "fi" % (create_fastas_folder,
-                            path2fastas,
-                            name,
-                            request_api)
-    os.system(final_request)
+    path2file = "%s/%s" % (path2fastas, name)
+    if not os.path.exists(path2fastas):
+        os.mkdir(path2fastas)
+    if not os.path.exists(path2file):
+        request_odb = "'http://www.orthodb.org/fasta?id=%s'" % clusterID
+        request_api = "curl %s -o %s" % (request_odb, path2file)
+        os.system(request_api)
 
 
-def import_ortholog(path, file_name, pattern):
+def import_ortholog(csv, pattern):
+    path = os.path.dirname(csv)
     mg = mygene.MyGeneInfo()
-    csv = "%s/%s" % (path, file_name)
     gene_list = gen_uniprot_id_list(csv, pattern)
     length_gene_list = len(gene_list)
     for i, gene in enumerate(gene_list):

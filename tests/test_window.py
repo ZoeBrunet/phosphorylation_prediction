@@ -13,11 +13,16 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import sys
-from utils.parser import IC_parser
-from utils.score import get_information_content
+import unittest
+from utils.window import relative_position
 
 
-args = IC_parser(sys.argv[1:])
-window = [0, args.max_window]
-print(get_information_content(window, args.file))
+class TestWindow(unittest.TestCase):
+
+    def test_relative_position(self):
+        seq = "A___A_AD___A_A"
+        self.assertEqual(relative_position(seq, 4), 7)
+
+
+if __name__ == '__main__':
+    unittest.main()

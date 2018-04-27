@@ -13,8 +13,3 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import sys
-from utils import scoring, parse_args_scoring
-
-args = parse_args_scoring(sys.argv[1:])
-print(scoring(args.pattern, args.file, args.max_window))

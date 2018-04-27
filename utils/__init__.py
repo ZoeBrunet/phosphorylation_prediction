@@ -13,11 +13,3 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import sys
-from utils.parser import IC_parser
-from utils.score import get_information_content
-
-
-args = IC_parser(sys.argv[1:])
-window = [0, args.max_window]
-print(get_information_content(window, args.file))

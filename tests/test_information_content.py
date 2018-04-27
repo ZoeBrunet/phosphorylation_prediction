@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
-from information_content import *
+from utils.score import *
 import math
 
 global example
@@ -32,7 +32,7 @@ class TestInformationContent(unittest.TestCase):
             self.assertTrue(sum(row.values()) < 7)
 
     def test_get_information_content(self):
-        IC = get_information_content(example, [10, 15])
+        IC = get_information_content([10, 15], example)
         fa = [4, 6, 3, 3, 2]
         fc = [1, 0, 3, 3, 0]
         fg = [1, 0, 0, 0, 3]

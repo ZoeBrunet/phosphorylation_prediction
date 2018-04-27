@@ -14,10 +14,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
-from utils.parser import IC_parser
-from utils.score import get_information_content
+from utils.parser import common_parser
+from utils.score import freq_of_pattern
+from utils.align_ortholog import run_muscle
 
-
-args = IC_parser(sys.argv[1:])
+args = common_parser(sys.argv[1:], 'Run freq_pattern to get the '
+                                   'frequency of the pattern')
+outputfile = run_muscle(args.file)
 window = [0, args.max_window]
-print(get_information_content(window, args.file))
+print(freq_of_pattern(args.pattern, window, outputfile))

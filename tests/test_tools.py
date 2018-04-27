@@ -13,11 +13,21 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import sys
-from utils.parser import IC_parser
-from utils.score import get_information_content
+import unittest
+from utils.tools import find_pattern
 
 
-args = IC_parser(sys.argv[1:])
-window = [0, args.max_window]
-print(get_information_content(window, args.file))
+class TestTools(unittest.TestCase):
+
+    def test_find_pattern(self):
+        pattern = r"coincoin"
+        seq_with_pattern = "toto dit coincoin"
+        seq_without_pattern = "toto dit meuh"
+        result_with_pattern = find_pattern(pattern, seq_with_pattern)
+        result_without_pattern = find_pattern(pattern, seq_without_pattern)
+        assert result_with_pattern
+        assert not result_without_pattern
+
+
+if __name__ == '__main__':
+    unittest.main()
