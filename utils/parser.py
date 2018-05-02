@@ -47,3 +47,15 @@ def muscle_parser(args):
                                                  'to align orthologs from fasta file')
     file_parser(parser)
     return parser.parse_args(args)
+
+
+def enrichment_parser(args):
+    parser = argparse.ArgumentParser(description='Run enrich_csv '
+                                                 'to merge your csv files')
+    parser.add_argument('csv1',
+                        help='Input absolute path file containing your'
+                             'first csv')
+    parser.add_argument('csv2',
+                        help='Input absolute path file containing your'
+                             'second csv')
+    return parser.parse_args(args)

@@ -122,7 +122,7 @@ def request_cluster_id(clusterID, path):
 
 
 def import_ortholog(csv, pattern):
-    path = os.path.dirname(csv)
+    path = os.path.dirname(os.path.dirname(csv))
     mg = mygene.MyGeneInfo()
     gene_list = gen_uniprot_id_list(csv, pattern)
     length_gene_list = len(gene_list)

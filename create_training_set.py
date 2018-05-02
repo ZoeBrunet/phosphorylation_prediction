@@ -25,12 +25,17 @@ from utils.window import create_window
 
 def align_file(string, file, max_window):
     file_name = os.path.basename(file)
-    path = os.path.dirname(file)
+    path = "%s/data" % os.path.abspath(os.path.dirname(__file__))
     pattern = r"%s" % string
     path2fastas = '%s/fastas' % path
+    path2csv = '%s/csv/%s' % (path, string)
     gene_list = import_ortholog(file, pattern)
     length_list_gene = len(gene_list)
-    with open('%s/%s_%s_train_table.csv' % (path, file_name[:-4], string),
+    if not os.path.exists(os.path.dirname(path2csv)):
+        os.mkdir(os.path.dirname(path2csv))
+    if not os.path.exists(path2csv):
+        os.mkdir(path2csv)
+    with open('%s/%s_%s_train_table.csv' % (path2csv, file_name[:-4], string),
               'w', newline='') as g:
         writer = csv.writer(g, delimiter=";")
         writer.writerow(('uniprotID', 'geneID', 'code', 'position',
@@ -48,7 +53,8 @@ def align_file(string, file, max_window):
                 with open(path2align) as f:
                     align = AlignIO.read(f, "fasta")
                     length_list_alignment = align.get_alignment_length()
-                    window = create_window(max_window, length_list_alignment, align, gene)
+                    window = create_window(max_window, length_list_alignment,
+                                           align, gene)
                     if len(window):
                         freq = freq_of_pattern(pattern, window, path2align)
                         IC = get_information_content(window, path2align)

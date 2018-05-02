@@ -88,7 +88,7 @@ foo@bar:~$ python information_content.py example_align.fasta
 ```
 
 ```console
-foo@bar:~$ python create_training_set.py sample.csv 
+foo@bar:~$ python create_training_set.py Y sample.csv 
 Import O14543 from the csv file
 Import O14543 from the csv file
 request the orthodb API for gene id 1/2 = 50.0%
