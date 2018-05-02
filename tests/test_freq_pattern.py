@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
+import os
 from utils.score import freq_of_pattern
 
 
@@ -28,7 +29,8 @@ class TestFreqPattern(unittest.TestCase):
     # Example6: AAAAAAAAAAAAAAAAAAA
 
     global example, window
-    example = '/home/zoe/dev/phosphorylation_prediction/align/example_align.fasta'
+    my_path = os.path.abspath(os.path.dirname(__file__))
+    example = '%s/data/align/example_align.fasta' % my_path
     window =[0, 18]
 
     def test_scoring_zero_score(self):

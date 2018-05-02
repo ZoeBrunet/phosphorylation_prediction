@@ -14,11 +14,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
+import os
 from utils.score import *
 import math
 
 global example
-example = '/home/zoe/dev/phosphorylation_prediction/data/align/example_align.fasta'
+my_path = os.path.abspath(os.path.dirname(__file__))
+example = '%s/data/align/example_align.fasta' % my_path
 
 
 class TestInformationContent(unittest.TestCase):
