@@ -16,9 +16,13 @@
 import argparse
 
 
-def arg_parser(parser):
+def file_parser(parser):
     parser.add_argument('file',
                         help='Input absolute path file containing examples')
+
+
+def arg_parser(parser):
+    file_parser(parser)
     parser.add_argument('max_window', type=int, nargs='?', default=15,
                         help='Size of the windows which contain your pattern')
 
@@ -35,4 +39,11 @@ def IC_parser(args):
     parser = argparse.ArgumentParser(description='Run information_content '
                                                  'to get information content')
     arg_parser(parser)
+    return parser.parse_args(args)
+
+
+def muscle_parser(args):
+    parser = argparse.ArgumentParser(description='Run run_muscle '
+                                                 'to align orthologs from fasta file')
+    file_parser(parser)
     return parser.parse_args(args)

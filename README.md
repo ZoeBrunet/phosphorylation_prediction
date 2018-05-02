@@ -15,6 +15,12 @@ Make sure you have Python3. You also have to install Biopython available on http
 
 ## How to use it ?
 
+To align fasta file run run_muscle.py
+```console
+foo@bar:~$ python run_muscle.py file.fasta
+```
+It will create an align directory in which one you will find the multiple alignment
+
 To get the frequency of a pattern in a sequence you can run freq_pattern.py
 ```console
 foo@bar:~$ python freq_pattern.py pattern file.fasta
@@ -44,6 +50,26 @@ foo@bar:~$ python align_fasta_file.py path pattern file
 
 
 ## Example
+
+```console
+foo@bar:~$ python run_muscle.py example.fasta
+MUSCLE v3.8.31 by Robert C. Edgar
+
+http://www.drive5.com/muscle
+This software is donated to the public domain.
+Please cite: Edgar, R.C. Nucleic Acids Res 32(5), 1792-97.
+
+example 6 seqs, max length 19, avg  length 9
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 1
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 2
+00:00:00    24 MB(-7%)  Iter   1  100.00%  Align node       
+00:00:00    24 MB(-7%)  Iter   1  100.00%  Root alignment
+00:00:00    24 MB(-7%)  Iter   2  100.00%  Refine tree   
+00:00:00    24 MB(-7%)  Iter   2  100.00%  Root alignment
+00:00:00    24 MB(-7%)  Iter   2  100.00%  Root alignment
+00:00:00    24 MB(-7%)  Iter   3  100.00%  Refine biparts
+path2example_align.fasta
+```
 
 ```console
 foo@bar:~$ python freq_pattern.py T example.fasta

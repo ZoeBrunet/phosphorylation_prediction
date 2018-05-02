@@ -38,6 +38,8 @@ def align_file(string, file, max_window):
                          'IC'))
         for i, gene in enumerate(gene_list):
             clusterID = gene._get_cluster()
+            freq = None
+            IC = None
             if clusterID is not None:
                 input = "%s.fasta" % gene._get_cluster()
                 path2input = '%s/%s' % (path2fastas, input)
@@ -47,8 +49,9 @@ def align_file(string, file, max_window):
                     align = AlignIO.read(f, "fasta")
                     length_list_alignment = align.get_alignment_length()
                     window = create_window(max_window, length_list_alignment, align, gene)
-                freq = freq_of_pattern(pattern, window, path2align)
-                IC = get_information_content(window, path2align)
+                    if len(window):
+                        freq = freq_of_pattern(pattern, window, path2align)
+                        IC = get_information_content(window, path2align)
             writer.writerow((gene._get_uniprotID(),gene._get_geneID(),
                              gene._get_code(), gene._get_position(),
                              gene._get_taxID(), clusterID,

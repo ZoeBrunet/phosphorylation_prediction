@@ -62,7 +62,10 @@ class Gene:
 
     def _set_taxID(self, mg):
         if self.geneID is not None:
-            self.taxID = mg.getgene(self.geneID)['taxid']
+            if 'taxid' in mg.getgene(self.geneID):
+                self.taxID = mg.getgene(self.geneID)['taxid']
+            else:
+                self.taxID = None
 
     def _set_cluster(self):
         request = request_gene_id(self.geneID)

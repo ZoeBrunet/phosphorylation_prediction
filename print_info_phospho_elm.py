@@ -35,3 +35,5 @@ def print_pie(df):
     trace = go.Pie(labels=label, values=values, textinfo='value')
     py.plot([trace], filename='Nature_phosphorylation_sites')
 
+# df = pd.read_csv("~/dev/phosphorylation_prediction/data/sample_Y_train_table.csv", sep=";")
+# print(df["score"][0])
