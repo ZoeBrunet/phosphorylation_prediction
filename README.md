@@ -192,8 +192,6 @@ path2example_align.fasta
 
 To compute Shanon entropy we use the formula :
 
-<img src="https://latex.codecogs.com/svg.latex?\Large&space;SE= -\sum\limits_{i=1}^{20} p_i log_2(p_i)" title="\Large SE= -\sum\limits_{i=1}^{20} p_i log(p_i)" />
-
 ![IC](https://latex.codecogs.com/gif.latex?-%5Csum%5Climits_%7Bi%3D1%7D%5E%7B20%7D%20p_i%20log_2%28p_i%29)
 
 Where p<sub>i</sub> is the frequency of a particular Amino acid.
