@@ -49,6 +49,14 @@ def muscle_parser(args):
     return parser.parse_args(args)
 
 
+def shanon_parser(args):
+    parser = argparse.ArgumentParser(description='Run shanon_entropy to get the '
+                                                 'shanon entropy of each position '
+                                                 'in the alignment')
+    file_parser(parser)
+    return parser.parse_args(args)
+
+
 def info_parser(args):
     parser = argparse.ArgumentParser(description='Run print_info to plot pie chart ')
     file_parser(parser)

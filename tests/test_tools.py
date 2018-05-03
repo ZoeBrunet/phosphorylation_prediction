@@ -14,10 +14,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
-from utils.tools import find_pattern
+import os
+from utils.tools import *
 
+global example
+my_path = os.path.abspath(os.path.dirname(__file__))
+example = '%s/data/align/example_align.fasta' % my_path
 
 class TestTools(unittest.TestCase):
+
+    def test_get_pssm(self):
+        summary_align = get_align_info(example)
+        pssm = get_pssm(summary_align)
+        for row in pssm:
+            self.assertTrue(row["A"] >= 1)
+            self.assertTrue(sum(row.values()) > 0)
+            self.assertTrue(sum(row.values()) < 7)
 
     def test_find_pattern(self):
         pattern = r"coincoin"

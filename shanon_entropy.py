@@ -14,14 +14,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
-from utils.parser import common_parser
-from utils.score import get_freq_of_pattern
+from utils.parser import shanon_parser
+from utils.score import get_shanon_entropy
 from utils.align_ortholog import run_muscle
+from utils.tools import get_pssm, get_align_info
 from utils.window import get_big_window
 
-args = common_parser(sys.argv[1:], 'Run freq_pattern to get the '
-                                   'frequency of the pattern')
+args = shanon_parser(sys.argv[1:])
 outputfile = run_muscle(args.file)
+summary_align = get_align_info(outputfile)
+pssm = get_pssm(summary_align)
 window = get_big_window(outputfile)
 
-print(get_freq_of_pattern(args.pattern, window, outputfile))
+print(get_shanon_entropy(window, pssm))

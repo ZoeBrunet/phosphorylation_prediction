@@ -17,9 +17,10 @@ import sys
 from utils.parser import IC_parser
 from utils.score import get_information_content
 from utils.align_ortholog import run_muscle
-
+from utils.window import get_big_window
 
 args = IC_parser(sys.argv[1:])
 outputfile = run_muscle(args.file)
-window = [0, args.max_window]
+window = get_big_window(outputfile)
+
 print(get_information_content(window, outputfile))

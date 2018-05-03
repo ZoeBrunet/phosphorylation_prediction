@@ -1,4 +1,4 @@
-# This file is part of a program that make prediction of active
+   # This file is part of a program that make prediction of active
 # protein phosphorylation sites using machine learning
 # Copyright (C) 2018  Zoé Brunet
 #
@@ -15,10 +15,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 import os
-from utils.score import freq_of_pattern
+from utils.score import *
+import math
+
+global example
+my_path = os.path.abspath(os.path.dirname(__file__))
+example = '%s/data/align/example_align.fasta' % my_path
 
 
-class TestFreqPattern(unittest.TestCase):
+class TestScore(unittest.TestCase):
     # The alignment of example.fasta gives :
     #
     # Example1: ----------AACCGTTCA
@@ -31,10 +36,10 @@ class TestFreqPattern(unittest.TestCase):
     global example, window
     my_path = os.path.abspath(os.path.dirname(__file__))
     example = '%s/data/align/example_align.fasta' % my_path
-    window =[0, 18]
+    window = [0, 18]
 
     def test_scoring_zero_score(self):
-        freq = freq_of_pattern('X', window, example)
+        freq = get_freq_of_pattern('X', window, example)
         nb_align = freq["nb_align"]
         score = freq["score"]
         for s in score:
@@ -42,17 +47,17 @@ class TestFreqPattern(unittest.TestCase):
         self.assertEqual(nb_align, 6)
 
     def test_scoring_normal_score(self):
-        freq = freq_of_pattern('T', window, example)
+        freq = get_freq_of_pattern('T', window, example)
         nb_align = freq["nb_align"]
         score = freq["score"]
         for s in score:
-            assert(s >= 0)
+            assert (s >= 0)
             assert (s < 1)
-        self.assertAlmostEqual(score[16], 3/6)
+        self.assertAlmostEqual(score[16], 3 / 6)
         self.assertEqual(nb_align, 6)
 
     def test_scoring_max_score(self):
-        freq = freq_of_pattern('A', window, example)
+        freq = get_freq_of_pattern('A', window, example)
         nb_align = freq["nb_align"]
         score = freq["score"]
         for s in score:
@@ -65,7 +70,7 @@ class TestFreqPattern(unittest.TestCase):
     # 2/(3 * 6) + 2/(3 * 6), 2/(3 * 6) + 2/(3 * 6) + 1/(3 * 6),
     # 1/(3 * 6) + 1/(3 * 6) + 2/(3 * 6), 1/(3 * 6), 0]
     def test_scoring_regexpr(self):
-        freq = freq_of_pattern('A.G', window, example)
+        freq = get_freq_of_pattern('A.G', window, example)
         nb_align = freq["nb_align"]
         score = freq["score"]
         for i in range(0, 13):
@@ -78,6 +83,41 @@ class TestFreqPattern(unittest.TestCase):
         self.assertAlmostEqual(score[17], 1 / 18)
         self.assertEqual(nb_align, 6)
 
+    def test_get_information_content(self):
+        IC = get_information_content([10, 15], example)
+        fa = [4, 6, 3, 3, 2]
+        fc = [1, 0, 3, 3, 0]
+        fg = [1, 0, 0, 0, 3]
+        ft = [0, 0, 0, 0, 1]
+        q = 0.05
+        ICtheo = 0
+        lamb = lambda n: n * math.log(n / q, 10) if n != 0 else 0
+        for f in [fa, fc, fg, ft]:
+            f[:] = [x / 6 for x in f]
+        for na, nc, ng, nt in zip(fa, fc, fg, ft):
+            for n in [na, nc, ng, nt]:
+                ICtheo += lamb(n)
+        self.assertAlmostEquals(ICtheo, IC)
+
+    def test_get_shanon_entropy(self):
+        pssm = get_pssm(summary_align=get_align_info(example))
+        shanon_entropy = get_shanon_entropy([10, 15], pssm)
+        fa = [4, 6, 3, 3, 2]
+        fc = [1, 0, 3, 3, 0]
+        fg = [1, 0, 0, 0, 3]
+        ft = [0, 0, 0, 0, 1]
+        lamb = lambda n: - n * math.log(n, 2) if n != 0 else 0
+        for f in [fa, fc, fg, ft]:
+            f[:] = [x / 6 for x in f]
+        for na, nc, ng, nt, shanon in zip(fa, fc, fg, ft, shanon_entropy):
+            shanon_expected = 0
+            for n in [na, nc, ng, nt]:
+                shanon_expected += lamb(n)
+            self.assertAlmostEquals(shanon, shanon_expected)
+
 
 if __name__ == '__main__':
     unittest.main()
+
+
+

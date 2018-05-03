@@ -21,4 +21,5 @@ from utils.create_dataset import create_training_set
 
 args = common_parser(sys.argv[1:], 'Run create_positif_dataset to get'
                                    'positif phosphorylation sites in a csv file')
+
 create_training_set(args.pattern, args.file, args.max_window, True)

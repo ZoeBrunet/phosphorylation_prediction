@@ -19,4 +19,5 @@ from utils.align_ortholog import run_muscle
 
 
 args = muscle_parser(sys.argv[1:])
+
 print(run_muscle(args.file))

@@ -74,7 +74,11 @@ foo@bar:~$ python freq_pattern.py T example.fasta
 
 ### How to use it
 
-We use this formula http://biopython.org/DIST/docs/tutorial/Tutorial.html#htoc304 using base 10 as the logarithm base
+We use this formula :
+
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;IC= \sum\limits_{j=1}^{max\_window}\sum\limits_{i=1}^{20} p_{ij} log_{10}(p_{ij} * 20)" title="\Large IC= \sum\limits_{j=1}^{max\_window}\sum\limits_{i=1}^{20} p_{ij} log_{10}(p_{ij} * 20)" />
+
+Where P<sub>ij</sub> is the frequency of a particular Amino acid i in the j-th column
 To get the information content you can run information_content.py
 ```console
 foo@bar:~$ python information_content.py pattern file.fasta
@@ -112,7 +116,7 @@ The output file csv1+csv2.csv will be in the same directory than csv1.
 | csv1          | absolute path to csv file   | First csv you want to merge    | 
 | csv2          | absolute path to csv file   | Second csv you want to merge    | 
 
-### example
+### Example
 
 ```console
 foo@bar:~$ python merge_csv.py csv1 csv2
@@ -137,7 +141,7 @@ foo@bar:~$ python print_info.py file column username apikey caption
 | apikey         | string | Your api key on plotly  | 
 | caption          | string | Title of your figure  | 
 
-### example
+### Example
 
 ```console
 foo@bar:~$ python print_info.py file column username apikey caption
@@ -160,7 +164,7 @@ It will create an align directory in which one you will find the multiple alignm
 | file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare  |
 
 
-## Example
+### Example
 
 ```console
 foo@bar:~$ python run_muscle.py example.fasta
@@ -180,6 +184,35 @@ example 6 seqs, max length 19, avg  length 9
 00:00:00    24 MB(-7%)  Iter   2  100.00%  Root alignment
 00:00:00    24 MB(-7%)  Iter   3  100.00%  Refine biparts
 path2example_align.fasta
+```
+
+## Compute Shanon entropy
+
+### How to use it
+
+To compute Shanon entropy we use the formula :
+
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;SE= -\sum\limits_{i=1}^{20} p_i log_2(p_i)" title="\Large SE= -\sum\limits_{i=1}^{20} p_i log(p_i)" />
+
+Where p<sub>i</sub> is the frequency of a particular Amino acid.
+
+```console
+foo@bar:~$ python shanon_entropy.py file.fasta
+```
+It will create an align directory in which one you will find the multiple alignment. The name of the output file will be inputname_align.fasta 
+
+### Parameters 
+
+| Name          |     type           |           description              |
+| ------------- |    -------------   | -------------                    | 
+| file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare  |
+
+
+### Example
+
+```console
+foo@bar:~$ python shanon_entropy.py example.fasta
+[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.2516291673878228, 0.0, 1.0, 1.0, 1.4591479170272448, 1.5219280948873621, 0.9709505944546686, 1.9219280948873623, 0.8112781244591328]
 ```
 
 ## License

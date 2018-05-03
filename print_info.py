@@ -31,4 +31,5 @@ def print_pie(csv, column, username, apikey, caption):
 
 
 args = info_parser(sys.argv[1:])
+
 print_pie(args.file, args.column, args.username, args.apikey, args.caption)

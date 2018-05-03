@@ -21,7 +21,9 @@ from utils.create_dataset import create_training_set
 
 args = common_parser(sys.argv[1:], 'Run training_set to get positif and '
                                    'negatif training set in csv files')
+
 print("Creation of the negatif training set")
 create_training_set(args.pattern, args.file, args.max_window, False)
+
 print("Creation of the positif training set")
 create_training_set(args.pattern, args.file, args.max_window, True)

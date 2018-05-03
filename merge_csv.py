@@ -18,4 +18,5 @@ from utils.parser import enrichment_parser
 from utils.enrich_csv import enrich_csv
 
 args = enrichment_parser(sys.argv[1:])
+
 enrich_csv(args.csv1, args.csv2)

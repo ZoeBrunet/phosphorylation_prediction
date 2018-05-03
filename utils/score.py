@@ -14,9 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from utils.tools import *
+import math
 
 
-def freq_of_pattern(pattern, window, file):
+def get_freq_of_pattern(pattern, window, file):
     with open(file) as f:
         max_window = int(window[1] - window[0] + 1)
         align = AlignIO.read(f, "fasta")
@@ -27,13 +28,27 @@ def freq_of_pattern(pattern, window, file):
                 tmp = find_pattern(pattern, seq)
                 for m in tmp:
                     fill_score_table(score, m, align, max_window)
-    return {"score" : score, "nb_align" : align.__len__()}
+    return {"score": score, "nb_align": align.__len__()}
 
 
 def get_information_content(window, file):
     summary_align = get_align_info(file)
     info_content = summary_align.information_content(window[0], window[1],
                                                      log_base=10,
-                                                     chars_to_ignore=['-'])
+                                                     chars_to_ignore=['-','X'])
     return info_content
+
+
+def get_shanon_entropy(window, pssm):
+    shanon_list = []
+    sub_pssm = [pssm[index] for index in range(window[0], window[1])]
+    for row in sub_pssm:
+        tot = sum(row.values())
+        shanon_value = 0
+        shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
+        for val in row.values():
+            freq = val / tot
+            shanon_value += shanon(freq)
+        shanon_list.append(shanon_value)
+    return shanon_list
 
