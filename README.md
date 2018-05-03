@@ -76,7 +76,7 @@ foo@bar:~$ python freq_pattern.py T example.fasta
 
 We use this formula :
 
-<img src="https://latex.codecogs.com/svg.latex?\Large&space;IC= \sum\limits_{j=1}^{max\_window}\sum\limits_{i=1}^{20} p_{ij} log_{10}(p_{ij} * 20)" title="\Large IC= \sum\limits_{j=1}^{max\_window}\sum\limits_{i=1}^{20} p_{ij} log_{10}(p_{ij} * 20)" />
+![IC](https://latex.codecogs.com/gif.latex?IC%3D%20%5Csum%5Climits_%7Bj%3D1%7D%5E%7Bmax%5C_window%7D%5Csum%5Climits_%7Bi%3D1%7D%5E%7B20%7D%20p_%7Bij%7D%20log_%7B10%7D%28p_%7Bij%7D%20*%2020%29)
 
 Where P<sub>ij</sub> is the frequency of a particular Amino acid i in the j-th column
 To get the information content you can run information_content.py
@@ -193,6 +193,8 @@ path2example_align.fasta
 To compute Shanon entropy we use the formula :
 
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;SE= -\sum\limits_{i=1}^{20} p_i log_2(p_i)" title="\Large SE= -\sum\limits_{i=1}^{20} p_i log(p_i)" />
+
+![IC](https://latex.codecogs.com/gif.latex?-%5Csum%5Climits_%7Bi%3D1%7D%5E%7B20%7D%20p_i%20log_2%28p_i%29)
 
 Where p<sub>i</sub> is the frequency of a particular Amino acid.
 
