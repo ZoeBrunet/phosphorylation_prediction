@@ -27,7 +27,7 @@ def freq_of_pattern(pattern, window, file):
                 tmp = find_pattern(pattern, seq)
                 for m in tmp:
                     fill_score_table(score, m, align, max_window)
-    return score
+    return {"score" : score, "nb_align" : align.__len__()}
 
 
 def get_information_content(window, file):

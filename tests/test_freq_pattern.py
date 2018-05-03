@@ -34,29 +34,40 @@ class TestFreqPattern(unittest.TestCase):
     window =[0, 18]
 
     def test_scoring_zero_score(self):
-        score = freq_of_pattern('X', window, example)
+        freq = freq_of_pattern('X', window, example)
+        nb_align = freq["nb_align"]
+        score = freq["score"]
         for s in score:
             self.assertEqual(s, 0)
+        self.assertEqual(nb_align, 6)
 
     def test_scoring_normal_score(self):
-        score = freq_of_pattern('T', window, example)
+        freq = freq_of_pattern('T', window, example)
+        nb_align = freq["nb_align"]
+        score = freq["score"]
         for s in score:
             assert(s >= 0)
             assert (s < 1)
         self.assertAlmostEqual(score[16], 3/6)
+        self.assertEqual(nb_align, 6)
 
     def test_scoring_max_score(self):
-        score = freq_of_pattern('A', window, example)
+        freq = freq_of_pattern('A', window, example)
+        nb_align = freq["nb_align"]
+        score = freq["score"]
         for s in score:
             assert (s >= 0)
         self.assertAlmostEqual(score[11], 1)
+        self.assertEqual(nb_align, 6)
 
     # According to the alignment score should be:
     # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1/(3 * 6) + 1/(3 * 6),
     # 2/(3 * 6) + 2/(3 * 6), 2/(3 * 6) + 2/(3 * 6) + 1/(3 * 6),
     # 1/(3 * 6) + 1/(3 * 6) + 2/(3 * 6), 1/(3 * 6), 0]
     def test_scoring_regexpr(self):
-        score = freq_of_pattern('A.G', window, example)
+        freq = freq_of_pattern('A.G', window, example)
+        nb_align = freq["nb_align"]
+        score = freq["score"]
         for i in range(0, 13):
             self.assertEqual(score[i], 0)
         self.assertEqual(score[18], 0)
@@ -65,6 +76,7 @@ class TestFreqPattern(unittest.TestCase):
         self.assertAlmostEqual(score[15], 3 / 18)
         self.assertAlmostEqual(score[16], 2 / 18)
         self.assertAlmostEqual(score[17], 1 / 18)
+        self.assertEqual(nb_align, 6)
 
 
 if __name__ == '__main__':

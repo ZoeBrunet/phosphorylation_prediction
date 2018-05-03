@@ -32,12 +32,12 @@ To get the information content you can run information_content.py
 foo@bar:~$ python information_content.py pattern file.fasta
 ```
 
-To create a data set you will need a dump of Phospho.ELM database. The program align_fasta_file.py, will automatically request the orthoDB database to find ortholog of each protein.
-It will return a csv file where you can find alignment score for each pull of protein
+To create a data set you will need a dump of Phospho.ELM database. The program create_training_set.py, will automatically request the orthoDB database to find ortholog of each protein.
+It will return 2 csv files where you can find alignment score for each pull of protein. The data are split in a positif and a negatif dataset.
 ```console
-foo@bar:~$ python align_fasta_file.py path pattern file
+foo@bar:~$ python create_training_set.py pattern file
 ```
-/!\ For the moment align_fasta_file.py is a very slow program
+If you only want positif or negatif dataset please use create_positif_dataset.py or create_negatif_dataset.py
 
 ## Parameters 
 
@@ -88,7 +88,7 @@ foo@bar:~$ python information_content.py example_align.fasta
 ```
 
 ```console
-foo@bar:~$ python create_training_set.py Y sample.csv 
+foo@bar:~$ python create_positif_dataset.py Y sample.csv 
 Import O14543 from the csv file
 Import O14543 from the csv file
 request the orthodb API for gene id 1/2 = 50.0%

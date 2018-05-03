@@ -19,6 +19,10 @@ from utils.import_csv import *
 
 class TestImportCSV(unittest.TestCase):
 
+    global example, window
+    my_path = os.path.abspath(os.path.dirname(__file__))
+    example = '%s/data/csv/sample.csv' % my_path
+
     def test_convert_single_id(self):
         mg = mygene.MyGeneInfo()
         uniprotID = "O08539"
@@ -39,7 +43,6 @@ class TestImportCSV(unittest.TestCase):
         gene._set_geneID(mg, 1, 1)
         self.assertTrue(gene._get_geneID() is None)
 
-
     def test_cluster_id(self):
         mg = mygene.MyGeneInfo()
         uniprotID = "O08539"
@@ -50,6 +53,13 @@ class TestImportCSV(unittest.TestCase):
         gene._set_geneID(mg, 1, 1)
         gene._set_cluster()
         self.assertTrue(gene._get_cluster() == "EOG090406M5")
+
+    def test_neg_geneID_list(self):
+        gen_list = gen_uniprot_id_list_neg(example, "S")
+        for gene in gen_list:
+            self.assertTrue(gene._get_code() == "S")
+            self.assertTrue(abs(gene._get_position() - 304) > 50)
+            self.assertTrue(gene._get_uniprotID() == 'O08539')
 
 
 if __name__ == '__main__':
