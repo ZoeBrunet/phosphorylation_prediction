@@ -78,7 +78,7 @@ We use this formula :
 
 ![IC](https://latex.codecogs.com/gif.latex?IC%3D%20%5Csum%5Climits_%7Bj%3D1%7D%5E%7Bmax%5C_window%7D%5Csum%5Climits_%7Bi%3D1%7D%5E%7B20%7D%20p_%7Bij%7D%20log_%7B10%7D%28p_%7Bij%7D%20*%2020%29)
 
-Where P<sub>ij</sub> is the frequency of a particular Amino acid i in the j-th column
+Where P<sub>ij</sub> is the frequency of a particular amino acid i in the j-th column
 To get the information content you can run information_content.py
 ```console
 foo@bar:~$ python information_content.py pattern file.fasta
@@ -194,7 +194,7 @@ To compute Shanon entropy we use the formula :
 
 ![IC](https://latex.codecogs.com/gif.latex?-%5Csum%5Climits_%7Bi%3D1%7D%5E%7B20%7D%20p_i%20log_2%28p_i%29)
 
-Where p<sub>i</sub> is the frequency of a particular Amino acid.
+Where p<sub>i</sub> is the frequency of a particular amino acid.
 
 ```console
 foo@bar:~$ python shanon_entropy.py file.fasta
