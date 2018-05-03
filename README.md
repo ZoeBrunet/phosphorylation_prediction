@@ -11,6 +11,7 @@ This project is a student project. This is a beta version .
 ## Prerequisites
 
 Make sure you have Python3. You also have to install Biopython available on http://biopython.org/
+
 To run prin_info.py you will need a plotly account (https://plot.ly/)
 
 ## Create Dataset
@@ -18,6 +19,7 @@ To run prin_info.py you will need a plotly account (https://plot.ly/)
 ### How to use it
 
 To create a data set you will need a dump of Phospho.ELM database. The program create_training_set.py, will automatically request the orthoDB database to find ortholog of each protein.
+
 It will return 2 csv files where you can find alignment score for each pull of protein. The data are split in a positif and a negatif dataset.
 ```console
 foo@bar:~$ python create_training_set.py pattern file
@@ -79,6 +81,7 @@ We use this formula :
 ![IC](https://latex.codecogs.com/gif.latex?IC%3D%20%5Csum%5Climits_%7Bj%3D1%7D%5E%7Bmax%5C_window%7D%5Csum%5Climits_%7Bi%3D1%7D%5E%7B20%7D%20p_%7Bij%7D%20log_%7B10%7D%28p_%7Bij%7D%20*%2020%29)
 
 Where P<sub>ij</sub> is the frequency of a particular amino acid i in the j-th column
+
 To get the information content you can run information_content.py
 ```console
 foo@bar:~$ python information_content.py pattern file.fasta
