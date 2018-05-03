@@ -34,7 +34,7 @@ def create_training_set(string, file, max_window, phospho_site):
         os.mkdir(os.path.dirname(path2csv))
     if not os.path.exists(path2csv):
         os.mkdir(path2csv)
-    suffix = "_phospho_sites" if phospho_site else "_neg_sites"
+    suffix = "pos_sites" if phospho_site else "neg_sites"
     with open('%s/%s_%s_%s.csv' % (path2csv, file_name[:-4], string, suffix),
               'w', newline='') as g:
         print(path2csv)

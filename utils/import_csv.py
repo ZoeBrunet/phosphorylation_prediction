@@ -18,7 +18,6 @@ import requests
 import os
 import pandas as pd
 from utils.tools import print_trace, find_pattern
-from print_info_phospho_elm import import_csv
 
 
 class Gene:
@@ -60,6 +59,15 @@ class Gene:
         self.geneID = index[0][1]
         self.taxID = index[0][2]
         self.cluster = index[0][3]
+
+
+def import_csv(csv):
+    df = pd.read_csv(csv)
+    # Convert data into category
+    for cat in df.columns:
+        if cat != "position":
+            df[cat] = df[cat].astype('category')
+    return df
 
 
 def gen_uniprot_id_list_neg(df, pattern):

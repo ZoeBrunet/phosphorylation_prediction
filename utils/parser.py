@@ -49,6 +49,20 @@ def muscle_parser(args):
     return parser.parse_args(args)
 
 
+def info_parser(args):
+    parser = argparse.ArgumentParser(description='Run print_info to plot pie chart ')
+    file_parser(parser)
+    parser.add_argument('column',
+                        help='Input the name of the column which interess you')
+    parser.add_argument('username',
+                        help='Input your username in plotly')
+    parser.add_argument('apikey',
+                        help='Input your apikey in plotly')
+    parser.add_argument('caption',
+                        help='Input the title of the figure')
+    return parser.parse_args(args)
+
+
 def enrichment_parser(args):
     parser = argparse.ArgumentParser(description='Run enrich_csv '
                                                  'to merge your csv files')

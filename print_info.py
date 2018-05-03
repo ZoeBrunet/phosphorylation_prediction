@@ -14,26 +14,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import plotly
-import pandas as pd
 import plotly.plotly as py
 import plotly.graph_objs as go
+import sys
+from utils.import_csv import import_csv
+from utils.parser import info_parser
 
 
-def import_csv(csv):
-    df = pd.read_csv(csv)
-    # Convert data into category
-    for cat in df.columns:
-        if cat != "position":
-            df[cat] = df[cat].astype('category')
-    return df
-
-
-def print_pie(df):
-    plotly.tools.set_credentials_file(username='usernam', api_key='apikey')
-    label = df['code'].value_counts().keys().tolist()
-    values = df['code'].value_counts().tolist()
+def print_pie(csv, column, username, apikey, caption):
+    df = import_csv(csv)
+    plotly.tools.set_credentials_file(username=username, api_key=apikey)
+    label = df[column].value_counts().keys().tolist()
+    values = df[column].value_counts().tolist()
     trace = go.Pie(labels=label, values=values, textinfo='value')
-    py.plot([trace], filename='Nature_phosphorylation_sites')
+    py.plot([trace], filename=caption)
 
-# df = pd.read_csv("~/dev/phosphorylation_prediction/data/sample_Y_train_table.csv", sep=";")
-# print(df["score"][0])
+
+args = info_parser(sys.argv[1:])
+print_pie(args.file, args.column, args.username, args.apikey, args.caption)
