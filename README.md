@@ -155,10 +155,9 @@ It will create an align directory in which one you will find the multiple alignm
 
 ### Parameters 
 
-for muscle.py:
-| Name          |     type           |           description              | 
+| Name          |     type           |           description              |
 | ------------- |    -------------   | -------------                    | 
-| file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare     | 
+| file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare  |
 
 
 ## Example
