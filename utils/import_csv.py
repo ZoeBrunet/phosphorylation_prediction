@@ -72,24 +72,33 @@ def import_csv(csv):
 
 def gen_uniprot_id_list_neg(df, pattern):
     genelist = []
-    for acc, position, sequence in zip(df["acc"],
-                                       df["position"],
-                                       df["sequence"]):
+    for acc, position, code, sequence in zip(df["acc"],
+                                             df["position"],
+                                             df["code"],
+                                             df["sequence"]):
         unique = True
-        for m in find_pattern(pattern, sequence):
-            new_position = round((m.end() + m.start() - 1)/2 + 1)
-            if abs(new_position - position) <= 50:
-                unique = False
-            if len(genelist):
-                for gene in genelist:
-                    if (((gene._get_uniprotID() == acc
-                          and gene._get_position() == position
-                          and gene._get_sequence() == sequence))):
-                        unique = False
-                        break
-            if unique:
-                genelist.append(Gene(acc, new_position, pattern, sequence, False))
-                print("Import %s sites from the csv file" % acc)
+        if str(code) in str(pattern):
+            for m in find_pattern(pattern, sequence):
+                new_position = round((m.end() + m.start() - 1)/2 + 1)
+                if abs(new_position - position) <= 50:
+                    unique = False
+                if len(genelist):
+                    for gene in genelist:
+                        if(gene._get_uniprotID() == acc
+                                and abs(gene._get_position() - position) <= 50):
+                            genelist.remove(gene)
+                        if (((gene._get_uniprotID() == acc
+                              and gene._get_position() == position
+                              and gene._get_sequence() == sequence))):
+                            unique = False
+                        if (((gene._get_uniprotID() == acc
+                              and gene._get_position() == new_position
+                              and gene._get_sequence() == sequence))):
+                            unique = False
+                            break
+                if unique:
+                    genelist.append(Gene(acc, new_position, pattern, sequence, False))
+                    print("Import %s sites from the csv file" % acc)
     return list(set(genelist))
 
 
