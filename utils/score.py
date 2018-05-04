@@ -52,3 +52,11 @@ def get_shanon_entropy(window, pssm):
         shanon_list.append(shanon_value)
     return shanon_list
 
+
+def get_ACH(window, sequence):
+    ACH = 0.
+    if len(window):
+        seq = str(sequence[window[0]:window[1] + 1])
+        for char in seq:
+            ACH = round(ACH + hydrophobicity[char], 2)
+    return ACH

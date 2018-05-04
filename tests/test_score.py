@@ -38,7 +38,7 @@ class TestScore(unittest.TestCase):
     example = '%s/data/align/example_align.fasta' % my_path
     window = [0, 18]
 
-    def test_scoring_zero_score(self):
+    def test_freq_of_pattern_zero_score(self):
         freq = get_freq_of_pattern('X', window, example)
         nb_align = freq["nb_align"]
         score = freq["score"]
@@ -46,7 +46,7 @@ class TestScore(unittest.TestCase):
             self.assertEqual(s, 0)
         self.assertEqual(nb_align, 6)
 
-    def test_scoring_normal_score(self):
+    def test_freq_of_pattern_normal_score(self):
         freq = get_freq_of_pattern('T', window, example)
         nb_align = freq["nb_align"]
         score = freq["score"]
@@ -56,7 +56,7 @@ class TestScore(unittest.TestCase):
         self.assertAlmostEqual(score[16], 3 / 6)
         self.assertEqual(nb_align, 6)
 
-    def test_scoring_max_score(self):
+    def test_freq_of_pattern_max_score(self):
         freq = get_freq_of_pattern('A', window, example)
         nb_align = freq["nb_align"]
         score = freq["score"]
@@ -69,7 +69,7 @@ class TestScore(unittest.TestCase):
     # [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1/(3 * 6) + 1/(3 * 6),
     # 2/(3 * 6) + 2/(3 * 6), 2/(3 * 6) + 2/(3 * 6) + 1/(3 * 6),
     # 1/(3 * 6) + 1/(3 * 6) + 2/(3 * 6), 1/(3 * 6), 0]
-    def test_scoring_regexpr(self):
+    def test_freq_of_pattern_regexpr(self):
         freq = get_freq_of_pattern('A.G', window, example)
         nb_align = freq["nb_align"]
         score = freq["score"]
@@ -114,6 +114,13 @@ class TestScore(unittest.TestCase):
             for n in [na, nc, ng, nt]:
                 shanon_expected += lamb(n)
             self.assertAlmostEquals(shanon, shanon_expected)
+
+    def test_get_ACH(self):
+        seq = "ACDE"
+        window = [0, 3]
+        ACH = get_ACH(window, seq)
+        ACH_expected = round(0.62 + 0.29 - 0.90 - 0.74, 2)
+        self.assertAlmostEquals(ACH, ACH_expected)
 
 
 if __name__ == '__main__':

@@ -58,11 +58,12 @@ def create_training_set(string, file, max_window, phospho_site):
         writer.writerow(('uniprotID', 'geneID', 'code', 'position',
                          'taxID', 'clusterID', 'sequence', 'freq',
                          'IC', 'nb_orthologs', 'phosphorylation_site',
-                         'shanon_entropy'))
+                         'shanon_entropy', 'ACH'))
         for i, gene in enumerate(gene_list):
             clusterID = gene._get_cluster()
             freq = None
             IC = None
+            ACH = None
 
             # get align cluster
 
@@ -94,6 +95,7 @@ def create_training_set(string, file, max_window, phospho_site):
                         nb_orthologs = freq['nb_align']
                         IC = get_information_content(window, path2cluster)
                         shanon_entropy = get_shanon_entropy(window, pssm_list[clusterID])
+                        ACH = get_ACH(window, gene._get_sequence())
 
             # write row
 
@@ -102,4 +104,4 @@ def create_training_set(string, file, max_window, phospho_site):
                              gene._get_taxID(), clusterID,
                              gene._get_sequence(), freq_score, IC,
                              nb_orthologs, gene._get_phosphorylation_site(),
-                             shanon_entropy))
+                             shanon_entropy, ACH))

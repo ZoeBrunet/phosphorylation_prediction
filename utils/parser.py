@@ -81,3 +81,11 @@ def enrichment_parser(args):
                         help='Input absolute path file containing your'
                              'second csv')
     return parser.parse_args(args)
+
+def ACH_parser(args):
+    parser = argparse.ArgumentParser(description='Run ACH to get the average '
+                                                 'cumulative hydrophobicity of a sequence')
+    parser.add_argument('seq',
+                        help='Input sequemce of amino acid')
+    return parser.parse_args(args)
+
