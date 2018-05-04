@@ -1,4 +1,4 @@
- # This file is part of a program that make prediction of active
+# This file is part of a program that make prediction of active
 # protein phosphorylation sites using machine learning
 # Copyright (C) 2018  Zoé Brunet
 #
