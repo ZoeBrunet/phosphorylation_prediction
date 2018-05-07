@@ -146,8 +146,8 @@ def request_cluster_id(clusterID, path):
 
 def create_index(df, mg):
     uniprot_id = df['acc'].value_counts().keys().tolist()
-    resp = mg.querymany(uniprot_id,scope='symbol,accession',
-                            fields='uniprot')
+    resp = mg.querymany(uniprot_id, scope='symbol,accession',
+                        fields='uniprot, taxid', species="all")
     colonnes = ["uniprotID", "geneID", "taxID", "clusterID"]
     lignes = []
     length = len(resp)
@@ -156,10 +156,10 @@ def create_index(df, mg):
         taxID = None
         clusterID = None
         uniprotID = r["query"]
+        if 'taxid' in r:
+            taxID = r["taxid"]
         if "_id" in r:
             geneID = r["_id"]
-            if 'taxid' in mg.getgene(geneID):
-                taxID = mg.getgene(geneID)['taxid']
             request = request_gene_id(geneID)
             if len(request["data"]):
                 clusterID = request["data"][0]
@@ -170,17 +170,23 @@ def create_index(df, mg):
     return df
 
 
-def import_ortholog(csv, pattern, phospho_sites):
-    path = os.path.dirname(os.path.dirname(csv))
-    mg = mygene.MyGeneInfo()
-    df = import_csv(csv)
-    index = create_index(df, mg)
-    gene_list = gen_uniprot_id_list(df, pattern) if phospho_sites \
-        else gen_uniprot_id_list_neg(df, pattern)
+def fill_gene(gene_list, index, path):
     length = len(gene_list)
     for i, gene in enumerate(gene_list):
         print_trace(i, length, "convert uniprotID into geneID")
         gene.set_info(index[index.uniprotID == gene._get_uniprotID()].values)
-        if gene._get_cluster() is not None:
-            request_cluster_id(gene._get_cluster(), path)
-    return gene_list
+        if gene._get_position():
+            if gene._get_cluster() is not None:
+                request_cluster_id(gene._get_cluster(), path)
+
+
+def import_ortholog(csv, pattern):
+    path = os.path.dirname(os.path.dirname(csv))
+    mg = mygene.MyGeneInfo()
+    df = import_csv(csv)
+    index = create_index(df, mg)
+    gene_list_pos = gen_uniprot_id_list(df, pattern)
+    gene_list_neg = gen_uniprot_id_list_neg(df, pattern)
+    fill_gene(gene_list_pos, index, path)
+    fill_gene(gene_list_neg, index, path)
+    return {"positif": gene_list_pos, "negatif": gene_list_neg}

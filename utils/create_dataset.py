@@ -21,24 +21,10 @@ from utils.align_ortholog import *
 from utils.window import create_window
 
 
-def create_training_set(string, file, max_window, phospho_site):
-
-    # Initialisation
-
-    file_name = os.path.basename(file)
-    path = "%s/data" % os.path.abspath(os.path.dirname
-                                       (os.path.dirname(__file__)))
-    pattern = r"%s" % string
-    path2fastas = '%s/fastas' % path
-    path2align = '%s/align' % path
-    path2csv = '%s/csv/%s' % (path, string)
-    suffix = "pos_sites" if phospho_site else "neg_sites"
-    pssm_list = {}
-
-    # Data importation
-
-    gene_list = import_ortholog(file, pattern, phospho_site)
+def fill_file(gene_list, path2csv, file_name, pattern, string,
+              suffix, path2fastas, path2align, max_window):
     length_list_gene = len(gene_list)
+    pssm_list = {}
 
     # Creation of the output file
 
@@ -99,9 +85,33 @@ def create_training_set(string, file, max_window, phospho_site):
 
             # write row
 
-            writer.writerow((gene._get_uniprotID(),gene._get_geneID(),
+            writer.writerow((gene._get_uniprotID(), gene._get_geneID(),
                              gene._get_code(), gene._get_position(),
                              gene._get_taxID(), clusterID,
                              gene._get_sequence(), freq_score, IC,
                              nb_orthologs, gene._get_phosphorylation_site(),
                              shanon_entropy, ACH))
+
+
+def create_training_set(string, file, max_window):
+
+    # Initialisation
+
+    file_name = os.path.basename(file)
+    path = "%s/data" % os.path.abspath(os.path.dirname
+                                       (os.path.dirname(__file__)))
+    pattern = r"%s" % string
+    path2fastas = '%s/fastas' % path
+    path2align = '%s/align' % path
+    path2csv = '%s/csv/%s' % (path, string)
+    suffix_pos = "pos_sites"
+    suffix_neg = "neg_sites"
+
+    # Data importation
+
+    g = import_ortholog(file, pattern)
+    gene_list_pos = g["positif"]
+    gene_list_neg = g["negatif"]
+    for gene_list, suffix in zip([gene_list_pos, gene_list_neg], [suffix_pos, suffix_neg]):
+        fill_file(gene_list, path2csv, file_name, pattern, string,
+                  suffix, path2fastas, path2align, max_window)

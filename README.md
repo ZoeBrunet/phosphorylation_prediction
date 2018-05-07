@@ -24,7 +24,7 @@ It will return 2 csv files where you can find alignment score for each pull of p
 ```console
 foo@bar:~$ python create_training_set.py pattern file
 ```
-If you only want positif or negatif dataset please use create_positif_dataset.py or create_negatif_dataset.py. The dataset will be in data/csv/pattern and its name will be input_pattern_pos_sites.csv or input_pattern_neg_sites.csv
+The dataset will be in data/csv/pattern and its name will be input_pattern_pos_sites.csv or input_pattern_neg_sites.csv
 
 ### Parameters
 
