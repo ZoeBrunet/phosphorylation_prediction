@@ -42,13 +42,16 @@ def create_window(max_window, length, align, gene):
             max_window += 1
         half_window = (max_window - 1) / 2
         if max_window >= length:
-            return [0, length]
+            return [[0, pos - 1], [pos + 1, length], [0, length]]
         if pos - half_window < 0:
-            return [0, max_window - 1]
+            return [[0, pos - 1], [pos + 1, max_window - 1], [0, max_window - 1]]
         if pos + half_window > length:
-            return [int(length - max_window) + 1, int(length)]
-        return [int(pos - half_window), int(pos + half_window)]
-    return []
+            return [[int(length - max_window) + 1, pos - 1], [pos +1, int(length)],
+                    [int(length - max_window) + 1, int(length)]]
+        return [[int(pos - half_window), pos - 1], [pos +1, int(pos + half_window)],
+                [int(pos - half_window), int(pos + half_window)]]
+    return [[], [], []]
+
 
 
 def get_big_window(file):

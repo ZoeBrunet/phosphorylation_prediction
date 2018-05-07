@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
+import pandas
 from utils.import_csv import *
 
 
@@ -24,38 +25,27 @@ class TestImportCSV(unittest.TestCase):
     example = '%s/data/csv/sample.csv' % my_path
 
     def test_convert_single_id(self):
+        df = pandas.DataFrame({'acc': ["O08539"]})
         mg = mygene.MyGeneInfo()
-        uniprotID = "O08539"
-        position = 304
-        code = "S"
-        sequence = "ceci est un test"
-        gene = Gene(uniprotID, position, code, sequence)
-        gene._set_geneID(mg, 1, 1)
-        self.assertEqual(gene._get_geneID(), '30948')
+        index = create_index(df, mg)
+        self.assertEqual(str(index.values[0][1]), '30948')
 
     def test_missmatch_id(self):
+        df = pandas.DataFrame({'acc': ["tata_de_toto"]})
         mg = mygene.MyGeneInfo()
-        uniprotID = "tata_de_toto"
-        position = 304
-        code = "S"
-        sequence = "ceci est un autre test"
-        gene = Gene(uniprotID, position, code, sequence)
-        gene._set_geneID(mg, 1, 1)
-        self.assertTrue(gene._get_geneID() is None)
+        index = create_index(df, mg)
+        self.assertEqual(str(index.values[0][1]), "None")
 
     def test_cluster_id(self):
+        df = pandas.DataFrame({'acc': ["O08539"]})
         mg = mygene.MyGeneInfo()
-        uniprotID = "O08539"
-        position = 304
-        code = "S"
-        sequence = "ceci est un autre test"
-        gene = Gene(uniprotID, position, code, sequence)
-        gene._set_geneID(mg, 1, 1)
-        gene._set_cluster()
-        self.assertTrue(gene._get_cluster() == "EOG090406M5")
+        index = create_index(df, mg)
+        self.assertEqual(str(index.values[0][3]), "EOG090406M5")
 
     def test_neg_geneID_list(self):
-        gen_list = gen_uniprot_id_list_neg(example, "S")
+        df = import_csv(example)
+        mg = mygene.MyGeneInfo()
+        gen_list = gen_uniprot_id_list_neg(df, mg)
         for gene in gen_list:
             self.assertTrue(gene._get_code() == "S")
             self.assertTrue(abs(gene._get_position() - 304) > 50)
