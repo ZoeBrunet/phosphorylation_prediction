@@ -53,10 +53,8 @@ def create_window(max_window, length, align, gene):
     return [[], [], []]
 
 
-
 def get_big_window(file):
     with open(file) as f:
         align = AlignIO.read(f, "fasta")
         length = align.get_alignment_length()
     return [0, length]
-

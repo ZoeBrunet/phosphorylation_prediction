@@ -21,6 +21,49 @@ from utils.align_ortholog import *
 from utils.window import create_window
 
 
+def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, ACH,
+               writer, window, align):
+    writer.writerow((gene._get_uniprotID(), gene._get_geneID(),
+                     gene._get_code(), gene._get_position(),
+                     gene._get_taxID(), clusterID,
+                     gene._get_sequence(), freq_score[0], freq_score[1], freq_score[2],
+                     IC[0], IC[1], IC[2], nb_orthologs, gene._get_phosphorylation_site(),
+                     shanon_entropy[0], shanon_entropy[1], shanon_entropy[2],
+                     ACH[0], ACH[1], ACH[2]))
+
+    for record in align:
+        if len(find_pattern(str(gene._get_taxID()), str(record.id))):
+            seq = record.seq
+            break
+
+    seq_left ='    '.join(seq[window[0][0]: window[0][1] + 1]) + "    "
+    phospho_site = seq[window[0][1] + 1: window[1][0]]
+    seq_right = '    '.join(seq[window[1][0]: window[1][1] + 1]) + "    "
+    freq_left = [round(float(element), 1) for element in freq_score[0]]
+    freq_phospho = round(float(freq_score[2][len(freq_score[0])]), 1)
+    freq_right = [round(float(element), 1) for element in freq_score[1]]
+    se_left = [round(float(element), 1) for element in shanon_entropy[0]]
+    se_phospho = round(float(shanon_entropy[2][len(shanon_entropy[0])]), 1)
+    se_right = [round(float(element), 1) for element in shanon_entropy[1]]
+    print("\n\033[31;4mInfo\033[0m :")
+    print("\n\033[;4mUniprotID\033[0m : %s   \033[;4mGeneID\033[0m : %s   "
+          "\033[;4mTaxID\033[0m : %s" %(gene._get_uniprotID(), gene._get_geneID(),
+                                            gene._get_taxID()))
+    print("\nsequence            : \033[34m %s\033[0m%s    \033[32m%s\033[0m \n " % (seq_left, phospho_site, seq_right))
+    print("freq                : \033[34m %s\033[0m, %s, \033[32m%s\033[0m \n " % (str(freq_left)[1:-1],
+                                                str(freq_phospho),
+                                                str(freq_right)[1:-1]))
+    print("shanon entropy      : \033[34m %s\033[0m, %s, \033[32m%s\033[0m \n " % (str(se_left)[1:-1],
+                                                                        str(se_phospho),
+                                                                        str(se_right)[1:-1]))
+    print("information content : \033[34m   %s\033[0m,       %s,       \033[32m%s\033[0m \n " % (IC[0],
+                                                                              IC[2],
+                                                                              IC[1]))
+    print("ACH                 : \033[34m              %s\033[0m,                %s,            "
+          "  \033[32m%s\033[0m \n " % (ACH[0], ACH[2], ACH[1]))
+
+
+
 def align_fastas(gene_list, path2fastas, path2align):
     pssm_list = {}
     for i, gene in enumerate(gene_list):
@@ -99,13 +142,8 @@ def fill_file(gene_list, path2csv, file_name, pattern, string,
 
                         # write row
 
-                    writer.writerow((gene._get_uniprotID(), gene._get_geneID(),
-                                     gene._get_code(), gene._get_position(),
-                                     gene._get_taxID(), clusterID,
-                                     gene._get_sequence(), freq_score[0], freq_score[1], freq_score[2],
-                                     IC[0], IC[1], IC[2], nb_orthologs, gene._get_phosphorylation_site(),
-                                     shanon_entropy[0], shanon_entropy[1], shanon_entropy[2],
-                                     ACH[0], ACH[1], ACH[2]))
+                    print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, ACH,
+                               writer, window, align)
 
 
 def create_training_set(string, file, max_window):

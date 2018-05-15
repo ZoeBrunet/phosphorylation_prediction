@@ -41,7 +41,7 @@ def get_information_content(window, file):
 
 def get_shanon_entropy(window, pssm):
     shanon_list = []
-    sub_pssm = [pssm[index] for index in range(window[0], window[1])]
+    sub_pssm = [pssm[index] for index in range(window[0], window[1] + 1)]
     shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
     for row in sub_pssm:
         tot = sum(row.values())
