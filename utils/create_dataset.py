@@ -22,8 +22,8 @@ from utils.window import create_window
 
 
 def align_fastas(gene_list, path2fastas, path2align):
+    pssm_list = {}
     for i, gene in enumerate(gene_list):
-        pssm_list = {}
         clusterID = gene._get_cluster()
         length_list_gene = len(gene_list)
 
@@ -41,7 +41,7 @@ def align_fastas(gene_list, path2fastas, path2align):
             if clusterID not in pssm_list:
                 summary_align = get_align_info(path2cluster)
                 pssm_list[clusterID] = get_pssm(summary_align)
-                print_trace(i, length_list_gene, "run muscle")
+        print_trace(i, length_list_gene, "run muscle")
     return pssm_list
 
 
@@ -90,22 +90,22 @@ def fill_file(gene_list, path2csv, file_name, pattern, string,
                     nb_orthologs = align.__len__()
 
                     # Get scores
+                if len(window):
                     for w in window:
-                        if len(w):
                             freq_score.append(get_freq_of_pattern(pattern, w, path2cluster))
                             IC.append(get_information_content(w, path2cluster))
                             shanon_entropy.append(get_shanon_entropy(w, pssm_list[clusterID]))
                             ACH.append(get_ACH(w, gene._get_sequence()))
 
-            # write row
+                        # write row
 
-            writer.writerow((gene._get_uniprotID(), gene._get_geneID(),
-                             gene._get_code(), gene._get_position(),
-                             gene._get_taxID(), clusterID,
-                             gene._get_sequence(), freq_score[0], freq_score[1], freq_score[2],
-                             IC[0], IC[1], IC[2], nb_orthologs, gene._get_phosphorylation_site(),
-                             shanon_entropy[0], shanon_entropy[1], shanon_entropy[2],
-                             ACH[0], ACH[1], ACH[2]))
+                    writer.writerow((gene._get_uniprotID(), gene._get_geneID(),
+                                     gene._get_code(), gene._get_position(),
+                                     gene._get_taxID(), clusterID,
+                                     gene._get_sequence(), freq_score[0], freq_score[1], freq_score[2],
+                                     IC[0], IC[1], IC[2], nb_orthologs, gene._get_phosphorylation_site(),
+                                     shanon_entropy[0], shanon_entropy[1], shanon_entropy[2],
+                                     ACH[0], ACH[1], ACH[2]))
 
 
 def create_training_set(string, file, max_window):

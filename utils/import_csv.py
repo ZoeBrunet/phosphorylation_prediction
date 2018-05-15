@@ -17,6 +17,7 @@ import mygene
 import requests
 import os
 import pandas as pd
+import json
 from utils.tools import print_trace, find_pattern
 
 
@@ -70,44 +71,45 @@ def import_csv(csv):
     return df
 
 
-def gen_uniprot_id_list_neg(df, pattern):
+def gen_uniprot_id_list_neg(liste, pattern):
     genelist = []
-    for acc, position, code, sequence in zip(df["acc"],
-                                             df["position"],
-                                             df["code"],
-                                             df["sequence"]):
+    length = len(liste)
+    for i, gene in enumerate(liste):
+        sequence = gene._get_sequence()
+        position = gene._get_position()
+        acc = gene._get_uniprotID()
         unique = True
-        if str(code) in str(pattern):
-            for m in find_pattern(pattern, sequence):
-                new_position = round((m.end() + m.start() - 1)/2 + 1)
-                if abs(new_position - position) <= 50:
-                    unique = False
-                if len(genelist):
-                    for gene in genelist:
-                        if(gene._get_uniprotID() == acc
-                                and abs(gene._get_position() - position) <= 50):
-                            genelist.remove(gene)
-                        if (((gene._get_uniprotID() == acc
-                              and gene._get_position() == position
-                              and gene._get_sequence() == sequence))):
-                            unique = False
-                        if (((gene._get_uniprotID() == acc
-                              and gene._get_position() == new_position
-                              and gene._get_sequence() == sequence))):
-                            unique = False
-                            break
-                if unique:
-                    genelist.append(Gene(acc, new_position, pattern, sequence, False))
-                    print("Import %s sites from the csv file" % acc)
+        for m in find_pattern(pattern, sequence):
+            new_position = round((m.end() + m.start() - 1)/2 + 1)
+            if abs(new_position - position) <= 50:
+                unique = False
+            if len(genelist):
+                for gene in genelist:
+                    if(gene._get_uniprotID() == acc
+                            and abs(gene._get_position() - position) <= 50):
+                        genelist.remove(gene)
+                    if (((gene._get_uniprotID() == acc
+                          and gene._get_position() == position
+                          and gene._get_sequence() == sequence))):
+                        unique = False
+                    if (((gene._get_uniprotID() == acc
+                          and gene._get_position() == new_position
+                          and gene._get_sequence() == sequence))):
+                        unique = False
+                        break
+            if unique:
+                genelist.append(Gene(acc, new_position, pattern, sequence, False))
+                print_trace(i, length, "Import %s sites from the csv file for negative dataset" % acc)
     return list(set(genelist))
 
 
 def gen_uniprot_id_list(df, pattern):
+    length = len(df)
     genelist = []
-    for acc, position, code, sequence in zip(df["acc"],
-                                             df["position"],
-                                             df["code"],
-                                             df["sequence"]):
+    for i, (acc, position, code, sequence) in enumerate(zip(df["acc"],
+                                                            df["position"],
+                                                            df["code"],
+                                                            df["sequence"])):
         unique = True
         if str(code) not in str(pattern):
             unique = False
@@ -121,18 +123,22 @@ def gen_uniprot_id_list(df, pattern):
                     break
         if unique:
             genelist.append(Gene(acc, position, code, sequence, True))
-            print("Import %s sites from the csv file" % acc)
+            print_trace(i, length, "Import %s sites from the csv file for positive dataset" % acc)
     return list(set(genelist))
 
 
-def request_gene_id(geneID):
+def request_gene_id(geneID, s):
     request = 'http://www.orthodb.org/search?query=%s&ncbi=1' \
               '&singlecopy=1&limit=1' % geneID
-    response = requests.get(request)
-    return response.json()
+    response = s.get(request)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print("status code for %s = %s" % (request, response.status_code))
+        return None
 
 
-def request_cluster_id(clusterID, path):
+def request_cluster_id(clusterID, path, s):
     name = "%s.fasta" % clusterID
     path2fastas = "%s/fastas" % path
     path2file = "%s/%s" % (path2fastas, name)
@@ -140,53 +146,62 @@ def request_cluster_id(clusterID, path):
         os.mkdir(path2fastas)
     if not os.path.exists(path2file):
         request_odb = "'http://www.orthodb.org/fasta?id=%s'" % clusterID
+        resp = s.get(request_odb)
         request_api = "curl %s -o %s" % (request_odb, path2file)
         os.system(request_api)
 
 
-def create_index(df, mg):
-    uniprot_id = df['acc'].value_counts().keys().tolist()
+def create_index(list, mg):
+    uniprot_id = []
+    for gene in list:
+        if gene._get_uniprotID() not in uniprot_id:
+            uniprot_id.append(gene._get_uniprotID())
     resp = mg.querymany(uniprot_id, scope='symbol,accession',
                         fields='uniprot, taxid', species="all")
     colonnes = ["uniprotID", "geneID", "taxID", "clusterID"]
     lignes = []
     length = len(resp)
-    for i, r in enumerate(resp):
-        geneID = None
-        taxID = None
-        clusterID = None
-        uniprotID = r["query"]
-        if 'taxid' in r:
-            taxID = r["taxid"]
-        if "_id" in r:
-            geneID = r["_id"]
-            request = request_gene_id(geneID)
-            if len(request["data"]):
-                clusterID = request["data"][0]
-        ligne = (uniprotID, geneID, taxID, clusterID)
-        lignes.append(ligne)
-        print_trace(i, length, "create index for %s" % uniprotID)
-    df = pd.DataFrame(data=lignes, columns=colonnes)
+    with requests.Session() as s:
+        for i, r in enumerate(resp):
+            geneID = None
+            taxID = None
+            clusterID = None
+            uniprotID = r["query"]
+            if 'taxid' in r:
+                taxID = r["taxid"]
+            if "_id" in r:
+                geneID = r["_id"]
+                request = request_gene_id(geneID, s)
+                if request is not None:
+                    if len(request["data"]):
+                        clusterID = request["data"][0]
+                ligne = (uniprotID, geneID, taxID, clusterID)
+                lignes.append(ligne)
+            print_trace(i, length, "create index for %s" % uniprotID)
+        df = pd.DataFrame(data=lignes, columns=colonnes)
     return df
 
 
 def fill_gene(gene_list, index, path):
     length = len(gene_list)
-    for i, gene in enumerate(gene_list):
-        print_trace(i, length, "convert uniprotID into geneID")
-        gene.set_info(index[index.uniprotID == gene._get_uniprotID()].values)
-        if gene._get_position():
-            if gene._get_cluster() is not None:
-                request_cluster_id(gene._get_cluster(), path)
+    with requests.Session() as s:
+        for i, gene in enumerate(gene_list):
+            print_trace(i, length, "convert uniprotID into geneID")
+            ind = index[index.uniprotID == gene._get_uniprotID()].values
+            if len(ind):
+                gene.set_info(ind)
+            if gene._get_position():
+                if gene._get_cluster() is not None:
+                    request_cluster_id(gene._get_cluster(), path, s)
 
 
 def import_ortholog(csv, pattern):
     path = os.path.dirname(os.path.dirname(csv))
     mg = mygene.MyGeneInfo()
     df = import_csv(csv)
-    index = create_index(df, mg)
     gene_list_pos = gen_uniprot_id_list(df, pattern)
-    gene_list_neg = gen_uniprot_id_list_neg(df, pattern)
+    gene_list_neg = gen_uniprot_id_list_neg(gene_list_pos, pattern)
+    index = create_index(gene_list_pos, mg)
     fill_gene(gene_list_pos, index, path)
     fill_gene(gene_list_neg, index, path)
     return {"positif": gene_list_pos, "negatif": gene_list_neg}

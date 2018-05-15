@@ -42,10 +42,12 @@ def get_information_content(window, file):
 def get_shanon_entropy(window, pssm):
     shanon_list = []
     sub_pssm = [pssm[index] for index in range(window[0], window[1])]
+    shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
     for row in sub_pssm:
         tot = sum(row.values())
         shanon_value = 0
-        shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
+        if tot == 0:
+            return 'NA'
         for val in row.values():
             freq = val / tot
             shanon_value += shanon(freq)
@@ -57,6 +59,8 @@ def get_ACH(window, sequence):
     ACH = 0.
     if len(window):
         seq = str(sequence[window[0]:window[1] + 1])
+        if "X" in seq:
+            return "NA"
         for char in seq:
             ACH = round(ACH + hydrophobicity[char], 2)
     return ACH
