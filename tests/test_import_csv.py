@@ -25,27 +25,28 @@ class TestImportCSV(unittest.TestCase):
     example = '%s/data/csv/sample.csv' % my_path
 
     def test_convert_single_id(self):
-        df = pandas.DataFrame({'acc': ["O08539"]})
+        list=[Gene("O08539", "3", "S", "ceci est un test", True)]
         mg = mygene.MyGeneInfo()
-        index = create_index(df, mg)
+        index = create_index(list, mg)
         self.assertEqual(str(index.values[0][1]), '30948')
 
     def test_missmatch_id(self):
-        df = pandas.DataFrame({'acc': ["tata_de_toto"]})
+        list = [Gene("tata_de_toto", "3", "S", "ceci est un test", True)]
         mg = mygene.MyGeneInfo()
-        index = create_index(df, mg)
-        self.assertEqual(str(index.values[0][1]), "None")
+        index = create_index(list, mg)
+        self.assertFalse(len(index))
 
     def test_cluster_id(self):
-        df = pandas.DataFrame({'acc': ["O08539"]})
+        list = [Gene("O08539", "3", "S", "ceci est un test", True)]
         mg = mygene.MyGeneInfo()
-        index = create_index(df, mg)
+        index = create_index(list, mg)
         self.assertEqual(str(index.values[0][3]), "EOG090406M5")
 
     def test_neg_geneID_list(self):
         df = import_csv(example)
         mg = mygene.MyGeneInfo()
-        gen_list = gen_uniprot_id_list_neg(df, mg)
+        list_pos = gen_uniprot_id_list(df, "S")
+        gen_list = gen_uniprot_id_list_neg(list_pos, "S")
         for gene in gen_list:
             self.assertTrue(gene._get_code() == "S")
             self.assertTrue(abs(gene._get_position() - 304) > 50)
