@@ -98,8 +98,16 @@ foo@bar:~$ python information_content.py pattern file.fasta
 
 ```console
 foo@bar:~$ python information_content.py example_align.fasta
-[0, 0, 0, 0.5333333333333333, 0.26666666666666666, 0.8, 0.13333333333333333, 0.26666666666666666, 0]
-18.097364729664267
+example_align 6 seqs, max length 19, avg  length 9
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 1
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 2
+00:00:00    24 MB(-7%)  Iter   1  100.00%  Align node       
+00:00:00    24 MB(-7%)  Iter   1  100.00%  Root alignment
+00:00:00    24 MB(-7%)  Iter   2  100.00%  Refine tree   
+00:00:00    24 MB(-7%)  Iter   2  100.00%  Root alignment
+00:00:00    24 MB(-7%)  Iter   2  100.00%  Root alignment
+00:00:00    24 MB(-7%)  Iter   3  100.00%  Refine biparts
+23.54473994433018
 ```
 
 ## Add information in training set
