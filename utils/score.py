@@ -15,6 +15,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from utils.tools import *
 import math
+from biothings_client import get_client
+
+
+def is_metazoan(taxID):
+    mt = get_client("taxon")
+    info = mt.gettaxon(taxID)
+    if "lineage" in info:
+        if 33208 in info["lineage"]:
+            return True
+        else:
+            return False
+    return "NA"
 
 
 def get_freq_of_pattern(pattern, window, file):
@@ -33,7 +45,7 @@ def get_freq_of_pattern(pattern, window, file):
 
 def get_information_content(window, file):
     summary_align = get_align_info(file)
-    info_content = summary_align.information_content(window[0], window[1],
+    info_content = summary_align.information_content(window[0] - 1, window[1],
                                                      log_base=10,
                                                      chars_to_ignore=['-', 'X'])
     return info_content

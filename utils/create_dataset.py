@@ -29,7 +29,7 @@ def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, AC
                       gene._get_code(), gene._get_position(),
                       gene._get_taxID(), clusterID,
                       gene._get_sequence(), nb_orthologs, gene._get_phosphorylation_site(),
-                      ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2]]
+                      ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2], is_metazoan(gene._get_taxID())]
                      + freq_value + se_value))
 
 
@@ -42,8 +42,10 @@ def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, AC
     seq_right = '    '.join(seq[window[1][0]: window[1][1] + 1]) + "    "
     print("\n\033[31;4mInfo\033[0m :")
     print("\n\033[;4mUniprotID\033[0m : %s   \033[;4mGeneID\033[0m : %s   "
-          "\033[;4mTaxID\033[0m : %s   \033[;4mPosition\033[0m : %s" % (gene._get_uniprotID(), gene._get_geneID(),
-                                         gene._get_taxID(), gene._get_position()))
+          "\033[;4mTaxID\033[0m : %s   \033[;4mPosition\033[0m : %s"
+          "   \033[;4mMetazoa\033[0m : %s" % (gene._get_uniprotID(), gene._get_geneID(),
+                                               gene._get_taxID(), gene._get_position(),
+                                               is_metazoan(gene._get_taxID())))
     print("\nsequence            : \033[34m %s\033[0m%s    \033[32m%s\033[0m \n " % (seq_left, phospho_site, seq_right))
 
     lamb = lambda n: "NAN" if n == "NA" else round(float(n), 1)
@@ -113,7 +115,7 @@ def fill_file(gene_list, path2csv, file_name, pattern, string,
         writer.writerow((['uniprotID', 'geneID', 'code', 'position',
                           'taxID', 'clusterID', 'sequence', 'nb_orthologs', 'phosphorylation_site',
                           'shanon_entropy_left', 'shanon_entropy_right', 'shanon_entropy_tot',
-                          'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left', 'IC_right', 'IC_tot']
+                          'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left', 'IC_right', 'IC_tot', "metazoa"]
                          + header_freq + header_se))
         length = len(gene_list)
         for i, gene in enumerate(gene_list):
