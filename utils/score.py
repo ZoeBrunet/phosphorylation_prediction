@@ -35,23 +35,24 @@ def get_information_content(window, file):
     summary_align = get_align_info(file)
     info_content = summary_align.information_content(window[0], window[1],
                                                      log_base=10,
-                                                     chars_to_ignore=['-','X'])
+                                                     chars_to_ignore=['-', 'X'])
     return info_content
 
 
 def get_shanon_entropy(window, pssm):
     shanon_list = []
-    sub_pssm = [pssm[index] for index in range(window[0], window[1] + 1)]
+    sub_pssm = [pssm[index] for index in range(window[0] - 1, window[1])]
     shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
     for row in sub_pssm:
         tot = sum(row.values())
         shanon_value = 0
         if tot == 0:
-            return 'NA'
-        for val in row.values():
-            freq = val / tot
-            shanon_value += shanon(freq)
-        shanon_list.append(shanon_value)
+            shanon_list.append("NAN")
+        else:
+            for val in row.values():
+                freq = val / tot
+                shanon_value += shanon(freq)
+            shanon_list.append(shanon_value)
     return shanon_list
 
 

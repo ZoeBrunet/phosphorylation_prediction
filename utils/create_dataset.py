@@ -23,36 +23,39 @@ from utils.window import create_window
 
 def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, ACH,
                writer, window, align):
-    writer.writerow((gene._get_uniprotID(), gene._get_geneID(),
-                     gene._get_code(), gene._get_position(),
-                     gene._get_taxID(), clusterID,
-                     gene._get_sequence(), freq_score[0], freq_score[1], freq_score[2],
-                     IC[0], IC[1], IC[2], nb_orthologs, gene._get_phosphorylation_site(),
-                     shanon_entropy[0], shanon_entropy[1], shanon_entropy[2],
-                     ACH[0], ACH[1], ACH[2]))
+    freq_value = [freq_score[2][i] for i in range(0, len(freq_score[2]))]
+    se_value = [shanon_entropy[2][i] for i in range(0, len(shanon_entropy[2]))]
+    writer.writerow(([gene._get_uniprotID(), gene._get_geneID(),
+                      gene._get_code(), gene._get_position(),
+                      gene._get_taxID(), clusterID,
+                      gene._get_sequence(), nb_orthologs, gene._get_phosphorylation_site(),
+                      ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2]]
+                     + freq_value + se_value))
+
 
     for record in align:
         if len(find_pattern(str(gene._get_taxID()), str(record.id))):
             seq = record.seq
             break
-
-    seq_left ='    '.join(seq[window[0][0]: window[0][1] + 1]) + "    "
+    seq_left = '    '.join(seq[window[0][0]: window[0][1] + 1]) + "    "
     phospho_site = seq[window[0][1] + 1: window[1][0]]
     seq_right = '    '.join(seq[window[1][0]: window[1][1] + 1]) + "    "
-    freq_left = [round(float(element), 1) for element in freq_score[0]]
-    freq_phospho = round(float(freq_score[2][len(freq_score[0])]), 1)
-    freq_right = [round(float(element), 1) for element in freq_score[1]]
-    se_left = [round(float(element), 1) for element in shanon_entropy[0]]
-    se_phospho = round(float(shanon_entropy[2][len(shanon_entropy[0])]), 1)
-    se_right = [round(float(element), 1) for element in shanon_entropy[1]]
     print("\n\033[31;4mInfo\033[0m :")
     print("\n\033[;4mUniprotID\033[0m : %s   \033[;4mGeneID\033[0m : %s   "
-          "\033[;4mTaxID\033[0m : %s" %(gene._get_uniprotID(), gene._get_geneID(),
-                                            gene._get_taxID()))
+          "\033[;4mTaxID\033[0m : %s   \033[;4mPosition\033[0m : %s" % (gene._get_uniprotID(), gene._get_geneID(),
+                                         gene._get_taxID(), gene._get_position()))
     print("\nsequence            : \033[34m %s\033[0m%s    \033[32m%s\033[0m \n " % (seq_left, phospho_site, seq_right))
+
+    lamb = lambda n: "NAN" if n == "NA" else round(float(n), 1)
+    freq_left = [lamb(element)for element in freq_score[0]]
+    freq_phospho = lamb(freq_score[2][len(freq_score[0])])
+    freq_right = [lamb(element) for element in freq_score[1]]
     print("freq                : \033[34m %s\033[0m, %s, \033[32m%s\033[0m \n " % (str(freq_left)[1:-1],
                                                 str(freq_phospho),
                                                 str(freq_right)[1:-1]))
+    se_left = [lamb(element) for element in shanon_entropy[0]]
+    se_phospho = lamb(shanon_entropy[2][len(shanon_entropy[0])])
+    se_right = [lamb(element) for element in shanon_entropy[1]]
     print("shanon entropy      : \033[34m %s\033[0m, %s, \033[32m%s\033[0m \n " % (str(se_left)[1:-1],
                                                                         str(se_phospho),
                                                                         str(se_right)[1:-1]))
@@ -61,7 +64,6 @@ def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, AC
                                                                               IC[1]))
     print("ACH                 : \033[34m              %s\033[0m,                %s,            "
           "  \033[32m%s\033[0m \n " % (ACH[0], ACH[2], ACH[1]))
-
 
 
 def align_fastas(gene_list, path2fastas, path2align):
@@ -106,11 +108,13 @@ def fill_file(gene_list, path2csv, file_name, pattern, string,
         # Header
 
         writer = csv.writer(g, delimiter=";")
-        writer.writerow(('uniprotID', 'geneID', 'code', 'position',
-                         'taxID', 'clusterID', 'sequence', 'freq_left', 'freq_right', 'freq_tot',
-                         'IC_left', 'IC_right', 'IC_tot', 'nb_orthologs', 'phosphorylation_site',
-                         'shanon_entropy_left', 'shanon_entropy_right', 'shanon_entropy_tot',
-                         'ACH_left', 'ACH_right', 'ACH_tot'))
+        header_freq = ["freq_%s" %i for i in range(0, max_window)]
+        header_se = ["shanon_entropy_%s" %i for i in range(0, max_window)]
+        writer.writerow((['uniprotID', 'geneID', 'code', 'position',
+                          'taxID', 'clusterID', 'sequence', 'nb_orthologs', 'phosphorylation_site',
+                          'shanon_entropy_left', 'shanon_entropy_right', 'shanon_entropy_tot',
+                          'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left', 'IC_right', 'IC_tot']
+                         + header_freq + header_se))
         length = len(gene_list)
         for i, gene in enumerate(gene_list):
             clusterID = gene._get_cluster()
@@ -135,6 +139,7 @@ def fill_file(gene_list, path2csv, file_name, pattern, string,
                     # Get scores
                 if len(window):
                     for w in window:
+                        if len(w):
                             freq_score.append(get_freq_of_pattern(pattern, w, path2cluster))
                             IC.append(get_information_content(w, path2cluster))
                             shanon_entropy.append(get_shanon_entropy(w, pssm_list[clusterID]))

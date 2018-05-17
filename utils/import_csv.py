@@ -17,7 +17,6 @@ import mygene
 import requests
 import os
 import pandas as pd
-import json
 from utils.tools import print_trace, find_pattern
 
 
