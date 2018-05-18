@@ -23,14 +23,12 @@ from utils.window import create_window
 
 def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, ACH,
                writer, window, align):
-    freq_value = [freq_score[2][i] for i in range(0, len(freq_score[2]))]
-    se_value = [shanon_entropy[2][i] for i in range(0, len(shanon_entropy[2]))]
     writer.writerow(([gene._get_uniprotID(), gene._get_geneID(),
                       gene._get_code(), gene._get_position(),
                       gene._get_taxID(), clusterID,
                       gene._get_sequence(), nb_orthologs, gene._get_phosphorylation_site(),
                       ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2], is_metazoan(gene._get_taxID())]
-                     + freq_value + se_value))
+                     + freq_score[2] + shanon_entropy[2]))
 
 
     for record in align:

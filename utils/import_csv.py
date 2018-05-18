@@ -55,6 +55,9 @@ class Gene:
     def _get_phosphorylation_site(self):
         return self.phosphorylation_site
 
+    def _set_sequence(self, sequence):
+        self.sequence = sequence
+
     def set_info(self, index):
         self.geneID = index[0][1]
         self.taxID = index[0][2]
@@ -79,7 +82,7 @@ def gen_uniprot_id_list_neg(liste, pattern):
         acc = gene._get_uniprotID()
         unique = True
         for m in find_pattern(pattern, sequence):
-            new_position = round((m.end() + m.start() - 1)/2 + 1)
+            new_position = round((m.end() + m.start() - 1)/2)
             if abs(new_position - position) <= 50:
                 unique = False
             if len(genelist):
@@ -115,13 +118,13 @@ def gen_uniprot_id_list(df, pattern):
         if len(genelist):
             for gene in genelist:
                 if (((gene._get_uniprotID() == acc
-                      and gene._get_position() == position
+                      and gene._get_position() == position - 1
                       and gene._get_sequence() == sequence))
                         or str(code) not in str(pattern)):
                     unique = False
                     break
         if unique:
-            genelist.append(Gene(acc, position, code, sequence, True))
+            genelist.append(Gene(acc, position - 1, code, sequence, True))
             print_trace(i, length, "Import %s sites from the csv file for positive dataset" % acc)
     return list(set(genelist))
 

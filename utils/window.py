@@ -14,10 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from utils.tools import *
+from difflib import SequenceMatcher
 
 
 def relative_position(seq, position):
-    j = 0
+    j = -1
     for i, char in enumerate(seq):
         if char.isalnum():
             j += 1
@@ -30,7 +31,17 @@ def find_pos_in_alignment(align, gene):
     pos = None
     for record in align:
         if len(find_pattern(str(gene._get_taxID()), str(record.id))):
-            pos = relative_position(record.seq, gene._get_position())
+            if gene._get_sequence() == record.seq:
+                pos = relative_position(record.seq, gene._get_position())
+            else:
+                match = SequenceMatcher(None, gene._get_sequence(),
+                                        record.seq).find_longest_match(0,
+                                                                       len(gene._get_sequence()),
+                                                                       0,
+                                                                       len(record.seq))
+                if gene._get_position() >= match.a and gene._get_position() <= match.a + match.size:
+                    new_pos = gene._get_position() - match.a + match.b
+                    pos = relative_position(record.seq, new_pos)
             break
     return pos
 
@@ -48,9 +59,9 @@ def create_window(max_window, length, align, gene):
         if pos + half_window > length:
             return [[int(length - max_window) + 1, pos - 1], [pos +1, int(length)],
                     [int(length - max_window) + 1, int(length)]]
-        return [[int(pos - half_window), pos - 1], [pos +1, int(pos + half_window)],
+        return [[int(pos - half_window), pos - 1], [pos + 1, int(pos + half_window)],
                 [int(pos - half_window), int(pos + half_window)]]
-    return [[], [], []]
+    return []
 
 
 def get_big_window(file):

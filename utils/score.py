@@ -30,6 +30,7 @@ def is_metazoan(taxID):
 
 
 def get_freq_of_pattern(pattern, window, file):
+
     with open(file) as f:
         max_window = int(window[1] - window[0] + 1)
         align = AlignIO.read(f, "fasta")
@@ -40,6 +41,8 @@ def get_freq_of_pattern(pattern, window, file):
                 tmp = find_pattern(pattern, seq)
                 for m in tmp:
                     fill_score_table(score, m, align, max_window)
+        else:
+            score = ["NAN"] * max_window
     return score
 
 
@@ -52,10 +55,10 @@ def get_information_content(window, file):
 
 
 def get_shanon_entropy(window, pssm):
-    shanon_list = ["NAN"] * (window[1] - window[0])
+    shanon_list = ["NAN"] * (window[1] - window[0] + 1)
     sub_pssm = []
     if pssm.pssm.__len__() >= window[1]:
-        sub_pssm = [pssm[index] for index in range(window[0], window[1])]
+        sub_pssm = [pssm[index] for index in range(window[0], window[1] + 1)]
     else:
         if pssm.pssm.__len__() >= window[0]:
             sub_pssm = [pssm[index] for index in range(window[0], pssm.pssm.__len__())]
