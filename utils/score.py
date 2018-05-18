@@ -45,33 +45,36 @@ def get_freq_of_pattern(pattern, window, file):
 
 def get_information_content(window, file):
     summary_align = get_align_info(file)
-    info_content = summary_align.information_content(window[0] - 1, window[1],
+    info_content = summary_align.information_content(window[0], window[1],
                                                      log_base=10,
                                                      chars_to_ignore=['-', 'X'])
     return info_content
 
 
 def get_shanon_entropy(window, pssm):
-    shanon_list = []
-    sub_pssm = [pssm[index] for index in range(window[0] - 1, window[1])]
+    shanon_list = ["NAN"] * (window[1] - window[0])
+    sub_pssm = []
+    if pssm.pssm.__len__() >= window[1]:
+        sub_pssm = [pssm[index] for index in range(window[0], window[1])]
+    else:
+        if pssm.pssm.__len__() >= window[0]:
+            sub_pssm = [pssm[index] for index in range(window[0], pssm.pssm.__len__())]
     shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
-    for row in sub_pssm:
+    for i, row in enumerate(sub_pssm):
         tot = sum(row.values())
         shanon_value = 0
-        if tot == 0:
-            shanon_list.append("NAN")
-        else:
+        if tot != 0:
             for val in row.values():
                 freq = val / tot
                 shanon_value += shanon(freq)
-            shanon_list.append(shanon_value)
+            shanon_list[i] = shanon_value
     return shanon_list
 
 
 def get_ACH(window, sequence):
     ACH = 0.
     if len(window):
-        seq = str(sequence[window[0]:window[1] + 1])
+        seq = str(sequence[window[0]:window[1]])
         if "X" in seq:
             return "NA"
         for char in seq:

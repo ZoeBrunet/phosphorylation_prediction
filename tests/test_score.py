@@ -77,7 +77,7 @@ class TestScore(unittest.TestCase):
         self.assertAlmostEqual(score[17], 1 / 18)
 
     def test_get_information_content(self):
-        IC = get_information_content([11, 15], example)
+        IC = get_information_content([10, 15], example)
         fa = [4, 6, 3, 3, 2]
         fc = [1, 0, 3, 3, 0]
         fg = [1, 0, 0, 0, 3]
@@ -94,7 +94,7 @@ class TestScore(unittest.TestCase):
 
     def test_get_shanon_entropy(self):
         pssm = get_pssm(summary_align=get_align_info(example))
-        shanon_entropy = get_shanon_entropy([11, 15], pssm)
+        shanon_entropy = get_shanon_entropy([10, 15], pssm)
         fa = [4, 6, 3, 3, 2]
         fc = [1, 0, 3, 3, 0]
         fg = [1, 0, 0, 0, 3]
@@ -109,10 +109,10 @@ class TestScore(unittest.TestCase):
             self.assertAlmostEquals(shanon, shanon_expected)
 
     def test_get_ACH(self):
-        seq = "ACDE"
-        window = [0, 3]
+        seq = "----------AACCGTTCA"
+        window = [10, 15]
         ACH = get_ACH(window, seq)
-        ACH_expected = round(0.62 + 0.29 - 0.90 - 0.74, 2)
+        ACH_expected = round(0.62 * 2 + 0.29 * 2 + 0.48, 2)
         self.assertAlmostEquals(ACH, ACH_expected)
 
 
