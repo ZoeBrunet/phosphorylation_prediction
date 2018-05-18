@@ -31,7 +31,8 @@ def find_pos_in_alignment(align, gene):
     pos = None
     for record in align:
         if len(find_pattern(str(gene._get_taxID()), str(record.id))):
-            if gene._get_sequence() == record.seq:
+            seq = record.seq
+            if gene._get_sequence() == str(seq).replace('c', ''):
                 pos = relative_position(record.seq, gene._get_position())
             else:
                 match = SequenceMatcher(None, gene._get_sequence(),

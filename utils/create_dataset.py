@@ -112,7 +112,6 @@ def fill_file(gene_list, path2csv, file_name, pattern, string,
         header_se = ["shanon_entropy_%s" %i for i in range(0, max_window)]
         writer.writerow((['uniprotID', 'geneID', 'code', 'position',
                           'taxID', 'clusterID', 'sequence', 'nb_orthologs', 'phosphorylation_site',
-                          'shanon_entropy_left', 'shanon_entropy_right', 'shanon_entropy_tot',
                           'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left', 'IC_right', 'IC_tot', "metazoa"]
                          + header_freq + header_se))
         length = len(gene_list)
