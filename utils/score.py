@@ -57,10 +57,10 @@ def get_information_content(window, file):
 def get_shanon_entropy(window, pssm):
     shanon_list = ["NAN"] * (window[1] - window[0] + 1)
     sub_pssm = []
-    if pssm.pssm.__len__() >= window[1]:
+    if pssm.pssm.__len__() - 1 >= window[1]:
         sub_pssm = [pssm[index] for index in range(window[0], window[1] + 1)]
     else:
-        if pssm.pssm.__len__() >= window[0]:
+        if pssm.pssm.__len__() - 1 >= window[0]:
             sub_pssm = [pssm[index] for index in range(window[0], pssm.pssm.__len__())]
     shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
     for i, row in enumerate(sub_pssm):
