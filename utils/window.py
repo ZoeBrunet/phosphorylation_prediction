@@ -24,6 +24,7 @@ def relative_position(seq, position):
             j += 1
         if j >= position:
             break
+    info = seq[i]
     return i
 
 
@@ -35,14 +36,14 @@ def find_pos_in_alignment(align, gene):
             if gene._get_sequence() == str(seq).replace('-', ''):
                 pos = relative_position(record.seq, gene._get_position())
             else:
-                match = SequenceMatcher(None, gene._get_sequence(),
+                match = SequenceMatcher(lambda x: x == "-", gene._get_sequence(),
                                         record.seq).find_longest_match(0,
                                                                        len(gene._get_sequence()),
                                                                        0,
                                                                        len(record.seq))
                 if gene._get_position() >= match.a and gene._get_position() <= match.a + match.size:
-                    new_pos = gene._get_position() - match.a + match.b
-                    pos = relative_position(record.seq, new_pos)
+                    new_pos = gene._get_position() - match.a
+                    pos = match.b + relative_position(record.seq[match.b: match.b + match.size], new_pos)
             break
     return pos
 
