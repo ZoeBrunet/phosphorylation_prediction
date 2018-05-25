@@ -17,7 +17,8 @@ import mygene
 import requests
 import os
 import pandas as pd
-from utils.tools import print_trace, find_pattern
+from biothings_client import get_client
+from utils.tools import print_trace, find_pattern, is_metazoan
 
 
 class Gene:
@@ -29,6 +30,7 @@ class Gene:
         self.geneID = None
         self.taxID = None
         self.cluster = None
+        self.metazoan = None
         self.phosphorylation_site = phosphorylation_site
 
     def _get_uniprotID(self):
@@ -52,6 +54,9 @@ class Gene:
     def _get_sequence(self):
         return self.sequence
 
+    def _get_metazoan(self):
+        return self.metazoan
+
     def _get_phosphorylation_site(self):
         return self.phosphorylation_site
 
@@ -62,6 +67,7 @@ class Gene:
         self.geneID = index[0][1]
         self.taxID = index[0][2]
         self.cluster = index[0][3]
+        self.metazoan = index[0][4]
 
 
 def import_csv(csv):
@@ -76,32 +82,29 @@ def import_csv(csv):
 def gen_uniprot_id_list_neg(liste, pattern):
     genelist = []
     length = len(liste)
-    for i, gene in enumerate(liste):
-        sequence = gene._get_sequence()
-        position = gene._get_position()
-        acc = gene._get_uniprotID()
+    for i, gene1 in enumerate(liste):
+        sequence = gene1._get_sequence()
+        position = gene1._get_position()
+        acc1 = gene1._get_uniprotID()
         unique = True
         for m in find_pattern(pattern, sequence):
             new_position = round((m.end() + m.start() - 1)/2)
             if abs(new_position - position) <= 50:
                 unique = False
             if len(genelist):
-                for gene in genelist:
-                    if(gene._get_uniprotID() == acc
-                            and abs(gene._get_position() - position) <= 50):
-                        genelist.remove(gene)
-                    if (((gene._get_uniprotID() == acc
-                          and gene._get_position() == position
-                          and gene._get_sequence() == sequence))):
-                        unique = False
-                    if (((gene._get_uniprotID() == acc
-                          and gene._get_position() == new_position
-                          and gene._get_sequence() == sequence))):
+                for gene2 in genelist:
+                    acc2 = gene2._get_uniprotID()
+                    if(acc2 == acc1
+                            and abs(gene2._get_position() - position) <= 50):
+                        genelist.remove(gene2)
+                    if (((acc2 == acc1
+                          and gene2._get_position() == new_position
+                          and gene2._get_sequence() == sequence))):
                         unique = False
                         break
             if unique:
-                genelist.append(Gene(acc, new_position, pattern, sequence, False))
-                print_trace(i, length, "Import %s sites from the csv file for negative dataset" % acc)
+                genelist.append(Gene(acc1, new_position, pattern, sequence, False))
+                print_trace(i, length, "Import %s sites from the csv file for negative dataset" % acc1)
     return list(set(genelist))
 
 
@@ -147,7 +150,7 @@ def request_cluster_id(clusterID, path, s):
     if not os.path.exists(path2fastas):
         os.mkdir(path2fastas)
     if not os.path.exists(path2file):
-        request_odb = "'http://www.orthodb.org/fasta?id=%s'" % clusterID
+        request_odb = 'http://www.orthodb.org/fasta?id=%s' % clusterID
         resp = s.get(request_odb)
         request_api = "curl %s -o %s" % (request_odb, path2file)
         os.system(request_api)
@@ -155,12 +158,14 @@ def request_cluster_id(clusterID, path, s):
 
 def create_index(list, mg):
     uniprot_id = []
+    mt = get_client("taxon")
     for gene in list:
-        if gene._get_uniprotID() not in uniprot_id:
-            uniprot_id.append(gene._get_uniprotID())
+        acc = gene._get_uniprotID()
+        if acc not in uniprot_id:
+            uniprot_id.append(acc)
     resp = mg.querymany(uniprot_id, scope='symbol,accession',
                         fields='uniprot, taxid', species="all")
-    colonnes = ["uniprotID", "geneID", "taxID", "clusterID"]
+    colonnes = ["uniprotID", "geneID", "taxID", "clusterID", "metazoan"]
     lignes = []
     length = len(resp)
     with requests.Session() as s:
@@ -168,16 +173,18 @@ def create_index(list, mg):
             geneID = None
             taxID = None
             clusterID = None
+            metazoan = None
             uniprotID = r["query"]
             if 'taxid' in r:
                 taxID = r["taxid"]
+                metazoan = is_metazoan(taxID, mt)
             if "_id" in r:
                 geneID = r["_id"]
                 request = request_gene_id(geneID, s)
                 if request is not None:
                     if len(request["data"]):
                         clusterID = request["data"][0]
-                ligne = (uniprotID, geneID, taxID, clusterID)
+                ligne = (uniprotID, geneID, taxID, clusterID, metazoan)
                 lignes.append(ligne)
             print_trace(i, length, "create index for %s" % uniprotID)
         df = pd.DataFrame(data=lignes, columns=colonnes)

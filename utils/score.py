@@ -15,18 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from utils.tools import *
 import math
-from biothings_client import get_client
-
-
-def is_metazoan(taxID):
-    mt = get_client("taxon")
-    info = mt.gettaxon(taxID)
-    if "lineage" in info:
-        if 33208 in info["lineage"]:
-            return True
-        else:
-            return False
-    return "NA"
 
 
 def get_freq_of_pattern(pattern, window, file):

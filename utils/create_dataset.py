@@ -27,9 +27,8 @@ def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, AC
                       gene._get_code(), gene._get_position(),
                       gene._get_taxID(), clusterID,
                       gene._get_sequence(), nb_orthologs, gene._get_phosphorylation_site(),
-                      ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2], is_metazoan(gene._get_taxID())]
+                      ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2], gene._get_metazoan()]
                      + freq_score[2] + shanon_entropy[2]))
-
 
     for record in align:
         if len(find_pattern(str(gene._get_taxID()), str(record.id))):
@@ -43,7 +42,7 @@ def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, AC
           "\033[;4mTaxID\033[0m : %s   \033[;4mPosition\033[0m : %s"
           "   \033[;4mMetazoa\033[0m : %s" % (gene._get_uniprotID(), gene._get_geneID(),
                                                gene._get_taxID(), gene._get_position(),
-                                               is_metazoan(gene._get_taxID())))
+                                               gene._get_metazoan()))
     print("\nsequence            : \033[34m %s\033[0m%s    \033[32m%s\033[0m \n " % (seq_left, phospho_site, seq_right))
 
     lamb = lambda n: "NAN" if n == "NA" else round(float(n), 1)

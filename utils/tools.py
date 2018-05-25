@@ -19,11 +19,22 @@ from Bio import AlignIO
 from Bio.Align import AlignInfo
 from Bio.Alphabet import IUPAC
 
+
 global hydrophobicity
 hydrophobicity = {"A": 0.62, "C": 0.29, "D": -0.90, "E": -0.74, "F": 1.19,
                   "G": 0.48, "H": -0.40, "I": 1.38, "K": -1.50, "L": 1.06,
                   "M": 0.64, "N": -0.78, "P": 0.12, "Q": -0.85, "R": -2.53,
                   "S": -0.18, "T": -0.05, "V": 1.08, "W": 0.81, "Y": 0.26}
+
+
+def is_metazoan(taxID, mt):
+    info = mt.gettaxon(taxID)
+    if "lineage" in info:
+        if 33208 in info["lineage"]:
+            return True
+        else:
+            return False
+    return "NA"
 
 
 def print_trace(i, length, request):
