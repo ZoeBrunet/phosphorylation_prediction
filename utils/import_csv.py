@@ -13,61 +13,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import pandas as pd
+import csv
+import os
+from biothings_client import get_client
 import mygene
 import requests
-import os
-import pandas as pd
-from biothings_client import get_client
-from utils.tools import print_trace, find_pattern, is_metazoan
-
-
-class Gene:
-    def __init__(self, uniprotID, position, code, sequence, phosphorylation_site):
-        self.uniprotID = uniprotID
-        self.position = position
-        self.code = code
-        self.sequence = sequence
-        self.geneID = None
-        self.taxID = None
-        self.cluster = None
-        self.metazoan = None
-        self.phosphorylation_site = phosphorylation_site
-
-    def _get_uniprotID(self):
-        return self.uniprotID
-
-    def _get_taxID(self):
-        return self.taxID
-
-    def _get_geneID(self):
-        return self.geneID
-
-    def _get_cluster(self):
-        return self.cluster
-
-    def _get_position(self):
-        return self.position
-
-    def _get_code(self):
-        return self.code
-
-    def _get_sequence(self):
-        return self.sequence
-
-    def _get_metazoan(self):
-        return self.metazoan
-
-    def _get_phosphorylation_site(self):
-        return self.phosphorylation_site
-
-    def _set_sequence(self, sequence):
-        self.sequence = sequence
-
-    def set_info(self, index):
-        self.geneID = index[0][1]
-        self.taxID = index[0][2]
-        self.cluster = index[0][3]
-        self.metazoan = index[0][4]
+from utils.tools import find_pattern, is_metazoan, print_trace
 
 
 def import_csv(csv):
@@ -79,59 +31,6 @@ def import_csv(csv):
     return df
 
 
-def gen_uniprot_id_list_neg(liste, pattern):
-    genelist = []
-    length = len(liste)
-    for i, gene1 in enumerate(liste):
-        sequence = gene1._get_sequence()
-        position = gene1._get_position()
-        acc1 = gene1._get_uniprotID()
-        unique = True
-        for m in find_pattern(pattern, sequence):
-            new_position = round((m.end() + m.start() - 1)/2)
-            if abs(new_position - position) <= 50:
-                unique = False
-            if len(genelist):
-                for gene2 in genelist:
-                    acc2 = gene2._get_uniprotID()
-                    if(acc2 == acc1
-                            and abs(gene2._get_position() - position) <= 50):
-                        genelist.remove(gene2)
-                    if (((acc2 == acc1
-                          and gene2._get_position() == new_position
-                          and gene2._get_sequence() == sequence))):
-                        unique = False
-                        break
-            if unique:
-                genelist.append(Gene(acc1, new_position, pattern, sequence, False))
-                print_trace(i, length, "Import %s sites from the csv file for negative dataset" % acc1)
-    return list(set(genelist))
-
-
-def gen_uniprot_id_list(df, pattern):
-    length = len(df)
-    genelist = []
-    for i, (acc, position, code, sequence) in enumerate(zip(df["acc"],
-                                                            df["position"],
-                                                            df["code"],
-                                                            df["sequence"])):
-        unique = True
-        if str(code) not in str(pattern):
-            unique = False
-        if len(genelist):
-            for gene in genelist:
-                if (((gene._get_uniprotID() == acc
-                      and gene._get_position() == position - 1
-                      and gene._get_sequence() == sequence))
-                        or str(code) not in str(pattern)):
-                    unique = False
-                    break
-        if unique:
-            genelist.append(Gene(acc, position - 1, code, sequence, True))
-            print_trace(i, length, "Import %s sites from the csv file for positive dataset" % acc)
-    return list(set(genelist))
-
-
 def request_gene_id(geneID, s):
     request = 'http://www.orthodb.org/search?query=%s&ncbi=1' \
               '&singlecopy=1&limit=1' % geneID
@@ -141,6 +40,15 @@ def request_gene_id(geneID, s):
     else:
         print("status code for %s = %s" % (request, response.status_code))
         return None
+
+
+def uniprotid_to_geneid(uniprotid_list):
+    mg = mygene.MyGeneInfo()
+    if len(uniprotid_list):
+        return mg.querymany(uniprotid_list, scope='symbol,accession',
+                            fields='uniprot, taxid', species="all", as_dataframe=True)
+    else:
+        return []
 
 
 def request_cluster_id(clusterID, path, s):
@@ -156,61 +64,78 @@ def request_cluster_id(clusterID, path, s):
         os.system(request_api)
 
 
-def create_index(list, mg):
-    uniprot_id = []
+def import_ortholog(csv_file, pattern):
+
+    print("Parsing csv")
+
+    path = os.path.dirname(os.path.dirname(csv_file))
+    file_name = os.path.basename(csv_file)
+    index_file = '%s/csv/%s/index_%s_%s.csv' % (path, pattern, file_name[:-4], pattern)
+
     mt = get_client("taxon")
-    for gene in list:
-        acc = gene._get_uniprotID()
-        if acc not in uniprot_id:
-            uniprot_id.append(acc)
-    resp = mg.querymany(uniprot_id, scope='symbol,accession',
-                        fields='uniprot, taxid', species="all")
-    colonnes = ["uniprotID", "geneID", "taxID", "clusterID", "metazoan"]
-    lignes = []
-    length = len(resp)
-    with requests.Session() as s:
-        for i, r in enumerate(resp):
-            geneID = None
-            taxID = None
-            clusterID = None
-            metazoan = None
-            uniprotID = r["query"]
-            if 'taxid' in r:
-                taxID = r["taxid"]
-                metazoan = is_metazoan(taxID, mt)
-            if "_id" in r:
-                geneID = r["_id"]
-                request = request_gene_id(geneID, s)
-                if request is not None:
-                    if len(request["data"]):
-                        clusterID = request["data"][0]
-                ligne = (uniprotID, geneID, taxID, clusterID, metazoan)
-                lignes.append(ligne)
-            print_trace(i, length, "create index for %s" % uniprotID)
-        df = pd.DataFrame(data=lignes, columns=colonnes)
-    return df
 
+    print("Extracting %s phosphorylation site" %pattern)
+    df = import_csv(csv_file)
+    sub_df = df[df["code"] == pattern]
+    uniprot_id_list = []
 
-def fill_gene(gene_list, index, path):
-    length = len(gene_list)
-    with requests.Session() as s:
-        for i, gene in enumerate(gene_list):
-            print_trace(i, length, "convert uniprotID into geneID")
-            ind = index[index.uniprotID == gene._get_uniprotID()].values
-            if len(ind):
-                gene.set_info(ind)
-            if gene._get_position():
-                if gene._get_cluster() is not None:
-                    request_cluster_id(gene._get_cluster(), path, s)
+    if os.path.exists(index_file) and os.path.getsize(index_file) > 0:
+        index_df = pd.read_csv(index_file, sep=';')
+        uniprot_id_list = index_df["uniprotID"].value_counts().keys().tolist()
 
+    print("Preparing queries")
+    uniprot_to_convert = set(sub_df["acc"].tolist()) - set(uniprot_id_list)
+    resp = uniprotid_to_geneid(uniprot_to_convert)
 
-def import_ortholog(csv, pattern):
-    path = os.path.dirname(os.path.dirname(csv))
-    mg = mygene.MyGeneInfo()
-    df = import_csv(csv)
-    gene_list_pos = gen_uniprot_id_list(df, pattern)
-    gene_list_neg = gen_uniprot_id_list_neg(gene_list_pos, pattern)
-    index = create_index(gene_list_pos, mg)
-    fill_gene(gene_list_pos, index, path)
-    fill_gene(gene_list_neg, index, path)
-    return {"positif": gene_list_pos, "negatif": gene_list_neg}
+    with open(index_file, 'a+', newline='') as g:
+        writer = csv.writer(g, delimiter=";")
+        g.seek(0)
+        first_char = g.read(1)
+        if not first_char:
+            writer.writerow(['uniprotID', 'geneID', 'taxID', 'metazoan', 'code', 'sequence',
+                            'pos_sites', "neg_sites", 'clusterID'])
+
+        with requests.Session() as s:
+            group_acc_seq = sub_df.groupby(["acc", "sequence"])
+            length = len(group_acc_seq)
+            for i, ((acc, seq), group)in enumerate(group_acc_seq):
+                print_trace(i, length, "import %s from csv file" %acc)
+                if acc not in uniprot_id_list:
+
+                    # Info from phospho.ELM
+                    pos_list = []
+                    for position in group["position"]:
+                        if position - 1 not in pos_list:
+                            pos_list.append(position - 1)
+                    neg_list = []
+                    for m in find_pattern(pattern, seq):
+                        new_position = round((m.end() + m.start() - 1) / 2)
+                        neg = True
+                        for pos in pos_list:
+                            if abs(new_position - pos) <= 50:
+                                neg = False
+                        if neg:
+                            neg_list.append(new_position)
+
+                    # Info from gene
+                    r = resp.loc[[acc]]
+                    geneID = None
+                    taxID = None
+
+                    if "_id" in r:
+                        geneID = r["_id"].values[0]
+                    if "taxid" in r:
+                        taxID = r["taxid"].values[0]
+                    metazoan = is_metazoan(taxID, mt)
+
+                    # Info from orthoDB
+                    request = request_gene_id(geneID, s)
+                    clusterID = "nan"
+                    if request is not None:
+                        if len(request["data"]):
+                            clusterID = request["data"][0]
+                            request_cluster_id(clusterID, path, s)
+
+                    writer.writerow([acc, geneID, taxID, metazoan, pattern, seq, pos_list, neg_list,
+                                     clusterID])
+    return index_file

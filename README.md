@@ -20,11 +20,11 @@ To run prin_info.py you will need a plotly account (https://plot.ly/)
 
 To create a data set you will need a dump of Phospho.ELM database. The program create_training_set.py, will automatically request the orthoDB database to find ortholog of each protein.
 
-It will return 2 csv files where you can find alignment score for each pull of protein. The data are split in a positif and a negatif dataset.
+It will return a csv files where you can find alignment score for each pull of protein. 
 ```console
 foo@bar:~$ python create_training_set.py pattern file
 ```
-The dataset will be in data/csv/pattern and its name will be input_pattern_pos_sites.csv or input_pattern_neg_sites.csv
+The dataset will be in data/csv/pattern and its name will be input_pattern_phospho_sites.csv.
 
 ### Parameters
 
@@ -38,12 +38,6 @@ The dataset will be in data/csv/pattern and its name will be input_pattern_pos_s
 
 ```console
 foo@bar:~$ python create_positif_dataset.py Y sample.csv 
-Import O14543 from the csv file
-Import O14543 from the csv file
-request the orthodb API for gene id 1/2 = 50.0%
-request the orthodb API for gene id 2/2 = 100.0%
-run muscle 1/2 = 50.0%
-run muscle 2/2 = 100.0%
 ```
 
 ## Get frequence of a pattern

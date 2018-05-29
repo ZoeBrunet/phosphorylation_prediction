@@ -17,57 +17,63 @@ from utils.tools import *
 import math
 
 
-def get_freq_of_pattern(pattern, window, file):
-
-    with open(file) as f:
-        max_window = int(window[1] - window[0] + 1)
-        align = AlignIO.read(f, "fasta")
-        if len(window):
+def get_freq_of_pattern(pattern, window, file, max_window):
+    score = ["nan"] * max_window
+    if len(window):
+        with open(file) as f:
+            max_window = int(window[2][1] - window[2][0] + 1)
+            align = AlignIO.read(f, "fasta")
             score = [0] * max_window
             for record in align:
-                seq = str(record.seq[window[0]:window[1] + 1])
+                seq = str(record.seq[window[2][0]:window[2][1] + 1])
                 tmp = find_pattern(pattern, seq)
                 for m in tmp:
                     fill_score_table(score, m, align, max_window)
-        else:
-            score = ["NAN"] * max_window
     return score
 
 
 def get_information_content(window, file):
-    summary_align = get_align_info(file)
-    info_content = summary_align.information_content(window[0], window[1],
-                                                     log_base=10,
-                                                     chars_to_ignore=['-', 'X'])
+    info_content = ["nan"] * 3
+    if len(window):
+        for i, w in enumerate(window):
+            summary_align = get_align_info(file)
+            info_content[i] = (summary_align.information_content(w[0], w[1],
+                                                                 log_base=10,
+                                                                 chars_to_ignore=['-', 'X']))
     return info_content
 
 
-def get_shanon_entropy(window, pssm):
-    shanon_list = ["NAN"] * (window[1] - window[0] + 1)
-    sub_pssm = []
-    if pssm.pssm.__len__() - 1 >= window[1]:
-        sub_pssm = [pssm[index] for index in range(window[0], window[1] + 1)]
-    else:
-        if pssm.pssm.__len__() - 1 >= window[0]:
-            sub_pssm = [pssm[index] for index in range(window[0], pssm.pssm.__len__())]
-    shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
-    for i, row in enumerate(sub_pssm):
-        tot = sum(row.values())
-        shanon_value = 0
-        if tot != 0:
-            for val in row.values():
-                freq = val / tot
-                shanon_value += shanon(freq)
-            shanon_list[i] = shanon_value
+def get_shanon_entropy(window, pssm, max_window):
+    shanon_list = ["nan"] * max_window
+    if len(window):
+        sub_pssm = []
+        if pssm.pssm.__len__() - 1 >= window[2][1]:
+            sub_pssm = [pssm[index] for index in range(window[2][0], window[2][1] + 1)]
+        else:
+            if pssm.pssm.__len__() - 1 >= window[2][0]:
+                sub_pssm = [pssm[index] for index in range(window[2][0], pssm.pssm.__len__())]
+        shanon = lambda f: -(f * math.log(f, 2)) if f != 0 else 0
+        for i, row in enumerate(sub_pssm):
+            tot = sum(row.values())
+            shanon_value = 0
+            if tot != 0:
+                for val in row.values():
+                    freq = val / tot
+                    shanon_value += shanon(freq)
+                shanon_list[i] = shanon_value
     return shanon_list
 
 
 def get_ACH(window, sequence):
-    ACH = 0.
+    ACH_list = ["nan"] * 3
     if len(window):
-        seq = str(sequence[window[0]:window[1]])
-        if "X" in seq:
-            return "NA"
-        for char in seq:
-            ACH = round(ACH + hydrophobicity[char], 2)
-    return ACH
+        for i, w in enumerate(window):
+            ACH = 0.
+            seq = str(sequence[w[0]:w[1] + 1])
+            if "X" in seq:
+                ACH_list[i] = "nan"
+            else:
+                for char in seq:
+                    ACH = round(ACH + hydrophobicity[char], 2)
+                ACH_list[i] = ACH
+        return ACH_list

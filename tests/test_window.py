@@ -21,7 +21,7 @@ class TestWindow(unittest.TestCase):
 
     def test_relative_position(self):
         seq = "A___A_AD___A_A"
-        self.assertEqual(relative_position(seq, 4), 7)
+        self.assertEqual(relative_position(seq, 4), 11)
 
 
 if __name__ == '__main__':

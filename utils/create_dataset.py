@@ -13,144 +13,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import csv
-from utils.import_csv import import_ortholog
+import ast
+from utils.import_csv import *
 from utils.score import *
 from utils.align_ortholog import *
-from utils.window import create_window
-
-
-def print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, ACH,
-               writer, window, align):
-    writer.writerow(([gene._get_uniprotID(), gene._get_geneID(),
-                      gene._get_code(), gene._get_position(),
-                      gene._get_taxID(), clusterID,
-                      gene._get_sequence(), nb_orthologs, gene._get_phosphorylation_site(),
-                      ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2], gene._get_metazoan()]
-                     + freq_score[2] + shanon_entropy[2]))
-
-    for record in align:
-        if len(find_pattern(str(gene._get_taxID()), str(record.id))):
-            seq = record.seq
-            break
-    seq_left = '    '.join(seq[window[0][0]: window[0][1] + 1]) + "    "
-    phospho_site = seq[window[0][1] + 1: window[1][0]]
-    seq_right = '    '.join(seq[window[1][0]: window[1][1] + 1]) + "    "
-    print("\n\033[31;4mInfo\033[0m :")
-    print("\n\033[;4mUniprotID\033[0m : %s   \033[;4mGeneID\033[0m : %s   "
-          "\033[;4mTaxID\033[0m : %s   \033[;4mPosition\033[0m : %s"
-          "   \033[;4mMetazoa\033[0m : %s" % (gene._get_uniprotID(), gene._get_geneID(),
-                                               gene._get_taxID(), gene._get_position(),
-                                               gene._get_metazoan()))
-    print("\nsequence            : \033[34m %s\033[0m%s    \033[32m%s\033[0m \n " % (seq_left, phospho_site, seq_right))
-
-    lamb = lambda n: "NAN" if n == "NA" else round(float(n), 1)
-    freq_left = [lamb(element)for element in freq_score[0]]
-    freq_phospho = lamb(freq_score[2][len(freq_score[0])])
-    freq_right = [lamb(element) for element in freq_score[1]]
-    print("freq                : \033[34m %s\033[0m, %s, \033[32m%s\033[0m \n " % (str(freq_left)[1:-1],
-                                                str(freq_phospho),
-                                                str(freq_right)[1:-1]))
-    se_left = [lamb(element) for element in shanon_entropy[0]]
-    se_phospho = lamb(shanon_entropy[2][len(shanon_entropy[0])])
-    se_right = [lamb(element) for element in shanon_entropy[1]]
-    print("shanon entropy      : \033[34m %s\033[0m, %s, \033[32m%s\033[0m \n " % (str(se_left)[1:-1],
-                                                                        str(se_phospho),
-                                                                        str(se_right)[1:-1]))
-    print("information content : \033[34m   %s\033[0m,       %s,       \033[32m%s\033[0m \n " % (IC[0],
-                                                                              IC[2],
-                                                                              IC[1]))
-    print("ACH                 : \033[34m              %s\033[0m,                %s,            "
-          "  \033[32m%s\033[0m \n " % (ACH[0], ACH[2], ACH[1]))
-
-
-def align_fastas(gene_list, path2fastas, path2align):
-    pssm_list = {}
-    for i, gene in enumerate(gene_list):
-        clusterID = gene._get_cluster()
-        length_list_gene = len(gene_list)
-
-        # get align cluster
-
-        if clusterID is not None:
-            input = "%s.fasta" % gene._get_cluster()
-            path2input = '%s/%s' % (path2fastas, input)
-            path2cluster = "%s/%s_align.fasta" % (path2align, input[:-6])
-
-            # align fasta
-
-            if not os.path.exists(path2cluster):
-                run_muscle(path2input)
-            if clusterID not in pssm_list:
-                summary_align = get_align_info(path2cluster)
-                pssm_list[clusterID] = get_pssm(summary_align)
-        print_trace(i, length_list_gene, "run muscle")
-    return pssm_list
-
-
-def fill_file(gene_list, path2csv, file_name, pattern, string,
-              suffix, path2align, max_window, pssm_list):
-
-    # Creation of the output file
-
-    if not os.path.exists(os.path.dirname(path2csv)):
-        os.mkdir(os.path.dirname(path2csv))
-    if not os.path.exists(path2csv):
-        os.mkdir(path2csv)
-
-    # Writing into the output file
-
-    with open('%s/%s_%s_%s.csv' % (path2csv, file_name[:-4], string, suffix),
-              'w', newline='') as g:
-
-        # Header
-
-        writer = csv.writer(g, delimiter=";")
-        header_freq = ["freq_%s" %i for i in range(0, max_window)]
-        header_se = ["shanon_entropy_%s" %i for i in range(0, max_window)]
-        writer.writerow((['uniprotID', 'geneID', 'code', 'position',
-                          'taxID', 'clusterID', 'sequence', 'nb_orthologs', 'phosphorylation_site',
-                          'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left', 'IC_right', 'IC_tot', "metazoa"]
-                         + header_freq + header_se))
-        length = len(gene_list)
-        for i, gene in enumerate(gene_list):
-            clusterID = gene._get_cluster()
-            freq_score = []
-            IC = []
-            ACH = []
-            shanon_entropy = []
-            print_trace(i, length, "fill %s_%s_%s.csv " % (file_name[:-4], string, suffix))
-        # get align cluster
-            if clusterID is not None:
-                input = "%s.fasta" % gene._get_cluster()
-                path2cluster = "%s/%s_align.fasta" % (path2align, input[:-6])
-
-                with open(path2cluster) as f:
-                    alpha = Alphabet.Gapped(IUPAC.protein)
-                    align = AlignIO.read(f, "fasta", alphabet=alpha)
-                    length_list_alignment = align.get_alignment_length()
-                    window = create_window(max_window, length_list_alignment,
-                                           align, gene)
-                    nb_orthologs = align.__len__()
-
-                    # Get scores
-                if len(window):
-                    for w in window:
-                        if len(w):
-                            freq_score.append(get_freq_of_pattern(pattern, w, path2cluster))
-                            IC.append(get_information_content(w, path2cluster))
-                            shanon_entropy.append(get_shanon_entropy(w, pssm_list[clusterID]))
-                            ACH.append(get_ACH(w, gene._get_sequence()))
-
-                        # write row
-
-                    print_info(gene, clusterID, freq_score, IC, nb_orthologs, shanon_entropy, ACH,
-                               writer, window, align)
+from utils.window import create_window, find_pos_in_alignment
 
 
 def create_training_set(string, file, max_window):
-
     # Initialisation
 
     file_name = os.path.basename(file)
@@ -160,15 +30,132 @@ def create_training_set(string, file, max_window):
     path2fastas = '%s/fastas' % path
     path2align = '%s/align' % path
     path2csv = '%s/csv/%s' % (path, string)
-    suffix_pos = "pos_sites"
-    suffix_neg = "neg_sites"
 
     # Data importation
 
-    g = import_ortholog(file, pattern)
-    gene_list_pos = g["positif"]
-    gene_list_neg = g["negatif"]
-    pssm_list = align_fastas(gene_list_pos, path2fastas, path2align)
-    for gene_list, suffix in zip([gene_list_pos, gene_list_neg], [suffix_pos, suffix_neg]):
-        fill_file(gene_list, path2csv, file_name, pattern, string,
-                  suffix, path2align, max_window, pssm_list)
+    index_file = import_ortholog(file, pattern)
+    genes = pd.read_csv(index_file, sep=';')
+
+    # Creation of csv
+
+    with open('%s/%s_%s_phospho_sites.csv' % (path2csv, file_name[:-4], string),
+              'w', newline='') as g:
+        writer = csv.writer(g, delimiter=";")
+
+        # Header
+
+        header_freq = ["freq_%s" % i for i in range(0, max_window)]
+        header_se = ["shanon_entropy_%s" % i for i in range(0, max_window)]
+        writer.writerow((['uniprotID', 'geneID', 'position',
+                          'taxID', 'clusterID', 'sequence', 'seq_in_window', 'nb_orthologs', 'phosphorylation_site',
+                          'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left', 'IC_right', 'IC_tot', "metazoa"]
+                         + header_freq + header_se))
+
+        for i, (uniprotID, geneID, taxID,
+                metazoan, sequence, pos_sites,
+                neg_sites, clusterID) in enumerate(zip(genes["uniprotID"], genes["geneID"],
+                                                       genes["taxID"], genes["metazoan"],
+                                                       genes["sequence"], genes["pos_sites"],
+                                                       genes["neg_sites"], genes["clusterID"])):
+            if clusterID is not None:
+                input = "%s.fasta" % clusterID
+                path2input = '%s/%s' % (path2fastas, input)
+                path2cluster = "%s/%s.fasta" % (path2fastas, input[:-6])
+                path2aligncluster = "%s/%s_align.fasta" % (path2align, input[:-6])
+
+                # align fasta
+
+                pssm = None
+                ortholog = False
+                if os.path.exists(path2cluster):
+                    if not os.path.exists(path2aligncluster):
+                        run_muscle(path2input)
+                    summary_align = get_align_info(path2aligncluster)
+                    pssm = get_pssm(summary_align)
+                    ortholog = True
+
+                # fill csv
+                for position_list, phosphorylation_site in zip([pos_sites, neg_sites], [True, False]):
+                    for position in ast.literal_eval(position_list):
+                        window = create_window(sequence, position, max_window)
+                        rel_window = []
+                        nb_orthologs = 0
+                        rel_sequence = sequence
+                        if ortholog:
+                            with open(path2aligncluster) as f:
+                                alpha = Alphabet.Gapped(IUPAC.protein)
+                                align = AlignIO.read(f, "fasta", alphabet=alpha)
+                                nb_orthologs = align.__len__()
+                                finder = find_pos_in_alignment(align, sequence, taxID, position)
+                                rel_pos = finder["position"]
+                                rel_sequence = finder["sequence"]
+                                rel_window = create_window(rel_sequence, rel_pos, max_window)
+
+                        # Score orthologs
+
+                        freq = get_freq_of_pattern(pattern, rel_window, path2aligncluster, max_window)
+                        shanon_entropy = get_shanon_entropy(rel_window, pssm, max_window)
+                        IC = get_information_content(rel_window, path2aligncluster)
+
+                        # Score sequence
+
+                        ACH = get_ACH(window, sequence)
+
+                        # Fill csv
+
+                        writer.writerow([uniprotID, geneID, position, taxID, clusterID,
+                                         sequence, sequence[window[0][0]: window[1][1] + 1], nb_orthologs, phosphorylation_site,
+                                         ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2], metazoan]
+                                        + freq + shanon_entropy)
+
+                        # Print infos
+
+                        if not len(rel_window):
+                            rel_window = window
+
+                        print("\n\033[31;4mInfo\033[0m :")
+                        print("\n\033[;4mUniprotID\033[0m : %s   \033[;4mGeneID\033[0m : %s   "
+                              "\033[;4mTaxID\033[0m : %s   \033[;4mPosition\033[0m : %s"
+                              "   \033[;4mMetazoa\033[0m : %s   \033[;4mPhosphorylation\033[0m : %s"
+                              % (uniprotID, geneID, taxID, position, metazoan, phosphorylation_site))
+
+                        half_window = int((max_window - 1) / 2)
+                        space = [20, 5*half_window, 5, 5*half_window]
+
+                        # Print sequence
+
+                        seq_left = (' ' * 4).join(rel_sequence[rel_window[0][0]:
+                                                               rel_window[0][1] + 1])+(" " * 4)
+                        phospho_site = (' ' * 4).join(rel_sequence[rel_window[0][1] + 1:
+                                                                   rel_window[1][0]])+(" " * 4)
+                        seq_right = (' ' * 4).join(rel_sequence[rel_window[1][0]:
+                                                                rel_window[1][1] + 1]) + (" " * 4)
+                        print("\nsequence%s:\033[34m%s\033[0m%s\033[32m%s\033[0m \n "
+                              % (" " * (space[0] - len("sequence")), seq_left, phospho_site, seq_right))
+
+                        # Print frequence
+
+                        lamb = lambda n: "nan" if n == "nan" else round(float(n), 1)
+                        freq_left = [lamb(element) for element in freq[0: half_window]]
+                        freq_phospho = lamb(freq[half_window])
+                        freq_right = [lamb(element) for element in freq[half_window: max_window - 1]]
+                        print("freq%s:\033[34m%s\033[0m, %s ,\033[32m%s\033[0m\n "
+                              % (" " * (space[0] - len("freq")),
+                                 str(freq_left)[1:-1], str(freq_phospho), str(freq_right)[1:-1]))
+
+                        # Print shanon entropy
+
+                        se_left = [lamb(element) for element in shanon_entropy[0: half_window]]
+                        se_phospho = lamb(shanon_entropy[half_window])
+                        se_right = [lamb(element) for element in shanon_entropy[half_window: max_window - 1]]
+                        print("shanon entropy%s:\033[34m%s\033[0m, %s, \033[32m%s\033[0m \n "
+                              % (" " * (space[0] - len("shanon entropy")), str(se_left)[1:-1],
+                                        str(se_phospho), str(se_right)[1:-1]))
+
+                        print("information content :\033[34m%s%s\033[0m,%s%s,%s\033[32m%s\033[0m\n "
+                              % (" " * (int(space[1] / 2) - 3), lamb(IC[0]), " " * (int(space[1] / 2) - 3),
+                                 lamb(IC[2]), " " * (int(space[1] / 2) - 3), lamb(IC[1])))
+                        print("ACH%s:\033[34m%s%s\033[0m,%s%s,%s\033[32m%s\033[0m \n "
+                              % (" " * (space[0] - len("ACH")),
+                                 " " * (int(space[1] / 2) - 3), lamb(ACH[0]), " " * (int(space[1] / 2) - 3),
+                                 lamb(ACH[2]), " " * (int(space[1] / 2) - 3), lamb(ACH[1])))

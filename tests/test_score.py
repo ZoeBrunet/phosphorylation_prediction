@@ -36,17 +36,17 @@ class TestScore(unittest.TestCase):
     global example, window
     my_path = os.path.abspath(os.path.dirname(__file__))
     example = '%s/data/align/example_align.fasta' % my_path
-    window = [0, 18]
+    window = [[], [], [0, 18]]
 
     def test_freq_of_pattern_zero_score(self):
-        freq = get_freq_of_pattern('X', window, example)
+        freq = get_freq_of_pattern('X', window, example, 18)
         score = freq
         for s in score:
             self.assertEqual(s, 0)
 
 
     def test_freq_of_pattern_normal_score(self):
-        freq = get_freq_of_pattern('T', window, example)
+        freq = get_freq_of_pattern('T', window, example, 18)
         score = freq
         for s in score:
             assert (s >= 0)
@@ -54,7 +54,7 @@ class TestScore(unittest.TestCase):
         self.assertAlmostEqual(score[16], 3 / 6)
 
     def test_freq_of_pattern_max_score(self):
-        freq = get_freq_of_pattern('A', window, example)
+        freq = get_freq_of_pattern('A', window, example, 18)
         score = freq
         for s in score:
             assert (s >= 0)
@@ -65,7 +65,7 @@ class TestScore(unittest.TestCase):
     # 2/(3 * 6) + 2/(3 * 6), 2/(3 * 6) + 2/(3 * 6) + 1/(3 * 6),
     # 1/(3 * 6) + 1/(3 * 6) + 2/(3 * 6), 1/(3 * 6), 0]
     def test_freq_of_pattern_regexpr(self):
-        freq = get_freq_of_pattern('A.G', window, example)
+        freq = get_freq_of_pattern('A.G', window, example, 18)
         score = freq
         for i in range(0, 13):
             self.assertEqual(score[i], 0)
@@ -77,7 +77,7 @@ class TestScore(unittest.TestCase):
         self.assertAlmostEqual(score[17], 1 / 18)
 
     def test_get_information_content(self):
-        IC = get_information_content([10, 15], example)
+        IC = get_information_content([[10, 15], [10, 15], [10, 15]], example)
         fa = [4, 6, 3, 3, 2]
         fc = [1, 0, 3, 3, 0]
         fg = [1, 0, 0, 0, 3]
@@ -90,11 +90,11 @@ class TestScore(unittest.TestCase):
         for na, nc, ng, nt in zip(fa, fc, fg, ft):
             for n in [na, nc, ng, nt]:
                 ICtheo += lamb(n)
-        self.assertAlmostEquals(ICtheo, IC)
+        self.assertAlmostEquals(ICtheo, IC[0])
 
     def test_get_shanon_entropy(self):
         pssm = get_pssm(summary_align=get_align_info(example))
-        shanon_entropy = get_shanon_entropy([10, 15], pssm)
+        shanon_entropy = get_shanon_entropy([[10, 15], [10, 15], [10, 15]], pssm, 6)
         fa = [4, 6, 3, 3, 2]
         fc = [1, 0, 3, 3, 0]
         fg = [1, 0, 0, 0, 3]
@@ -109,11 +109,15 @@ class TestScore(unittest.TestCase):
             self.assertAlmostEquals(shanon, shanon_expected)
 
     def test_get_ACH(self):
-        seq = "----------AACCGTTCA"
-        window = [10, 15]
+        seq = "AAAAAAAAAAAACCGTTCA"
+        window = [[5, 10], [10, 15], [15, 18]]
         ACH = get_ACH(window, seq)
-        ACH_expected = round(0.62 * 2 + 0.29 * 2 + 0.48, 2)
-        self.assertAlmostEquals(ACH, ACH_expected)
+        ACH1_expected = round(0.62 * 6, 2)
+        ACH2_expected = round(0.62 * 2 + 0.29 * 2 + 0.48 -0.05, 2)
+        ACH3_expected = round(2 * (-0.05) + 0.29 + 0.62, 2)
+        self.assertAlmostEquals(ACH[0], ACH1_expected)
+        self.assertAlmostEquals(ACH[1], ACH2_expected)
+        self.assertAlmostEquals(ACH[2], ACH3_expected)
 
 
 if __name__ == '__main__':

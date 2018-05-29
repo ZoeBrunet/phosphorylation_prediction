@@ -24,36 +24,35 @@ def relative_position(seq, position):
             j += 1
         if j >= position:
             break
-    info = seq[i]
     return i
 
 
-def find_pos_in_alignment(align, gene):
+def find_pos_in_alignment(align, sequence, taxID, position):
     pos = None
     for record in align:
-        if len(find_pattern(str(gene._get_taxID()), str(record.id))):
+        if len(find_pattern(str(taxID), str(record.id))):
             seq = record.seq
-            if gene._get_sequence() == str(seq).replace('-', ''):
-                pos = relative_position(record.seq, gene._get_position())
+            if sequence == str(seq).replace('-', ''):
+                pos = relative_position(record.seq, position)
             else:
-                match = SequenceMatcher(lambda x: x == "-", gene._get_sequence(),
+                match = SequenceMatcher(lambda x: x == "-", sequence,
                                         record.seq).find_longest_match(0,
-                                                                       len(gene._get_sequence()),
+                                                                       len(sequence),
                                                                        0,
                                                                        len(record.seq))
-                if gene._get_position() >= match.a and gene._get_position() <= match.a + match.size:
-                    new_pos = gene._get_position() - match.a
+                if match.a <= position <= match.a + match.size:
+                    new_pos = position - match.a
                     pos = match.b + relative_position(record.seq[match.b: match.b + match.size], new_pos)
             break
-    return pos
+    return {"position": pos, "sequence": seq}
 
 
-def create_window(max_window, length, align, gene):
-    pos = find_pos_in_alignment(align, gene)
+def create_window(sequence, pos, max_window):
     if pos is not None:
         if max_window % 2 == 0:
             max_window += 1
         half_window = (max_window - 1) / 2
+        length = len(sequence)
         if max_window >= length:
             return [[0, pos - 1], [pos + 1, length], [0, length]]
         if pos - half_window < 0:
@@ -64,7 +63,6 @@ def create_window(max_window, length, align, gene):
         return [[int(pos - half_window), pos - 1], [pos + 1, int(pos + half_window)],
                 [int(pos - half_window), int(pos + half_window)]]
     return []
-
 
 def get_big_window(file):
     with open(file) as f:

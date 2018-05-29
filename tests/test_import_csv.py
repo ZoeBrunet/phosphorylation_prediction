@@ -20,38 +20,17 @@ from utils.import_csv import *
 
 class TestImportCSV(unittest.TestCase):
 
-    global example, window
+    global example, expected_csv
     my_path = os.path.abspath(os.path.dirname(__file__))
-    example = '%s/data/csv/sample.csv' % my_path
+    example = '%s/data/csv/test_csv.csv' % my_path
+    expected_csv = '%s/data/csv/expected_test_csv.csv' % my_path
 
-    def test_convert_single_id(self):
-        list=[Gene("O08539", "3", "S", "ceci est un test", True)]
-        mg = mygene.MyGeneInfo()
-        index = create_index(list, mg)
-        self.assertEqual(str(index.values[0][1]), '30948')
-
-    def test_missmatch_id(self):
-        list = [Gene("tata_de_toto", "3", "S", "ceci est un test", True)]
-        mg = mygene.MyGeneInfo()
-        index = create_index(list, mg)
-        self.assertFalse(len(index))
-
-    def test_cluster_id(self):
-        list = [Gene("O08539", "3", "S", "ceci est un test", True)]
-        mg = mygene.MyGeneInfo()
-        index = create_index(list, mg)
-        self.assertEqual(str(index.values[0][3]), "EOG090406M5")
-
-    def test_neg_geneID_list(self):
-        df = import_csv(example)
-        mg = mygene.MyGeneInfo()
-        list_pos = gen_uniprot_id_list(df, "S")
-        gen_list = gen_uniprot_id_list_neg(list_pos, "S")
-        for gene in gen_list:
-            self.assertTrue(gene._get_code() == "S")
-            self.assertTrue(abs(gene._get_position() - 304) > 50)
-            self.assertTrue(gene._get_uniprotID() == 'O08539')
-
+    def test_import_orthologs(self):
+        created_csv = import_ortholog(example, "S")
+        a = pd.read_csv(created_csv, sep=";")
+        b = pd.read_csv(expected_csv, sep=";")
+        self.assertTrue(a.equals(b))
+        os.remove(created_csv)
 
 if __name__ == '__main__':
     unittest.main()
