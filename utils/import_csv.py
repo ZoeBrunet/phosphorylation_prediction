@@ -60,8 +60,12 @@ def request_cluster_id(clusterID, path, s):
     if not os.path.exists(path2file):
         request_odb = 'http://www.orthodb.org/fasta?id=%s' % clusterID
         resp = s.get(request_odb)
-        request_api = "curl %s -o %s" % (request_odb, path2file)
-        os.system(request_api)
+        if resp.status_code == 200:
+            request_api = "curl %s -o %s" % (request_odb, path2file)
+            os.system(request_api)
+        else:
+            print("status code for %s = %s" % (request_odb, resp.status_code))
+
 
 
 def import_ortholog(csv_file, pattern):

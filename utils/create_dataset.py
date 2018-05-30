@@ -50,7 +50,7 @@ def create_training_set(string, file, max_window):
                           'taxID', 'clusterID', 'sequence', 'seq_in_window', 'nb_orthologs', 'phosphorylation_site',
                           'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left', 'IC_right', 'IC_tot', "metazoa"]
                          + header_freq + header_se))
-
+        length = len(genes)
         for i, (uniprotID, geneID, taxID,
                 metazoan, sequence, pos_sites,
                 neg_sites, clusterID) in enumerate(zip(genes["uniprotID"], genes["geneID"],
@@ -77,6 +77,7 @@ def create_training_set(string, file, max_window):
                 # fill csv
                 for position_list, phosphorylation_site in zip([pos_sites, neg_sites], [True, False]):
                     for position in ast.literal_eval(position_list):
+                        print_trace(i, length, "filling CSV file ")
                         window = create_window(sequence, position, max_window)
                         rel_window = []
                         nb_orthologs = 0
@@ -103,15 +104,17 @@ def create_training_set(string, file, max_window):
 
                         # Fill csv
 
+                        window_seq = sequence[window[0][0]: window[1][1] + 1]
                         writer.writerow([uniprotID, geneID, position, taxID, clusterID,
-                                         sequence, sequence[window[0][0]: window[1][1] + 1], nb_orthologs, phosphorylation_site,
-                                         ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2], metazoan]
-                                        + freq + shanon_entropy)
+                                         sequence, window_seq, nb_orthologs,
+                                         phosphorylation_site, ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2],
+                                         metazoan] + freq + shanon_entropy)
 
                         # Print infos
 
                         if not len(rel_window):
                             rel_window = window
+                            rel_sequence = sequence
 
                         print("\n\033[31;4mInfo\033[0m :")
                         print("\n\033[;4mUniprotID\033[0m : %s   \033[;4mGeneID\033[0m : %s   "
@@ -136,18 +139,23 @@ def create_training_set(string, file, max_window):
                         # Print frequence
 
                         lamb = lambda n: "nan" if n == "nan" else round(float(n), 1)
-                        freq_left = [lamb(element) for element in freq[0: half_window]]
-                        freq_phospho = lamb(freq[half_window])
-                        freq_right = [lamb(element) for element in freq[half_window: max_window - 1]]
+                        freq_left = [lamb(element) for element in freq[0: rel_window[0][1] - rel_window[0][0] + 1]]
+                        freq_phospho = lamb(freq[rel_window[0][1] - rel_window[0][0] + 1])
+                        freq_right = [lamb(element) for element in freq[rel_window[0][1] -
+                                                                        rel_window[0][0] + 2: max_window - 1]]
                         print("freq%s:\033[34m%s\033[0m, %s ,\033[32m%s\033[0m\n "
                               % (" " * (space[0] - len("freq")),
                                  str(freq_left)[1:-1], str(freq_phospho), str(freq_right)[1:-1]))
 
                         # Print shanon entropy
 
-                        se_left = [lamb(element) for element in shanon_entropy[0: half_window]]
-                        se_phospho = lamb(shanon_entropy[half_window])
-                        se_right = [lamb(element) for element in shanon_entropy[half_window: max_window - 1]]
+                        se_left = [lamb(element) for element in shanon_entropy[0:
+                                                                               rel_window[0][1]
+                                                                               - rel_window[0][0] + 1]]
+                        se_phospho = lamb(shanon_entropy[rel_window[0][1] - rel_window[0][0] + 1])
+                        se_right = [lamb(element) for element in shanon_entropy[rel_window[0][1] -
+                                                                                rel_window[0][0] + 2:
+                                                                                max_window - 1]]
                         print("shanon entropy%s:\033[34m%s\033[0m, %s, \033[32m%s\033[0m \n "
                               % (" " * (space[0] - len("shanon entropy")), str(se_left)[1:-1],
                                         str(se_phospho), str(se_right)[1:-1]))
