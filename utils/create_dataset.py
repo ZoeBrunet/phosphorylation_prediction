@@ -143,7 +143,7 @@ def create_training_set(string, file, max_window):
                         freq_phospho = lamb(freq[rel_window[0][1] - rel_window[0][0] + 1])
                         freq_right = [lamb(element) for element in freq[rel_window[0][1] -
                                                                         rel_window[0][0] + 2: max_window - 1]]
-                        print("freq%s:\033[34m%s\033[0m, %s ,\033[32m%s\033[0m\n "
+                        print("\033[37mfreq%s:\033[0m\033[34m%s\033[0m, %s ,\033[32m%s\033[0m\n "
                               % (" " * (space[0] - len("freq")),
                                  str(freq_left)[1:-1], str(freq_phospho), str(freq_right)[1:-1]))
 
@@ -156,11 +156,11 @@ def create_training_set(string, file, max_window):
                         se_right = [lamb(element) for element in shanon_entropy[rel_window[0][1] -
                                                                                 rel_window[0][0] + 2:
                                                                                 max_window - 1]]
-                        print("shanon entropy%s:\033[34m%s\033[0m, %s, \033[32m%s\033[0m \n "
+                        print("\033[37mshanon entropy%s:\033[0m\033[34m%s\033[0m, %s, \033[32m%s\033[0m \n "
                               % (" " * (space[0] - len("shanon entropy")), str(se_left)[1:-1],
                                         str(se_phospho), str(se_right)[1:-1]))
 
-                        print("information content :\033[34m%s%s\033[0m,%s%s,%s\033[32m%s\033[0m\n "
+                        print("\033[37minformation content :\033[0m\033[34m%s%s\033[0m,%s%s,%s\033[32m%s\033[0m\n "
                               % (" " * (int(space[1] / 2) - 3), lamb(IC[0]), " " * (int(space[1] / 2) - 3),
                                  lamb(IC[2]), " " * (int(space[1] / 2) - 3), lamb(IC[1])))
                         print("ACH%s:\033[34m%s%s\033[0m,%s%s,%s\033[32m%s\033[0m \n "

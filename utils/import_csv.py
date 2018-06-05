@@ -67,7 +67,6 @@ def request_cluster_id(clusterID, path, s):
             print("status code for %s = %s" % (request_odb, resp.status_code))
 
 
-
 def import_ortholog(csv_file, pattern):
 
     print("Parsing csv")

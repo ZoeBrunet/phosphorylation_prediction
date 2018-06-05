@@ -26,7 +26,7 @@ hydrophobicity = {"A": 0.62, "C": 0.29, "D": -0.90, "E": -0.74, "F": 1.19,
                   "G": 0.48, "H": -0.40, "I": 1.38, "K": -1.50, "L": 1.06,
                   "M": 0.64, "N": -0.78, "P": 0.12, "Q": -0.85, "R": -2.53,
                   "S": -0.18, "T": -0.05, "V": 1.08, "W": 0.81, "Y": 0.26,
-                  "Z": -0.74, "B": -0.90}
+                  "Z": -0.79, "B": -0.84}
 
 
 def is_metazoan(taxID, mt):
@@ -68,12 +68,12 @@ def fill_score_table(score, m, align, max_window):
 
 
 def get_align_info(file):
-    alpha = Alphabet.Gapped(IUPAC.protein)
+    alpha = Alphabet.Gapped(IUPAC.extended_protein)
     alignment = AlignIO.read(open(file), "fasta", alphabet=alpha)
     return AlignInfo.SummaryInfo(alignment)
 
 
 def get_pssm(summary_align):
     consensus = summary_align.dumb_consensus()
-    my_pssm = summary_align.pos_specific_score_matrix(consensus, chars_to_ignore=['-', 'X'])
+    my_pssm = summary_align.pos_specific_score_matrix(consensus, chars_to_ignore=['-'])
     return my_pssm
