@@ -104,6 +104,28 @@ example_align 6 seqs, max length 19, avg  length 9
 23.54473994433018
 ```
 
+## Machine learning 
+
+### How to use it
+
+We use the autoML function of H2O.ai. The best models create will be in a model directory in a data directory
+```console
+foo@bar:~$ python create_models.py file.csv max_model
+```
+
+### Parameters
+
+| Name          |     type           |           description              | Default value|
+| ------------- |    -------------   | -------------                    | :-------------: |
+| file          | absolute path to csv file   | Dataset before machine learning     | |
+| max_models    | int (optional)     | Number of models to test| 5 |
+
+### Example
+
+```console
+foo@bar:~$ python create_models.py file.csv max_model
+```
+
 ## Add information in training set
 
 ### How to use it

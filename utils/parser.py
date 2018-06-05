@@ -82,10 +82,19 @@ def enrichment_parser(args):
                              'second csv')
     return parser.parse_args(args)
 
+
 def ACH_parser(args):
     parser = argparse.ArgumentParser(description='Run ACH to get the average '
                                                  'cumulative hydrophobicity of a sequence')
     parser.add_argument('seq',
-                        help='Input sequemce of amino acid')
+                        help='Input sequence of amino acid')
     return parser.parse_args(args)
 
+
+def machine_learning_parser(args):
+    parser = argparse.ArgumentParser(description='Run machine learning to create '
+                                                 'model from dataset')
+    file_parser(parser)
+    parser.add_argument('max_model', type=int, nargs='?', default=5,
+                        help='Input number of model you want to create')
+    return parser.parse_args(args)

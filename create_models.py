@@ -13,3 +13,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import sys
+from utils.parser import machine_learning_parser
+from utils.machine_learning import *
+
+args = machine_learning_parser(sys.argv[1:])
+train_model(args.file, args.max_model)
+h2o.init(nthreads=3, max_mem_size="2g")
