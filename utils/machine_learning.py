@@ -12,6 +12,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
+import sys
 import h2o
 import os
 from h2o.utils.shared_utils import _locate
@@ -19,7 +20,7 @@ from h2o.automl import H2OAutoML
 
 
 def train_model(file, max_mod):
-    h2o.init(nthreads=3, max_mem_size="2g")
+    h2o.init(nthreads=-1, max_mem_size="1g")
 
     print("Import and Parse data")
     df = h2o.import_file(path=_locate(file))
@@ -47,13 +48,20 @@ def train_model(file, max_mod):
     aml = H2OAutoML(max_models=max_mod, seed=1)
     aml.train(x=df_names_x, y="phosphorylation_site",
               training_frame=df)
-    print("\nAutoML result :\n")
     lb = aml.leaderboard
-    print(lb.head(rows=lb.nrows))
     path = os.path.dirname(os.path.dirname(os.path.dirname(file)))
     pattern = os.path.dirname(file)[-1:]
-    h2o.save_model(aml.leader, path="%s/models/%s/%smodels"
-                                    % (path, pattern, max_mod),
-                   force=True)
+
+    # Save models
+    path2models = "%s/models/%s/%smodels" % (path, pattern, max_mod)
+    for id in list(lb['model_id'].as_data_frame().iloc[:, 0]):
+        model = h2o.get_model(id)
+        h2o.save_model(model, path=path2models,
+                       force=True)
+    with open('%s/info.txt' % path2models, 'w', newline='') as g:
+        orig_stdout = sys.stdout
+        sys.stdout = g
+        print(lb)
+        sys.stdout = orig_stdout
 
     h2o.cluster().shutdown

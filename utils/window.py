@@ -27,42 +27,56 @@ def relative_position(seq, position):
     return i
 
 
-def find_pos_in_alignment(align, sequence, taxID, position):
+def find_pos_in_alignment(align, sequence, taxID, position, phospho_ELM):
     pos = None
     for record in align:
         if len(find_pattern(str(taxID), str(record.id))):
             seq = record.seq
-            if sequence == str(seq).replace('-', ''):
+            rel_seq = str(record.seq).replace('-', '')
+            if sequence == rel_seq and phospho_ELM:
                 pos = relative_position(record.seq, position)
             else:
-                match = SequenceMatcher(lambda x: x == "-", sequence,
-                                        record.seq).find_longest_match(0,
-                                                                       len(sequence),
-                                                                       0,
-                                                                       len(record.seq))
-                if match.a <= position <= match.a + match.size:
-                    new_pos = position - match.a
-                    pos = match.b + relative_position(record.seq[match.b: match.b + match.size], new_pos)
+                (seq1, seq2) = (rel_seq, sequence) if (len(sequence) < len(rel_seq)) \
+                    else (sequence, rel_seq)
+                match = SequenceMatcher(None, seq1,
+                                        seq2).find_longest_match(0,
+                                                                 len(seq1),
+                                                                 0,
+                                                                 len(seq2))
+                (match_align, match_sequence) = (match.a, match.b) if \
+                    (len(sequence) < len(rel_seq)) else (match.b, match.a)
+                if match_sequence <= position <= match_sequence + match.size - 1 and phospho_ELM:
+                    start = relative_position(seq, match_align)
+                    new_pos = position - match_sequence
+                    pos = start + relative_position(seq[start:], new_pos)
+                if not phospho_ELM:
+                    if match.size == 13:
+                        pos = 6 + match_align - match_sequence
+                    else:
+                        pos = 6
+                        seq = sequence
             break
     return {"position": pos, "sequence": seq}
 
 
-def create_window(sequence, pos, max_window):
+def create_window(sequence, pos, max_window, phospho_ELM):
     if pos is not None:
         if max_window % 2 == 0:
             max_window += 1
         half_window = (max_window - 1) / 2
-        length = len(sequence)
-        if max_window >= length:
-            return [[0, pos - 1], [pos + 1, length], [0, length]]
-        if pos - half_window < 0:
-            return [[0, pos - 1], [pos + 1, max_window - 1], [0, max_window - 1]]
-        if pos + half_window > length:
-            return [[int(length - max_window) + 1, pos - 1], [pos +1, int(length)],
-                    [int(length - max_window) + 1, int(length)]]
+        if phospho_ELM:
+            length = len(sequence)
+            if max_window >= length:
+                return [[0, pos - 1], [pos + 1, length], [0, length]]
+            if pos - half_window < 0:
+                return [[0, pos - 1], [pos + 1, max_window - 1], [0, max_window - 1]]
+            if pos + half_window > length:
+                return [[int(length - max_window) + 1, pos - 1], [pos +1, int(length)],
+                        [int(length - max_window) + 1, int(length)]]
         return [[int(pos - half_window), pos - 1], [pos + 1, int(pos + half_window)],
                 [int(pos - half_window), int(pos + half_window)]]
     return []
+
 
 def get_big_window(file):
     with open(file) as f:

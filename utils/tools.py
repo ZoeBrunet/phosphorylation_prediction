@@ -77,3 +77,10 @@ def get_pssm(summary_align):
     consensus = summary_align.dumb_consensus()
     my_pssm = summary_align.pos_specific_score_matrix(consensus, chars_to_ignore=['-'])
     return my_pssm
+
+
+def find_seq(align, taxID):
+    for record in align:
+        if len(find_pattern(str(taxID), str(record.id))):
+            return str(record.seq).replace('-', '')
+    return None

@@ -20,7 +20,7 @@ from utils.align_ortholog import *
 from utils.window import create_window, find_pos_in_alignment
 
 
-def create_training_set(string, file, max_window):
+def create_training_set(string, file, max_window, phospho_ELM=True):
     # Initialisation
 
     file_name = os.path.basename(file)
@@ -33,7 +33,7 @@ def create_training_set(string, file, max_window):
 
     # Data importation
 
-    index_file = import_ortholog(file, pattern)
+    index_file = import_ortholog(file, pattern, phospho_ELM)
     genes = pd.read_csv(index_file, sep=';')
 
     # Creation of csv
@@ -47,16 +47,19 @@ def create_training_set(string, file, max_window):
         header_freq = ["freq_%s" % i for i in range(0, max_window)]
         header_se = ["shanon_entropy_%s" % i for i in range(0, max_window)]
         writer.writerow((['uniprotID', 'geneID', 'position',
-                          'taxID', 'clusterID', 'sequence', 'seq_in_window', 'nb_orthologs', 'phosphorylation_site',
-                          'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left', 'IC_right', 'IC_tot', "metazoa"]
+                          'taxID', 'clusterID', 'sequence', 'seq_in_window',
+                          'nb_orthologs', 'phosphorylation_site',
+                          'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left',
+                          'IC_right', 'IC_tot', "metazoa"]
                          + header_freq + header_se))
         length = len(genes)
+        gene_seq = genes["sequence"] if phospho_ELM else genes["seq_in_window"]
+        gene_pos = zip(genes["pos_sites"], genes["neg_sites"]) if phospho_ELM else genes["pos_sites"]
         for i, (uniprotID, geneID, taxID,
-                metazoan, sequence, pos_sites,
-                neg_sites, clusterID) in enumerate(zip(genes["uniprotID"], genes["geneID"],
+                metazoan, sequence, sites, clusterID) in enumerate(zip(genes["uniprotID"], genes["geneID"],
                                                        genes["taxID"], genes["metazoan"],
-                                                       genes["sequence"], genes["pos_sites"],
-                                                       genes["neg_sites"], genes["clusterID"])):
+                                                       gene_seq, gene_pos, genes["clusterID"])):
+            window_seq = None if phospho_ELM else sequence
             if clusterID is not None:
                 input = "%s.fasta" % clusterID
                 path2input = '%s/%s' % (path2fastas, input)
@@ -75,22 +78,32 @@ def create_training_set(string, file, max_window):
                     ortholog = True
 
                 # fill csv
-                for position_list, phosphorylation_site in zip([pos_sites, neg_sites], [True, False]):
+                phospho_bool = [True, False] if phospho_ELM else [True]
+                if not phospho_ELM:
+                    sites = [sites]
+                for position_list, phosphorylation_site in zip(sites, phospho_bool):
                     for position in ast.literal_eval(position_list):
                         print_trace(i, length, "filling CSV file ")
-                        window = create_window(sequence, position, max_window)
+                        window = create_window(sequence, position, max_window, phospho_ELM)
                         rel_window = []
                         nb_orthologs = 0
+                        if not phospho_ELM:
+                            sequence = None
                         rel_sequence = sequence
                         if ortholog:
                             with open(path2aligncluster) as f:
                                 alpha = Alphabet.Gapped(IUPAC.protein)
                                 align = AlignIO.read(f, "fasta", alphabet=alpha)
                                 nb_orthologs = align.__len__()
-                                finder = find_pos_in_alignment(align, sequence, taxID, position)
+                                if not phospho_ELM:
+                                    sequence = find_seq(align, taxID)
+                                finder = find_pos_in_alignment(align, sequence, taxID,
+                                                               position, phospho_ELM) if phospho_ELM \
+                                    else find_pos_in_alignment(align, window_seq, taxID,
+                                                               position, phospho_ELM)
                                 rel_pos = finder["position"]
                                 rel_sequence = finder["sequence"]
-                                rel_window = create_window(rel_sequence, rel_pos, max_window)
+                                rel_window = create_window(rel_sequence, rel_pos, max_window, True)
 
                         # Score orthologs
 
@@ -100,11 +113,12 @@ def create_training_set(string, file, max_window):
 
                         # Score sequence
 
-                        ACH = get_ACH(window, sequence)
+                        ACH = get_ACH(window, sequence) if sequence is not None \
+                            else get_ACH(create_window(window_seq, 6, 13, phospho_ELM), window_seq)
 
                         # Fill csv
-
-                        window_seq = sequence[window[0][0]: window[1][1] + 1]
+                        if window_seq is None:
+                            window_seq = sequence[window[0][0]: window[1][1] + 1]
                         writer.writerow([uniprotID, geneID, position, taxID, clusterID,
                                          sequence, window_seq, nb_orthologs,
                                          phosphorylation_site, ACH[0], ACH[1], ACH[2], IC[0], IC[1], IC[2],
@@ -115,6 +129,9 @@ def create_training_set(string, file, max_window):
                         if not len(rel_window):
                             rel_window = window
                             rel_sequence = sequence
+                        if sequence is None:
+                            rel_window = create_window(window_seq, 6, 13, phospho_ELM)
+                            rel_sequence = window_seq
 
                         print("\n\033[31;4mInfo\033[0m :")
                         print("\n\033[;4mUniprotID\033[0m : %s   \033[;4mGeneID\033[0m : %s   "
@@ -167,3 +184,8 @@ def create_training_set(string, file, max_window):
                               % (" " * (space[0] - len("ACH")),
                                  " " * (int(space[1] / 2) - 3), lamb(ACH[0]), " " * (int(space[1] / 2) - 3),
                                  lamb(ACH[2]), " " * (int(space[1] / 2) - 3), lamb(ACH[1])))
+        if phospho_ELM:
+            df = pd.read_csv("%s/table_%s_phospho_sites.csv" %(path2csv, string), sep=';')
+            df = df[df['phosphorylation_site'] == False]
+            for row in df:
+                writer.writerow(row)

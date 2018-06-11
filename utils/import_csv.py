@@ -22,8 +22,20 @@ import requests
 from utils.tools import find_pattern, is_metazoan, print_trace
 
 
-def import_csv(csv):
-    df = pd.read_csv(csv)
+def import_csv(csv, phospho_ELM):
+    df = pd.read_csv(csv) if phospho_ELM else pd.read_csv(csv, sep="\t", header=None)
+    if not phospho_ELM:
+        df.columns = [
+            'prot_name',
+            'acc',
+            'position',
+            'type',
+            'pmids',
+            'database',
+            'code',
+            'tpm',
+            'seq_in_window'
+        ]
     # Convert data into category
     for cat in df.columns:
         if cat != "position":
@@ -67,21 +79,23 @@ def request_cluster_id(clusterID, path, s):
             print("status code for %s = %s" % (request_odb, resp.status_code))
 
 
-def import_ortholog(csv_file, pattern):
+def import_ortholog(csv_file, pattern, phospho_ELM):
 
     print("Parsing csv")
 
     path = os.path.dirname(os.path.dirname(csv_file))
     file_name = os.path.basename(csv_file)
     index_file = '%s/csv/%s/index_%s_%s.csv' % (path, pattern, file_name[:-4], pattern)
-
+    if phospho_ELM:
+        df = import_csv(csv_file, phospho_ELM)
+    else:
+        df = import_csv(csv_file, phospho_ELM)
     mt = get_client("taxon")
 
     print("Extracting %s phosphorylation site" %pattern)
-    df = import_csv(csv_file)
-    sub_df = df[df["code"] == pattern]
-    uniprot_id_list = []
 
+    sub_df = df[df["code"] == pattern] if phospho_ELM else df
+    uniprot_id_list = []
     if os.path.exists(index_file) and os.path.getsize(index_file) > 0:
         index_df = pd.read_csv(index_file, sep=';')
         uniprot_id_list = index_df["uniprotID"].value_counts().keys().tolist()
@@ -94,15 +108,17 @@ def import_ortholog(csv_file, pattern):
         writer = csv.writer(g, delimiter=";")
         g.seek(0)
         first_char = g.read(1)
+        sequence_type = 'sequence' if phospho_ELM else 'seq_in_window'
+        position_type = ['pos_sites', "neg_sites"] if phospho_ELM else ['pos_sites']
         if not first_char:
-            writer.writerow(['uniprotID', 'geneID', 'taxID', 'metazoan', 'code', 'sequence',
-                            'pos_sites', "neg_sites", 'clusterID'])
+            writer.writerow(['uniprotID', 'geneID', 'taxID', 'metazoan', 'code',
+                             sequence_type] + position_type + ['clusterID'])
 
         with requests.Session() as s:
-            group_acc_seq = sub_df.groupby(["acc", "sequence"])
+            group_acc_seq = sub_df.groupby(["acc", sequence_type])
             length = len(group_acc_seq)
             for i, ((acc, seq), group)in enumerate(group_acc_seq):
-                print_trace(i, length, "import %s from csv file" %acc)
+                print_trace(i, length, "import %s from csv file" % acc)
                 if acc not in uniprot_id_list:
 
                     # Info from phospho.ELM
@@ -110,15 +126,16 @@ def import_ortholog(csv_file, pattern):
                     for position in group["position"]:
                         if position - 1 not in pos_list:
                             pos_list.append(position - 1)
-                    neg_list = []
-                    for m in find_pattern(pattern, seq):
-                        new_position = round((m.end() + m.start() - 1) / 2)
-                        neg = True
-                        for pos in pos_list:
-                            if abs(new_position - pos) <= 50:
-                                neg = False
-                        if neg:
-                            neg_list.append(new_position)
+                    if phospho_ELM:
+                        neg_list = []
+                        for m in find_pattern(pattern, seq):
+                            new_position = round((m.end() + m.start() - 1) / 2)
+                            neg = True
+                            for pos in pos_list:
+                                if abs(new_position - pos) <= 50:
+                                    neg = False
+                            if neg:
+                                neg_list.append(new_position)
 
                     # Info from gene
                     r = resp.loc[[acc]]
@@ -138,7 +155,7 @@ def import_ortholog(csv_file, pattern):
                         if len(request["data"]):
                             clusterID = request["data"][0]
                             request_cluster_id(clusterID, path, s)
-
-                    writer.writerow([acc, geneID, taxID, metazoan, pattern, seq, pos_list, neg_list,
-                                     clusterID])
+                    site_type = [pos_list, neg_list] if phospho_ELM else [pos_list]
+                    writer.writerow([acc, geneID, taxID, metazoan, pattern, seq] +
+                                    site_type + [clusterID])
     return index_file

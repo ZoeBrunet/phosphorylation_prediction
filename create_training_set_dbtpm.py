@@ -13,27 +13,12 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import unittest
-import pandas
-from utils.import_csv import *
+
+import sys
+from utils.parser import common_parser
+from utils.create_dataset import create_training_set
 
 
-class TestImportCSV(unittest.TestCase):
-
-    global example, expected_csv
-    my_path = os.path.abspath(os.path.dirname(__file__))
-    example = '%s/data/csv/test_csv.csv' % my_path
-    expected_csv = '%s/data/csv/expected_test_csv.csv' % my_path
-
-    def test_import_orthologs(self):
-        created_csv = import_ortholog(example, "S", True)
-        a = pd.read_csv(created_csv, sep=";")
-        b = pd.read_csv(expected_csv, sep=";")
-        self.assertTrue(a.equals(b))
-        os.remove(created_csv)
-
-if __name__ == '__main__':
-    unittest.main()
-
-
-
+args = common_parser(sys.argv[1:], 'Run training_set to get positif and '
+                                   'negatif training set in csv files')
+create_training_set(args.pattern, args.file, args.max_window,phospho_ELM=False)
