@@ -159,7 +159,7 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
                         freq_left = [lamb(element) for element in freq[0: rel_window[0][1] - rel_window[0][0] + 1]]
                         freq_phospho = lamb(freq[rel_window[0][1] - rel_window[0][0] + 1])
                         freq_right = [lamb(element) for element in freq[rel_window[0][1] -
-                                                                        rel_window[0][0] + 2: max_window - 1]]
+                                                                        rel_window[0][0] + 2: max_window]]
                         print("\033[37mfreq%s:\033[0m\033[34m%s\033[0m, %s ,\033[32m%s\033[0m\n "
                               % (" " * (space[0] - len("freq")),
                                  str(freq_left)[1:-1], str(freq_phospho), str(freq_right)[1:-1]))
@@ -172,7 +172,7 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
                         se_phospho = lamb(shanon_entropy[rel_window[0][1] - rel_window[0][0] + 1])
                         se_right = [lamb(element) for element in shanon_entropy[rel_window[0][1] -
                                                                                 rel_window[0][0] + 2:
-                                                                                max_window - 1]]
+                                                                                max_window]]
                         print("\033[37mshanon entropy%s:\033[0m\033[34m%s\033[0m, %s, \033[32m%s\033[0m \n "
                               % (" " * (space[0] - len("shanon entropy")), str(se_left)[1:-1],
                                         str(se_phospho), str(se_right)[1:-1]))
@@ -184,8 +184,8 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
                               % (" " * (space[0] - len("ACH")),
                                  " " * (int(space[1] / 2) - 3), lamb(ACH[0]), " " * (int(space[1] / 2) - 3),
                                  lamb(ACH[2]), " " * (int(space[1] / 2) - 3), lamb(ACH[1])))
-        if phospho_ELM:
-            df = pd.read_csv("%s/table_%s_phospho_sites.csv" %(path2csv, string), sep=';')
+        if not phospho_ELM:
+            df = pd.read_csv("%s/table_%s_phospho_sites.csv" % (path2csv, string), sep=';')
             df = df[df['phosphorylation_site'] == False]
             for row in df:
                 writer.writerow(row)
