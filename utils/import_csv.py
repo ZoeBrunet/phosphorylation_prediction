@@ -23,7 +23,7 @@ from utils.tools import find_pattern, is_metazoan, print_trace
 
 
 def import_csv(csv, phospho_ELM):
-    df = pd.read_csv(csv) if phospho_ELM else pd.read_csv(csv, sep="\t", header=None)
+    df = pd.read_csv(csv, sep="\t") if phospho_ELM else pd.read_csv(csv, sep="\t", header=None)
     if not phospho_ELM:
         df.columns = [
             'prot_name',
@@ -113,7 +113,6 @@ def import_ortholog(csv_file, pattern, phospho_ELM):
         if not first_char:
             writer.writerow(['uniprotID', 'geneID', 'taxID', 'metazoan', 'code',
                              sequence_type] + position_type + ['clusterID'])
-
         with requests.Session() as s:
             group_acc_seq = sub_df.groupby(["acc", sequence_type])
             length = len(group_acc_seq)

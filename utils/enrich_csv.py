@@ -33,8 +33,9 @@ def enrich_csv(file1, file2):
 
 
 def print_pie(csv, column, caption, phospho_ELM):
+    path = os.path.dirname(os.path.realpath(__file__))
     df = import_csv(csv, phospho_ELM)
     label = df[column].value_counts().keys().tolist()
     values = df[column].value_counts().tolist()
     trace = go.Pie(labels=label, values=values, textinfo='value')
-    plotly.offline.plot([trace], filename=caption)
+    plotly.offline.plot([trace], filename="%s/%s" % (path, caption), image='png')

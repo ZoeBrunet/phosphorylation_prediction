@@ -20,7 +20,8 @@ from h2o.automl import H2OAutoML
 
 
 def train_model(file, max_mod):
-    h2o.init(nthreads=-1, max_mem_size="1g")
+    h2o.init(nthreads=-1)
+             #, max_mem_size="1g")
 
     print("Import and Parse data")
     df = h2o.import_file(path=_locate(file))

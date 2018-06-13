@@ -62,10 +62,6 @@ def info_parser(args):
     file_parser(parser)
     parser.add_argument('column',
                         help='Input the name of the column which interess you')
-    parser.add_argument('username',
-                        help='Input your username in plotly')
-    parser.add_argument('apikey',
-                        help='Input your apikey in plotly')
     parser.add_argument('caption',
                         help='Input the title of the figure')
     return parser.parse_args(args)
