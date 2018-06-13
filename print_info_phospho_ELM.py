@@ -13,23 +13,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import plotly
-import plotly.plotly as py
-import plotly.graph_objs as go
 import sys
-from utils.import_csv import import_csv
 from utils.parser import info_parser
-
-
-def print_pie(csv, column, username, apikey, caption):
-    df = import_csv(csv)
-    plotly.tools.set_credentials_file(username=username, api_key=apikey)
-    label = df[column].value_counts().keys().tolist()
-    values = df[column].value_counts().tolist()
-    trace = go.Pie(labels=label, values=values, textinfo='value')
-    py.plot([trace], filename=caption)
+from utils.enrich_csv import print_pie
 
 
 args = info_parser(sys.argv[1:])
 
-print_pie(args.file, args.column, args.username, args.apikey, args.caption)
+print_pie(args.file, args.column, args.caption, True)

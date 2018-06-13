@@ -15,6 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import pandas as pd
+import plotly.offline
+import plotly.graph_objs as go
+from utils.import_csv import import_csv
 
 
 def enrich_csv(file1, file2):
@@ -27,3 +30,11 @@ def enrich_csv(file1, file2):
                              os.path.basename(file2)[:-4])
     merged.to_csv(name, index=False, sep=';')
     return name
+
+
+def print_pie(csv, column, caption, phospho_ELM):
+    df = import_csv(csv, phospho_ELM)
+    label = df[column].value_counts().keys().tolist()
+    values = df[column].value_counts().tolist()
+    trace = go.Pie(labels=label, values=values, textinfo='value')
+    plotly.offline.plot([trace], filename=caption)
