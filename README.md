@@ -5,24 +5,26 @@ Cells store and transmit information via post-translationa modification (PTM) of
 
 ## Warning 
 
-This project is a student project. This is a beta version . 
+This project is a student project. This is a beta version. 
 
 
 ## Prerequisites
 
-Make sure you have Python3. You also have to install Biopython available on http://biopython.org/
-
-To run prin_info.py you will need a plotly account (https://plot.ly/)
+Make sure you have Python3. You can find all the needed packages in requierement.txt, just run :
+```console
+foo@bar:~$ pip install -r requirements.txt
+```
 
 ## Create Dataset
 
 ### How to use it
 
-To create a data set you will need a dump of Phospho.ELM database. The program create_training_set.py, will automatically request the orthoDB database to find ortholog of each protein.
+To create a data set you will need a dump of Phospho.ELM or of dbtpm database. The programs create_training_set_phospho_ELM.py and create_training_dbtpm.py, will automatically request the orthoDB database to find ortholog of each protein.
 
 It will return a csv files where you can find alignment score for each pull of protein. 
 ```console
-foo@bar:~$ python create_training_set.py pattern file
+foo@bar:~$ python create_training_set_phospho_ELM.py pattern file
+foo@bar:~$ python create_training_dbtpm.py pattern file
 ```
 The dataset will be in data/csv/pattern and its name will be input_pattern_phospho_sites.csv.
 
@@ -37,7 +39,8 @@ The dataset will be in data/csv/pattern and its name will be input_pattern_phosp
 ### Example
 
 ```console
-foo@bar:~$ python create_positif_dataset.py Y sample.csv 
+foo@bar:~$ python create_training_set_phospho_ELM.py Y path/2/data/csv/sample.csv 
+foo@bar:~$ python create_training_set_dbtpm.py Y path/2/data/csv/sample.csv 
 ```
 
 ## Get frequence of a pattern
@@ -62,7 +65,7 @@ It will return you a list with the frequency of the pattern you choose in each p
 ### Example
 
 ```console
-foo@bar:~$ python freq_pattern.py T example.fasta
+foo@bar:~$ python freq_pattern.py T path/2/data/align/example_align.fasta
 [0, 0, 0, 0, 0.2, 0.6000000000000001, 0.4, 0.2, 0.2]
 ```
 
@@ -91,7 +94,7 @@ foo@bar:~$ python information_content.py pattern file.fasta
 ### Example
 
 ```console
-foo@bar:~$ python information_content.py example_align.fasta
+foo@bar:~$ python information_content.py path/2/data/align/example_align.fasta
 example_align 6 seqs, max length 19, avg  length 9
 00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 1
 00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 2
@@ -123,7 +126,7 @@ foo@bar:~$ python create_models.py file.csv max_model
 ### Example
 
 ```console
-foo@bar:~$ python create_models.py file.csv max_model
+foo@bar:~$ python create_models.py path/2/data/csv/sample.csv max_model
 ```
 
 ## Add information in training set
@@ -146,16 +149,17 @@ The output file csv1+csv2.csv will be in the same directory than csv1.
 ### Example
 
 ```console
-foo@bar:~$ python merge_csv.py csv1 csv2
+foo@bar:~$ python merge_csv.py path/2/data/csv/csv1 path/2/data/csv/csv2
 ```
 
 ## Plot pie chart 
 
 ### How to use it
 
-To get info on the dump of phospho.ELM you can plot pie chart. Use print_ingo.py
+To get info on the dump of phospho.ELM or dbtpm you can plot pie chart. Use print_info_phospho_ELM.py or print_info_dbtpm.py
 ```console
-foo@bar:~$ python print_info.py file column username apikey caption
+foo@bar:~$ python print_info_phospho_ELM.py file column caption
+foo@bar:~$ python print_info_dbtpm.py file column caption
 ```
 
 ### Parameters
@@ -164,14 +168,13 @@ foo@bar:~$ python print_info.py file column username apikey caption
 | ------------- |    -------------   | -------------                    | 
 | file          | absolute path to csv file   | Dump of phospho.ELM   | 
 | column          | string | Name of the csv column you want to plot  | 
-| username          | string | Your username on plotly  | 
-| apikey         | string | Your api key on plotly  | 
 | caption          | string | Title of your figure  | 
 
 ### Example
 
 ```console
-foo@bar:~$ python print_info.py file column username apikey caption
+foo@bar:~$ python print_info_phospho_ELM.py path/2/data/csv/sample.csv column caption
+foo@bar:~$ python print_info_dbtpm.py path/2/data/csv/sample.csv column caption
 ```
 
 ## Align orthologs
@@ -182,7 +185,7 @@ To align fasta file run run_muscle.py
 ```console
 foo@bar:~$ python run_muscle.py file.fasta
 ```
-It will create an align directory in which one you will find the multiple alignment. The name of the output file will be inputname_align.fasta 
+It will create an align directory in which one you will find the multiple alignment. The name of the output file will be input_align.fasta 
 
 ### Parameters 
 
@@ -194,7 +197,7 @@ It will create an align directory in which one you will find the multiple alignm
 ### Example
 
 ```console
-foo@bar:~$ python run_muscle.py example.fasta
+foo@bar:~$ python run_muscle.py path/2/data/fastas/example.fasta
 MUSCLE v3.8.31 by Robert C. Edgar
 
 http://www.drive5.com/muscle
@@ -210,7 +213,7 @@ example 6 seqs, max length 19, avg  length 9
 00:00:00    24 MB(-7%)  Iter   2  100.00%  Root alignment
 00:00:00    24 MB(-7%)  Iter   2  100.00%  Root alignment
 00:00:00    24 MB(-7%)  Iter   3  100.00%  Refine biparts
-path2example_align.fasta
+path/2/data/align/example_align.fasta
 ```
 
 ## Compute Shanon entropy
@@ -238,7 +241,7 @@ It will create an align directory in which one you will find the multiple alignm
 ### Example
 
 ```console
-foo@bar:~$ python shanon_entropy.py example.fasta
+foo@bar:~$ python shanon_entropy.py path/2/data/align/example.fasta
 [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.2516291673878228, 0.0, 1.0, 1.0, 1.4591479170272448, 1.5219280948873621, 0.9709505944546686, 1.9219280948873623, 0.8112781244591328]
 ```
 
