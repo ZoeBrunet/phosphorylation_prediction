@@ -24,8 +24,19 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
     # Initialisation
 
     file_name = os.path.basename(file)
-    path = "%s/data" % os.path.abspath(os.path.dirname
-                                       (os.path.dirname(__file__)))
+    if os.path.basename(os.path.dirname(file)) == "csv" \
+            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "data":
+        path = "%s/data" % os.path.abspath(os.path.dirname
+                                           (os.path.dirname(__file__)))
+    else:
+        if not os.path.exists("%s/data" % os.path.dirname(file)):
+            os.mkdir("%s/data" % os.path.dirname(file))
+        if not os.path.exists("%s/data/csv" % os.path.dirname(file)):
+            os.mkdir("%s/data/csv" % os.path.dirname(file))
+        if not os.path.exists("%s/data/csv/%s" % (os.path.dirname(file), string)):
+            os.mkdir("%s/data/csv/%s" % (os.path.dirname(file), string))
+        path = "%s/data" % os.path.dirname(file)
+
     pattern = r"%s" % string
     path2fastas = '%s/fastas' % path
     path2align = '%s/align' % path

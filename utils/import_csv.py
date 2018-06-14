@@ -73,7 +73,7 @@ def request_cluster_id(clusterID, path, s):
         request_odb = 'http://www.orthodb.org/fasta?id=%s' % clusterID
         resp = s.get(request_odb)
         if resp.status_code == 200:
-            request_api = "curl %s -o %s" % (request_odb, path2file)
+            request_api = "wget %s -O %s" % (request_odb, path2file)
             os.system(request_api)
         else:
             print("status code for %s = %s" % (request_odb, resp.status_code))
@@ -83,7 +83,10 @@ def import_ortholog(csv_file, pattern, phospho_ELM):
 
     print("Parsing csv")
 
-    path = os.path.dirname(os.path.dirname(csv_file))
+    if os.path.exists("%s/data" % os.path.dirname(csv_file)):
+        path = "%s/data" % os.path.dirname(csv_file)
+    else:
+        path = os.path.dirname(os.path.dirname(csv_file))
     file_name = os.path.basename(csv_file)
     index_file = '%s/csv/%s/index_%s_%s.csv' % (path, pattern, file_name[:-4], pattern)
     if phospho_ELM:
