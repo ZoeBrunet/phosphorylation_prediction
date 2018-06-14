@@ -36,6 +36,8 @@ def dataset_parser(args):
                         help='Enable this bool to display progression')
     parser.add_argument('--color', action='store_true',
                         help='Enable this bool to have color in output console')
+    parser.add_argument('--ortholog', action='store_true',
+                        help='Enable this bool to display ortholog in the window')
     return parser.parse_args(args)
 
 

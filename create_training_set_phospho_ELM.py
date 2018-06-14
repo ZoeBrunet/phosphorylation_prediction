@@ -21,5 +21,6 @@ from utils.create_dataset import create_training_set
 
 args = dataset_parser(sys.argv[1:])
 create_training_set(args.pattern, args.file, args.max_window,
-                    color=args.color, progression=args.progression)
+                    color=args.color, progression=args.progression,
+                    align_ortho_window=args.ortholog)
 

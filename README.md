@@ -36,12 +36,93 @@ The dataset will be in data/csv/pattern and its name will be input_pattern_phosp
 | file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare     | |
 | max_window    | int (optional)     | Max size of the amino acid sequence in which the pattern can be find| 15 |
 | --progression    | bool (optional)     | Show the progression of the program| False |
-| --color    | bool (optional)     | enable color in console output | False |
+| --color    | bool (optional)     | Enable color in console output | False |
+| --ortholog    | bool (optional)     | Show the orthologs in the window | False |
 
 ### Example
 
 ```console
-foo@bar:~$ python create_training_set_phospho_ELM.py --pogression Y path/2/data/csv/sample.csv 13
+foo@bar:~$ python create_training_set_phospho_ELM.py --pogression --ortholog Y path/2/data/csv/sample.csv 13
+Parsing csv
+Extracting Y phosphorylation site
+Preparing queries
+import O14543 from csv file 1/1 = 100.0%
+
+Info :
+
+UniprotID : O14543   GeneID : 9021   TaxID : 9606   Position : 203   Metazoa : True   Phosphorylation : True
+
+sequence            :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9986:003a73         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+246437:003f86       :N    G    H    L    G    S    Y    E    K    V    T    Q    L     
+ 
+10160:002b02        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+1026970:004209      :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9544:00362a         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+29078:00306b        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+885580:0044d1       :N    E    R    L    D    S    Y    E    K    V    T    Q    L     
+ 
+43179:001c9c        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+10141:000de1        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+34839:000c7e        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+51337:001ca6        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+10116:0005e0        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+10090:003af8        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+10036:001185        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+10042:000bff        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9402:002fe2         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+482537:002c70       :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+30611:0045bd        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+379532:003fbc       :N    G    H    L    D    S    Y    Q    K    V    T    Q    L     
+ 
+61622:00417a        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9483:0047d8         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9531:00106d         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9545:000d28         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9555:000076         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9595:00389e         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9597:001dc4         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9598:001a6e         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+9601:002008         :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+54131:003c06        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+60711:004821        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+37293:0023a2        :N    G    H    L    D    S    Y    E    K    V    T    Q    L     
+ 
+freq                :0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0 ,0.0, 0.0, 0.0, 0.0, 0.0, 0.0 
+shanon entropy      :0.0, 0.2, 0.2, 0.0, 0.2, 0.0, 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0 
+ 
+information content :            6.3            ,15.4,            6.4
+ 
+ACH                 :            -0.7            ,-1.5,            -1.0 
+
 foo@bar:~$ python create_training_set_dbtpm.py --color Y path/2/data/csv/sample.csv 
 ```
 
