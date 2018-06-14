@@ -21,7 +21,7 @@ foo@bar:~$ pip install -r requirements.txt
 
 To create a data set you will need a dump of Phospho.ELM or of dbtpm database. The programs create_training_set_phospho_ELM.py and create_training_dbtpm.py, will automatically request the orthoDB database to find ortholog of each protein.
 
-It will return a csv files where you can find alignment score for each pull of protein. 
+It will return a csv files where you can find alignment score for each pull of protein. This file is in data/csv/pattern/file_pattern_phospho_sites.csv
 ```console
 foo@bar:~$ python create_training_set_phospho_ELM.py pattern file
 foo@bar:~$ python create_training_dbtpm.py pattern file
