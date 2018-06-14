@@ -51,7 +51,7 @@ def find_pos_in_alignment(align, sequence, taxID, position, phospho_ELM):
                     pos = start + relative_position(seq[start:], new_pos)
                 if not phospho_ELM:
                     if match.size == 13:
-                        pos = 6 + match_align - match_sequence
+                        pos = relative_position(seq, 6 + match_align)
                     else:
                         pos = 6
                         seq = sequence

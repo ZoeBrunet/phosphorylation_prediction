@@ -41,8 +41,8 @@ The dataset will be in data/csv/pattern and its name will be input_pattern_phosp
 ### Example
 
 ```console
-foo@bar:~$ python --pogression create_training_set_phospho_ELM.py Y path/2/data/csv/sample.csv 13
-foo@bar:~$ python --color create_training_set_dbtpm.py Y path/2/data/csv/sample.csv 
+foo@bar:~$ python create_training_set_phospho_ELM.py --pogression Y path/2/data/csv/sample.csv 13
+foo@bar:~$ python create_training_set_dbtpm.py --color Y path/2/data/csv/sample.csv 
 ```
 
 ## Get frequence of a pattern
