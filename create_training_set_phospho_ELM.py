@@ -15,11 +15,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
-from utils.parser import common_parser
+from utils.parser import dataset_parser
 from utils.create_dataset import create_training_set
 
 
-args = common_parser(sys.argv[1:], 'Run training_set to get positif and '
-                                   'negatif training set in csv files')
-create_training_set(args.pattern, args.file, args.max_window)
+args = dataset_parser(sys.argv[1:])
+create_training_set(args.pattern, args.file, args.max_window,
+                    color=args.color, progression=args.progression)
 

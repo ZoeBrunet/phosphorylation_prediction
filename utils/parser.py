@@ -27,11 +27,15 @@ def arg_parser(parser):
                         help='Size of the windows which contain your pattern')
 
 
-def common_parser(args, desc):
-    parser = argparse.ArgumentParser(description=desc)
+def dataset_parser(args):
+    parser = argparse.ArgumentParser(description='Run program to get training set in csv files')
     parser.add_argument('pattern',
                         help='Input Python regular expression you want to detect')
     arg_parser(parser)
+    parser.add_argument('--progression', action='store_true',
+                        help='Enable this bool to display progression')
+    parser.add_argument('--color', action='store_true',
+                        help='Enable this bool to have color in output console')
     return parser.parse_args(args)
 
 

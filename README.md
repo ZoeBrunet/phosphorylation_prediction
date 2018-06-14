@@ -35,12 +35,14 @@ The dataset will be in data/csv/pattern and its name will be input_pattern_phosp
 | pattern       | regular expression | Amino acid sequence you want to detect | |
 | file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare     | |
 | max_window    | int (optional)     | Max size of the amino acid sequence in which the pattern can be find| 15 |
+| --progression    | bool (optional)     | Show the progression of the program| False |
+| --color    | bool (optional)     | enable color in console output | False |
 
 ### Example
 
 ```console
-foo@bar:~$ python create_training_set_phospho_ELM.py Y path/2/data/csv/sample.csv 
-foo@bar:~$ python create_training_set_dbtpm.py Y path/2/data/csv/sample.csv 
+foo@bar:~$ python --pogression create_training_set_phospho_ELM.py Y path/2/data/csv/sample.csv 13
+foo@bar:~$ python --color create_training_set_dbtpm.py Y path/2/data/csv/sample.csv 
 ```
 
 ## Get frequence of a pattern

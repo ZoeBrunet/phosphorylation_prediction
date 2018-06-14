@@ -20,7 +20,8 @@ from utils.align_ortholog import *
 from utils.window import create_window, find_pos_in_alignment
 
 
-def create_training_set(string, file, max_window, phospho_ELM=True):
+def create_training_set(string, file, max_window, phospho_ELM=True, progression=False,
+                        color=False):
     # Initialisation
 
     file_name = os.path.basename(file)
@@ -94,7 +95,8 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
                     sites = [sites]
                 for position_list, phosphorylation_site in zip(sites, phospho_bool):
                     for position in ast.literal_eval(position_list):
-                        print_trace(i, length, "filling CSV file ")
+                        if progression:
+                            print_trace(i, length, "filling CSV file ")
                         window = create_window(sequence, position, max_window, phospho_ELM)
                         rel_window = []
                         nb_orthologs = 0
@@ -144,11 +146,19 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
                             rel_window = create_window(window_seq, 6, 13, phospho_ELM)
                             rel_sequence = window_seq
 
-                        print("\n\033[31;4mInfo\033[0m :")
-                        print("\n\033[;4mUniprotID\033[0m : %s   \033[;4mGeneID\033[0m : %s   "
-                              "\033[;4mTaxID\033[0m : %s   \033[;4mPosition\033[0m : %s"
-                              "   \033[;4mMetazoa\033[0m : %s   \033[;4mPhosphorylation\033[0m : %s"
-                              % (uniprotID, geneID, taxID, position, metazoan, phosphorylation_site))
+                        red = "\n\033[31;4m" if color else "\n"
+                        blue = "\033[34m" if color else ""
+                        green = "\033[32m" if color else ""
+                        white = "\033[37m" if color else ""
+                        underline = "\033[;4m" if color else ""
+                        end = "\033[0m" if color else ""
+                        print("%sInfo%s :" % (red, end))
+                        print("\n%sUniprotID%s : %s   %sGeneID%s : %s   "
+                              "%sTaxID%s : %s   %sPosition%s : %s"
+                              "   %sMetazoa%s : %s   %sPhosphorylation%s : %s"
+                              % (underline, end, uniprotID, underline, end, geneID,
+                                 underline, end, taxID, underline, end, position,
+                                 underline, end, metazoan, underline, end, phosphorylation_site))
 
                         half_window = int((max_window - 1) / 2)
                         space = [20, 5*half_window, 5, 5*half_window]
@@ -161,8 +171,9 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
                                                                    rel_window[1][0]])+(" " * 4)
                         seq_right = (' ' * 4).join(rel_sequence[rel_window[1][0]:
                                                                 rel_window[1][1] + 1]) + (" " * 4)
-                        print("\nsequence%s:\033[34m%s\033[0m%s\033[32m%s\033[0m \n "
-                              % (" " * (space[0] - len("sequence")), seq_left, phospho_site, seq_right))
+                        print("\nsequence%s:%s%s%s%s%s%s%s \n "
+                              % (" " * (space[0] - len("sequence")), blue, seq_left, end,
+                                 phospho_site, green, seq_right, end))
 
                         # Print frequence
 
@@ -171,9 +182,10 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
                         freq_phospho = lamb(freq[rel_window[0][1] - rel_window[0][0] + 1])
                         freq_right = [lamb(element) for element in freq[rel_window[0][1] -
                                                                         rel_window[0][0] + 2: max_window]]
-                        print("\033[37mfreq%s:\033[0m\033[34m%s\033[0m, %s ,\033[32m%s\033[0m\n "
-                              % (" " * (space[0] - len("freq")),
-                                 str(freq_left)[1:-1], str(freq_phospho), str(freq_right)[1:-1]))
+                        print("%sfreq%s:%s%s%s%s, %s ,%s%s%s\n "
+                              % (white, " " * (space[0] - len("freq")), end, blue,
+                                 str(freq_left)[1:-1], end, str(freq_phospho), green,
+                                 str(freq_right)[1:-1], end))
 
                         # Print shanon entropy
 
@@ -184,17 +196,21 @@ def create_training_set(string, file, max_window, phospho_ELM=True):
                         se_right = [lamb(element) for element in shanon_entropy[rel_window[0][1] -
                                                                                 rel_window[0][0] + 2:
                                                                                 max_window]]
-                        print("\033[37mshanon entropy%s:\033[0m\033[34m%s\033[0m, %s, \033[32m%s\033[0m \n "
-                              % (" " * (space[0] - len("shanon entropy")), str(se_left)[1:-1],
-                                        str(se_phospho), str(se_right)[1:-1]))
+                        print("%sshanon entropy%s:%s%s%s%s, %s, %s%s%s \n "
+                              % (white, " " * (space[0] - len("shanon entropy")), end, blue, str(se_left)[1:-1],
+                                 end, str(se_phospho), green, str(se_right)[1:-1], end))
 
-                        print("\033[37minformation content :\033[0m\033[34m%s%s\033[0m,%s%s,%s\033[32m%s\033[0m\n "
-                              % (" " * (int(space[1] / 2) - 3), lamb(IC[0]), " " * (int(space[1] / 2) - 3),
-                                 lamb(IC[2]), " " * (int(space[1] / 2) - 3), lamb(IC[1])))
-                        print("ACH%s:\033[34m%s%s\033[0m,%s%s,%s\033[32m%s\033[0m \n "
-                              % (" " * (space[0] - len("ACH")),
-                                 " " * (int(space[1] / 2) - 3), lamb(ACH[0]), " " * (int(space[1] / 2) - 3),
-                                 lamb(ACH[2]), " " * (int(space[1] / 2) - 3), lamb(ACH[1])))
+                        print("%sinformation content :%s%s%s%s%s%s,%s,%s%s%s%s\n "
+                              % (white, " " * (int(space[1] / 2) - 3), end, blue,
+                                 lamb(IC[0]), " " * (int(space[1] / 2) - 3), end,
+                                 lamb(IC[2]), " " * (int(space[1] / 2) - 3),
+                                 green, lamb(IC[1]), end))
+                        print("ACH%s:%s%s%s%s%s,%s,%s%s%s%s \n "
+                              % (" " * (space[0] - len("ACH")), blue,
+                                 " " * (int(space[1] / 2) - 3), lamb(ACH[0]), end,
+                                 " " * (int(space[1] / 2) - 3),
+                                 lamb(ACH[2]), green,
+                                 " " * (int(space[1] / 2) - 3), lamb(ACH[1]), end))
         if not phospho_ELM:
             df = pd.read_csv("%s/table_%s_phospho_sites.csv" % (path2csv, string), sep=';')
             df = df[df['phosphorylation_site'] == False]

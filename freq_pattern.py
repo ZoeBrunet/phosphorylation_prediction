@@ -14,12 +14,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
-from utils.parser import common_parser
+from utils.parser import dataset_parser
 from utils.score import get_freq_of_pattern
 from utils.align_ortholog import run_muscle
 from utils.window import get_big_window
 
-args = common_parser(sys.argv[1:], 'Run freq_pattern to get the '
+args = dataset_parser(sys.argv[1:], 'Run freq_pattern to get the '
                                    'frequency of the pattern')
 outputfile = run_muscle(args.file)
 window = get_big_window(outputfile)
