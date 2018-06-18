@@ -19,9 +19,8 @@ from h2o.utils.shared_utils import _locate
 from h2o.automl import H2OAutoML
 
 
-def train_model(file, max_mod):
-    h2o.init(nthreads=-1)
-             #, max_mem_size="1g")
+def train_model(file, max_mod, max_time, max_mem_size):
+    h2o.init(nthreads=-1, max_mem_size=max_mem_size)
 
     print("Import and Parse data")
     df = h2o.import_file(path=_locate(file))
@@ -46,7 +45,7 @@ def train_model(file, max_mod):
 
     # Model creation
 
-    aml = H2OAutoML(max_models=max_mod, seed=1)
+    aml = H2OAutoML(max_models=max_mod, max_runtime_secs=max_time, seed=1)
     aml.train(x=df_names_x, y="phosphorylation_site",
               training_frame=df)
     lb = aml.leaderboard
@@ -62,7 +61,7 @@ def train_model(file, max_mod):
     with open('%s/info.txt' % path2models, 'w', newline='') as g:
         orig_stdout = sys.stdout
         sys.stdout = g
-        print(lb)
+        print(lb.head(rows=lb.nrows))
         sys.stdout = orig_stdout
 
     h2o.cluster().shutdown

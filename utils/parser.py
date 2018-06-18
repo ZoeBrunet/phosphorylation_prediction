@@ -97,6 +97,13 @@ def machine_learning_parser(args):
     parser = argparse.ArgumentParser(description='Run machine learning to create '
                                                  'model from dataset')
     file_parser(parser)
-    parser.add_argument('max_model', type=int, nargs='?', default=5,
+    parser.add_argument('-max_models', default=None,
                         help='Input number of model you want to create')
+    parser.add_argument('-max_time', default=None,
+                        help='Input the time in second to rum autoML')
+    parser.add_argument('-max_mem_size', default='1g',
+                        help='Input the maximum size, in bytes, of the memory allocation pool to H2O. '
+                             'This value must a multiple of 1024 greater than 2MB. '
+                             'Append the letter m or M to indicate megabytes, '
+                             'or g or G to indicate gigabytes.')
     return parser.parse_args(args)

@@ -204,12 +204,15 @@ foo@bar:~$ python create_models.py file.csv max_model
 | Name          |     type           |           description              | Default value|
 | ------------- |    -------------   | -------------                    | :-------------: |
 | file          | absolute path to csv file   | Dataset before machine learning     | |
-| max_models    | int (optional)     | Number of models to test| 5 |
+| -max_models    | int (optional)     | Number of models to test| None |
+| -max_time    | int (optional)     |  The maximum runtime in seconds that you want to allot in order to complete the model | 3600 |
+| -max_mem_size    | string (optional)     |  the maximum size, in bytes, of the memory allocation pool to H2O. This value must a multiple of 1024 greater than 2MB. Append the letter m or M to indicate megabytes, or g or G to indicate gigabytes.  | 1g |
 
 ### Example
 
 ```console
-foo@bar:~$ python create_models.py path/2/data/csv/sample.csv max_model
+foo@bar:~$ python create_models.py path/2/data/csv/sample.csv -max_model 10
+foo@bar:~$ python create_models.py path/2/data/csv/sample.csv -max_time 7200
 ```
 
 ## Add information in training set

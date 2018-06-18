@@ -227,6 +227,6 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
                              " " * (int(space[1] / 2) - 3), lamb(ACH[1]), end))
         if not phospho_ELM:
             df = pd.read_csv("%s/table_%s_phospho_sites.csv" % (path2csv, string), sep=';')
-            df = df[not df['phosphorylation_site']]
-            for row in df:
-                writer.writerow(row)
+            for index, row in df.iterrows():
+                if not row["phosphorylation_site"]:
+                    writer.writerow(row)

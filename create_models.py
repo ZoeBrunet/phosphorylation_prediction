@@ -18,4 +18,4 @@ from utils.parser import machine_learning_parser
 from utils.machine_learning import *
 
 args = machine_learning_parser(sys.argv[1:])
-train_model(args.file, args.max_model)
+train_model(args.file, args.max_models, args.max_time, args.max_mem_size)
