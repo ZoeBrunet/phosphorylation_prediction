@@ -45,7 +45,7 @@ def train_model(file, max_mod, max_time, max_mem_size):
 
     # Model creation
 
-    aml = H2OAutoML(max_models=max_mod, max_runtime_secs=max_time, seed=1)
+    aml = H2OAutoML(max_models=max_mod, max_runtime_secs=int(max_time), seed=1)
     aml.train(x=df_names_x, y="phosphorylation_site",
               training_frame=df)
     lb = aml.leaderboard
@@ -53,7 +53,10 @@ def train_model(file, max_mod, max_time, max_mem_size):
     pattern = os.path.dirname(file)[-1:]
 
     # Save models
-    path2models = "%s/models/%s/%smodels" % (path, pattern, max_mod)
+    if max_mod:
+        path2models = "%s/models/%s/%smodels" % (path, pattern, max_mod)
+    else:
+       path2models = "%s/models/%s/%smodels" % (path, pattern, lb.nrows)
     for id in list(lb['model_id'].as_data_frame().iloc[:, 0]):
         model = h2o.get_model(id)
         h2o.save_model(model, path=path2models,

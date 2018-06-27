@@ -79,9 +79,10 @@ def request_cluster_id(clusterID, path, s):
             print("status code for %s = %s" % (request_odb, resp.status_code))
 
 
-def import_ortholog(csv_file, pattern, phospho_ELM):
+def import_ortholog(csv_file, pattern, phospho_ELM, progression):
 
-    print("Parsing csv")
+    if progression:
+        print("Parsing csv")
 
     if os.path.exists("%s/data" % os.path.dirname(csv_file)):
         path = "%s/data" % os.path.dirname(csv_file)
@@ -95,7 +96,8 @@ def import_ortholog(csv_file, pattern, phospho_ELM):
         df = import_csv(csv_file, phospho_ELM)
     mt = get_client("taxon")
 
-    print("Extracting %s phosphorylation site" %pattern)
+    if progression:
+        print("Extracting %s phosphorylation site" %pattern)
 
     sub_df = df[df["code"] == pattern] if phospho_ELM else df
     uniprot_id_list = []
@@ -103,7 +105,8 @@ def import_ortholog(csv_file, pattern, phospho_ELM):
         index_df = pd.read_csv(index_file, sep=';')
         uniprot_id_list = index_df["uniprotID"].value_counts().keys().tolist()
 
-    print("Preparing queries")
+    if progression:
+        print("Preparing queries")
     uniprot_to_convert = set(sub_df["acc"].tolist()) - set(uniprot_id_list)
     resp = uniprotid_to_geneid(uniprot_to_convert)
 
@@ -120,7 +123,8 @@ def import_ortholog(csv_file, pattern, phospho_ELM):
             group_acc_seq = sub_df.groupby(["acc", sequence_type])
             length = len(group_acc_seq)
             for i, ((acc, seq), group)in enumerate(group_acc_seq):
-                print_trace(i, length, "import %s from csv file" % acc)
+                if progression:
+                    print_trace(i, length, "import %s from csv file" % acc)
                 if acc not in uniprot_id_list:
 
                     # Info from phospho.ELM

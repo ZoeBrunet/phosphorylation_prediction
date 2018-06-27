@@ -45,7 +45,7 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
 
     # Data importation
 
-    index_file = import_ortholog(file, pattern, phospho_ELM)
+    index_file = import_ortholog(file, pattern, phospho_ELM, progression)
     genes = pd.read_csv(index_file, sep=';')
 
     # Creation of csv
