@@ -17,6 +17,7 @@ import ast
 from utils.import_csv import *
 from utils.score import *
 from utils.align_ortholog import *
+from utils.tools import split_fasta
 from utils.window import create_window, find_pos_in_alignment
 
 
@@ -56,14 +57,21 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
 
         # Header
 
-        header_freq = ["freq_%s" % i for i in range(0, max_window)]
-        header_se = ["shanon_entropy_%s" % i for i in range(0, max_window)]
+        header_freq_metazoa = ["freq_metazoa_%s" % i for i in range(0, max_window)]
+        header_se_metazoa = ["shanon_entropy_metazoa_%s" % i for i in range(0, max_window)]
+        header_freq_non_metazoa = ["freq_metazoa_%s" % i for i in range(0, max_window)]
+        header_se_non_metazoa = ["shanon_entropy_metazoa_%s" % i for i in range(0, max_window)]
         writer.writerow((['uniprotID', 'geneID', 'position',
                           'taxID', 'clusterID', 'sequence', 'seq_in_window',
                           'nb_orthologs', 'phosphorylation_site',
-                          'ACH_left', 'ACH_right', 'ACH_tot', 'IC_left',
-                          'IC_right', 'IC_tot', "metazoa"]
-                         + header_freq + header_se))
+                          'ACH_prot_left', 'ACH_prot_right', 'ACH_prot_tot',
+                          'ACH_metazoa_left', 'ACH_metazoa_right', 'ACH_metazoa_tot',
+                          'ACH_non_metazoa_left', 'ACH_non_metazoa_right', 'ACH_non_metazoa_tot',
+                          'IC_metazoa_left', 'IC_metazoa_right', 'IC_metazoa_tot',
+                          'IC_non_metazoa_left', 'IC_non_metazoa_right', 'IC_non_metazoa_tot',
+                          "metazoa"]
+                         + header_freq_metazoa + header_freq_non_metazoa +
+                         header_se_metazoa + header_se_non_metazoa))
         length = len(genes)
         gene_seq = genes["sequence"] if phospho_ELM else genes["seq_in_window"]
         gene_pos = zip(genes["pos_sites"], genes["neg_sites"]) if phospho_ELM else genes["pos_sites"]
@@ -76,17 +84,28 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
             path2input = '%s/%s' % (path2fastas, input)
             path2cluster = "%s/%s.fasta" % (path2fastas, input[:-6])
             path2aligncluster = "%s/%s_align.fasta" % (path2align, input[:-6])
+            path2alignclustermetazoa = "%s/%s_align_metazoa.fasta" % (path2align, input[:-6])
+            path2alignclusternonmetazoa = "%s/%s_align_nonmetazoa.fasta" % (path2align, input[:-6])
 
             # align fasta
-
-            pssm = None
-            ortholog = False
+            pssm_metazoa = None
+            pssm_non_metazoa = None
+            ortholog_metazoa = False
+            ortholog_non_metazoa = False
             if os.path.exists(path2cluster):
                 if not os.path.exists(path2aligncluster):
                     run_muscle(path2input)
-                summary_align = get_align_info(path2aligncluster)
-                pssm = get_pssm(summary_align)
-                ortholog = True
+                if not os.path.exists(path2alignclustermetazoa) or \
+                        not os.path.exists(path2alignclusternonmetazoa):
+                    split_fasta(path2aligncluster)
+                if os.path.exists(path2alignclustermetazoa):
+                    summary_align_metazoa = get_align_info(path2alignclustermetazoa)
+                    pssm_metazoa = get_pssm(summary_align_metazoa)
+                    ortholog_metazoa = True
+                if os.path.exists(path2alignclusternonmetazoa):
+                    summary_align_non_metazoa = get_align_info(path2alignclusternonmetazoa)
+                    pssm_non_metazoa = get_pssm(summary_align_non_metazoa)
+                    ortholog_non_metazoa = True
 
             # fill csv
             phospho_bool = [True, False] if phospho_ELM else [True]
@@ -102,7 +121,8 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
                     if not phospho_ELM:
                         sequence = None
                     rel_sequence = sequence
-                    if ortholog:
+                    #for vecteur bool pour metazoa et non metazoa zip
+                    if ortholog_metazoa or ortholog_non_metazoa:
                         with open(path2aligncluster) as f:
                             alpha = Alphabet.Gapped(IUPAC.protein)
                             align = AlignIO.read(f, "fasta", alphabet=alpha)
@@ -119,23 +139,33 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
 
                     # Score orthologs
 
-                    freq = get_freq_of_pattern(pattern, rel_window, path2aligncluster, max_window)
-                    shanon_entropy = get_shanon_entropy(rel_window, pssm, max_window)
-                    IC = get_information_content(rel_window, path2aligncluster)
+                    freq_metazoa = get_freq_of_pattern(pattern, rel_window, path2alignclustermetazoa, max_window)
+                    freq_non_metazoa = get_freq_of_pattern(pattern, rel_window, path2alignclusternonmetazoa, max_window)
+                    shanon_entropy_metazoa = get_shanon_entropy(rel_window, pssm_metazoa, max_window)
+                    shanon_entropy_non_metazoa = get_shanon_entropy(rel_window, pssm_non_metazoa, max_window)
+                    IC_metazoa = get_information_content(rel_window, path2alignclustermetazoa)
+                    IC_non_metazoa = get_information_content(rel_window, path2alignclusternonmetazoa)
 
                     # Score sequence
 
-                    ACH = get_ACH(window, sequence) if sequence is not None \
+                    ACH_prot = get_ACH(window, sequence) if sequence is not None \
                         else get_ACH(create_window(window_seq, 6, 13, phospho_ELM), window_seq)
+                    ACH_metazoa = get_alignment_ACH(rel_window, path2alignclustermetazoa)
+                    ACH_non_metazoa = get_alignment_ACH(rel_window, path2alignclusternonmetazoa)
+
 
                     # Fill csv
                     if window_seq is None:
                         window_seq = sequence[window[0][0]: window[1][1] + 1]
                     writer.writerow([uniprotID, geneID, position, taxID, clusterID,
                                      sequence, window_seq, nb_orthologs,
-                                     phosphorylation_site, ACH[0], ACH[1],
-                                     ACH[2], IC[0], IC[1], IC[2],
-                                     metazoan] + freq + shanon_entropy)
+                                     phosphorylation_site, ACH_prot[0], ACH_prot[1],
+                                     ACH_prot[2], ACH_metazoa[0], ACH_metazoa[1],
+                                     ACH_metazoa[2], ACH_non_metazoa[0], ACH_non_metazoa[1],
+                                     ACH_non_metazoa[2], IC_metazoa[0], IC_metazoa[1], IC_metazoa[2],
+                                     IC_non_metazoa[0], IC_non_metazoa[1], IC_non_metazoa[2],
+                                     metazoan] + freq_metazoa + freq_non_metazoa +
+                                    shanon_entropy_metazoa + shanon_entropy_non_metazoa)
 
                     # Print infos
 
@@ -164,67 +194,78 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
                     space = [20, 5*half_window, 5, 5*half_window]
 
                     # Print sequence
+                    for name, freq, shanon_entropy, IC, ACH in zip(["metazoa", "non metazoa"],
+                                                                   [freq_metazoa, freq_non_metazoa],
+                                                                   [shanon_entropy_metazoa, shanon_entropy_non_metazoa],
+                                                                   [IC_metazoa, IC_non_metazoa],
+                                                                   [ACH_metazoa, ACH_non_metazoa]):
+                        print("%s%s%s :" % (red, name, end))
+                        seq_left = (' ' * 4).join(rel_sequence[rel_window[0][0]:
+                                                               rel_window[0][1] + 1])+(" " * 4)
+                        phospho_site = (' ' * 4).join(rel_sequence[rel_window[0][1] + 1:
+                                                                   rel_window[1][0]])+(" " * 4)
+                        seq_right = (' ' * 4).join(rel_sequence[rel_window[1][0]:
+                                                                rel_window[1][1] + 1]) + (" " * 4)
+                        print("\nsequence%s:%s%s%s%s%s%s%s \n "
+                              % (" " * (space[0] - len("sequence")), blue, seq_left, end,
+                                 phospho_site, green, seq_right, end))
 
-                    seq_left = (' ' * 4).join(rel_sequence[rel_window[0][0]:
-                                                           rel_window[0][1] + 1])+(" " * 4)
-                    phospho_site = (' ' * 4).join(rel_sequence[rel_window[0][1] + 1:
-                                                               rel_window[1][0]])+(" " * 4)
-                    seq_right = (' ' * 4).join(rel_sequence[rel_window[1][0]:
-                                                            rel_window[1][1] + 1]) + (" " * 4)
-                    print("\nsequence%s:%s%s%s%s%s%s%s \n "
-                          % (" " * (space[0] - len("sequence")), blue, seq_left, end,
-                             phospho_site, green, seq_right, end))
+                        if align_ortho_window:
+                            align = AlignIO.read(path2aligncluster, "fasta")
+                            for record in align:
+                                if not len(find_pattern(str(taxID), str(record.id))):
+                                    seq_left = (' ' * 4).join(record.seq[rel_window[0][0]:
+                                                                         rel_window[0][1] + 1]) + (" " * 4)
+                                    phospho_site = (' ' * 4).join(record.seq[rel_window[0][1] + 1:
+                                                                               rel_window[1][0]]) + (" " * 4)
+                                    seq_right = (' ' * 4).join(record.seq[rel_window[1][0]:
+                                                                            rel_window[1][1] + 1]) + (" " * 4)
+                                    print("%s%s:%s%s%s%s%s%s%s \n "
+                                          % (record.id, " " * (space[0] - len(record.id)), blue, seq_left, end,
+                                             phospho_site, green, seq_right, end))
 
-                    if align_ortho_window:
-                        align = AlignIO.read(path2aligncluster, "fasta")
-                        for record in align:
-                            if not len(find_pattern(str(taxID), str(record.id))):
-                                seq_left = (' ' * 4).join(record.seq[rel_window[0][0]:
-                                                                     rel_window[0][1] + 1]) + (" " * 4)
-                                phospho_site = (' ' * 4).join(record.seq[rel_window[0][1] + 1:
-                                                                           rel_window[1][0]]) + (" " * 4)
-                                seq_right = (' ' * 4).join(record.seq[rel_window[1][0]:
-                                                                        rel_window[1][1] + 1]) + (" " * 4)
-                                print("%s%s:%s%s%s%s%s%s%s \n "
-                                      % (record.id, " " * (space[0] - len(record.id)), blue, seq_left, end,
-                                         phospho_site, green, seq_right, end))
+                        # Print frequence
 
-                    # Print frequence
+                        lamb = lambda n: "nan" if n == "nan" else round(float(n), 1)
+                        freq_left = [lamb(element) for element in freq[0: rel_window[0][1] - rel_window[0][0] + 1]]
+                        freq_phospho = lamb(freq[rel_window[0][1] - rel_window[0][0] + 1])
+                        freq_right = [lamb(element) for element in freq[rel_window[0][1] -
+                                                                            rel_window[0][0] + 2: max_window]]
+                        print("%sfreq%s:%s%s%s%s, %s ,%s%s%s "
+                              % (white, " " * (space[0] - len("freq")), end, blue,
+                                 str(freq_left)[1:-1], end, str(freq_phospho), green,
+                                 str(freq_right)[1:-1], end))
 
-                    lamb = lambda n: "nan" if n == "nan" else round(float(n), 1)
-                    freq_left = [lamb(element) for element in freq[0: rel_window[0][1] - rel_window[0][0] + 1]]
-                    freq_phospho = lamb(freq[rel_window[0][1] - rel_window[0][0] + 1])
-                    freq_right = [lamb(element) for element in freq[rel_window[0][1] -
-                                                                        rel_window[0][0] + 2: max_window]]
-                    print("%sfreq%s:%s%s%s%s, %s ,%s%s%s "
-                          % (white, " " * (space[0] - len("freq")), end, blue,
-                             str(freq_left)[1:-1], end, str(freq_phospho), green,
-                             str(freq_right)[1:-1], end))
+                        # Print shanon entropy
 
-                    # Print shanon entropy
+                        se_left = [lamb(element) for element in shanon_entropy[0:
+                                                                               rel_window[0][1]
+                                                                               - rel_window[0][0] + 1]]
+                        se_phospho = lamb(shanon_entropy[rel_window[0][1] - rel_window[0][0] + 1])
+                        se_right = [lamb(element) for element in shanon_entropy[rel_window[0][1] -
+                                                                                rel_window[0][0] + 2:
+                                                                                max_window]]
+                        print("%sshanon entropy%s:%s%s%s%s, %s, %s%s%s \n "
+                              % (white, " " * (space[0] - len("shanon entropy")), end, blue, str(se_left)[1:-1],
+                                 end, str(se_phospho), green, str(se_right)[1:-1], end))
 
-                    se_left = [lamb(element) for element in shanon_entropy[0:
-                                                                           rel_window[0][1]
-                                                                           - rel_window[0][0] + 1]]
-                    se_phospho = lamb(shanon_entropy[rel_window[0][1] - rel_window[0][0] + 1])
-                    se_right = [lamb(element) for element in shanon_entropy[rel_window[0][1] -
-                                                                            rel_window[0][0] + 2:
-                                                                            max_window]]
-                    print("%sshanon entropy%s:%s%s%s%s, %s, %s%s%s \n "
-                          % (white, " " * (space[0] - len("shanon entropy")), end, blue, str(se_left)[1:-1],
-                             end, str(se_phospho), green, str(se_right)[1:-1], end))
-
-                    print("%sinformation content :%s%s%s%s%s%s,%s,%s%s%s%s\n "
-                          % (white, " " * (int(space[1] / 2) - 3), end, blue,
-                             lamb(IC[0]), " " * (int(space[1] / 2) - 3), end,
-                             lamb(IC[2]), " " * (int(space[1] / 2) - 3),
-                             green, lamb(IC[1]), end))
-                    print("ACH%s:%s%s%s%s%s,%s,%s%s%s%s \n "
-                          % (" " * (space[0] - len("ACH")), blue,
-                             " " * (int(space[1] / 2) - 3), lamb(ACH[0]), end,
-                             " " * (int(space[1] / 2) - 3),
-                             lamb(ACH[2]), green,
-                             " " * (int(space[1] / 2) - 3), lamb(ACH[1]), end))
+                        print("%sinformation content :%s%s%s%s%s%s,%s,%s%s%s%s\n "
+                              % (white, " " * (int(space[1] / 2) - 3), end, blue,
+                                 lamb(IC[0]), " " * (int(space[1] / 2) - 3), end,
+                                 lamb(IC[2]), " " * (int(space[1] / 2) - 3),
+                                 green, lamb(IC[1]), end))
+                        print("ACH alignment%s:%s%s%s%s%s,%s,%s%s%s%s \n "
+                              % (" " * (space[0] - len("ACH alignment")), blue,
+                                 " " * (int(space[1] / 2) - 3), lamb(ACH[0]), end,
+                                 " " * (int(space[1] / 2) - 3),
+                                 lamb(ACH[2]), green,
+                                 " " * (int(space[1] / 2) - 3), lamb(ACH[1]), end))
+                        print("ACH prot%s:%s%s%s%s%s,%s,%s%s%s%s \n "
+                              % (" " * (space[0] - len("ACH prot")), blue,
+                                 " " * (int(space[1] / 2) - 3), lamb(ACH_prot[0]), end,
+                                 " " * (int(space[1] / 2) - 3),
+                                 lamb(ACH_prot[2]), green,
+                                 " " * (int(space[1] / 2) - 3), lamb(ACH_prot[1]), end))
         if not phospho_ELM:
             df = pd.read_csv("%s/table_%s_phospho_sites.csv" % (path2csv, string), sep=';')
             for index, row in df.iterrows():
