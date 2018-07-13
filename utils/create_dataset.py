@@ -27,9 +27,7 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
 
     file_name = os.path.basename(file)
     if os.path.basename(os.path.dirname(file)) == "csv" \
-            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "data"\
-            and os.path.basename(os.path.dirname(os.path.dirname(os.path.dirname(file))))\
-            =="phosphorylation_prediction":
+            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "data":
         path = "%s/data" % os.path.abspath(os.path.dirname
                                            (os.path.dirname(__file__)))
     else:
