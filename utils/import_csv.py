@@ -45,7 +45,7 @@ def import_csv(csv, phospho_ELM):
 
 def request_gene_id(geneID, s):
     request = 'http://www.orthodb.org/search?query=%s&ncbi=1' \
-              '&singlecopy=1&limit=1' % geneID
+              '&singlecopy=1&limit=1&universal=1' % geneID
     response = s.get(request)
     if response.status_code == 200:
         return response.json()
@@ -89,6 +89,7 @@ def import_ortholog(csv_file, pattern, phospho_ELM, progression):
     else:
         path = os.path.dirname(os.path.dirname(csv_file))
     file_name = os.path.basename(csv_file)
+    os.makedirs("%s/csv/%s" % (path, pattern), exist_ok=True)
     index_file = '%s/csv/%s/index_%s_%s.csv' % (path, pattern, file_name[:-4], pattern)
     if phospho_ELM:
         df = import_csv(csv_file, phospho_ELM)

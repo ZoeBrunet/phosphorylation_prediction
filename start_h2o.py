@@ -19,7 +19,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 h2o.init(nthreads=-1)
-mod = h2o.load_model("/home/zoe/dev/phosphorylation_prediction/data/models/Y/5models/GBM_grid_0_AutoML_20180615_111003_model_0")
+mod = h2o.load_model("path")
 thresholds = [x/100.0 for x in range(1, 100)]
 precision = mod.precision(valid=True, thresholds=thresholds)
 recall = mod.metric("recall", valid=True, thresholds=thresholds)
@@ -34,6 +34,5 @@ plt.title('Precision-Recall Curve')
 plt.subplot(122)
 plt.plot(thresholds, thresholds)
 perf = mod.model_performance(valid=True)
-mod.varimp_plot()
 print(mod.confusion_matrix(valid=True))
 perf.plot()

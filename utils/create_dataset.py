@@ -27,7 +27,9 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
 
     file_name = os.path.basename(file)
     if os.path.basename(os.path.dirname(file)) == "csv" \
-            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "data":
+            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "data"\
+            and os.path.basename(os.path.dirname(os.path.dirname(os.path.dirname(file))))\
+            =="phosphorylation_prediction":
         path = "%s/data" % os.path.abspath(os.path.dirname
                                            (os.path.dirname(__file__)))
     else:
@@ -95,8 +97,9 @@ def create_training_set(string, file, max_window, phospho_ELM=True, progression=
             if os.path.exists(path2cluster):
                 if not os.path.exists(path2aligncluster):
                     run_muscle(path2input)
-                if not os.path.exists(path2alignclustermetazoa) or \
-                        not os.path.exists(path2alignclusternonmetazoa):
+                if ((not os.path.exists(path2alignclustermetazoa) or
+                    not os.path.exists(path2alignclusternonmetazoa)) and
+                        os.path.exists(path2aligncluster)):
                     split_fasta(path2aligncluster)
                 if os.path.exists(path2alignclustermetazoa):
                     summary_align_metazoa = get_align_info(path2alignclustermetazoa)
