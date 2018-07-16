@@ -14,10 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import re
-from biothings_client import get_client
 from Bio import Alphabet
 from Bio import AlignIO
-from Bio import SeqIO
 from Bio.Align import AlignInfo
 from Bio.Alphabet import IUPAC
 import math
@@ -86,15 +84,3 @@ def find_seq(align, taxID):
         if len(find_pattern(str(taxID), str(record.id))):
             return str(record.seq).replace('-', '')
     return None
-
-
-def split_fasta(file):
-    path2metazoa = "%s_metazoa.fasta" % file[:-6]
-    path2nonmetazoa = "%s_non_metazoa.fasta" % file[:-6]
-    for record in SeqIO.parse(open(file), "fasta"):
-        mt = get_client("taxon")
-        position = str(record.id).find(":")
-        taxID = record.id[:position]
-        metazoa = is_metazoan(float(taxID), mt)
-        f_out = path2metazoa if metazoa else path2nonmetazoa
-        SeqIO.write([record], open(f_out, 'a'), "fasta")

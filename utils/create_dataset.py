@@ -17,7 +17,6 @@ import ast
 from utils.import_csv import *
 from utils.score import *
 from utils.align_ortholog import *
-from utils.tools import split_fasta
 from utils.window import create_window, find_pos_in_alignment
 
 

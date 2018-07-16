@@ -15,11 +15,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 from Bio.Align.Applications import MuscleCommandline
+from Bio import SeqIO
+from biothings_client import get_client
+from utils.tools import is_metazoan
 
 
 def run_muscle(file_input):
     file = os.path.basename(file_input)
-    file_output = "%s_align.fasta" % file[:-6]
+    file_output = "%s_align.fasta" % file[:-13]
     path = os.path.dirname(os.path.dirname(file_input))
     path2align = "%s/align" % path
     if not os.path.exists(path2align):
@@ -29,3 +32,33 @@ def run_muscle(file_input):
         muscle_cline = MuscleCommandline(input=file_input, out=path2outfile)
         os.system(str(muscle_cline))
     return(path2outfile)
+
+
+def split_fasta(file):
+    file_name = os.path.basename(file)
+    path = os.path.dirname(os.path.dirname(file))
+    os.makedirs("%s/metazoa" % path, exist_ok=True)
+    os.makedirs("%s/non_metazoa" % path, exist_ok=True)
+    path2metazoa = "%s/metazoa/%s_metazoa.csv" % (path, file_name[:-6])
+    path2nonmetazoa = "%s/non_metazoa/%s_non_metazoa.csv" % (path, file_name[:-6])
+    for record in SeqIO.parse(open(file), "fasta"):
+        mt = get_client("taxon")
+        position = str(record.id).find(":")
+        taxID = record.id[:position]
+        metazoa = is_metazoan(float(taxID), mt)
+        f_out = path2metazoa if metazoa else path2nonmetazoa
+        SeqIO.write([record], open(f_out, 'a'), "fasta")
+
+
+def sort_fasta(input):
+    id_list = []
+    file = os.path.basename(input)
+    path = os.path.dirname(os.path.dirname(input))
+    os.makedirs("%s/sorted_fastas" % path, exist_ok=True)
+    f_out = "%s/sorted_fastas/%s_sorted.fasta" % (path, file[:-6])
+    if not os.path.exists(f_out):
+        for record in SeqIO.parse(open(input), "fasta"):
+            if record.id not in id_list:
+                SeqIO.write([record], open(f_out, 'a'), "fasta")
+    path2align = run_muscle(f_out)
+    split_fasta(path2align)
