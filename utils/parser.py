@@ -31,9 +31,9 @@ def dataset_parser(args):
     parser = argparse.ArgumentParser(description='Run program to get training set in csv files')
     parser.add_argument('pattern',
                         help='Input Python regular expression you want to detect')
+    parser.add_argument('--nthread', type=int, nargs='?', default=1,
+                        help='Input number of thread you want to use')
     arg_parser(parser)
-    parser.add_argument('--progression', action='store_true',
-                        help='Enable this bool to display progression')
     parser.add_argument('--color', action='store_true',
                         help='Enable this bool to have color in output console')
     parser.add_argument('--ortholog', action='store_true',

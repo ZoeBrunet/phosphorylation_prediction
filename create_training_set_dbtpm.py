@@ -17,9 +17,28 @@
 import sys
 from utils.parser import dataset_parser
 from utils.create_dataset import create_training_set
+from utils.find_neg_sites import *
 
 
 args = dataset_parser(sys.argv[1:])
-create_training_set(args.pattern, args.file, args.max_window, phospho_ELM=False,
-                    color=args.color, progression=args.progression,
-                    align_ortho_window=args.ortholog)
+input_file = [str(item) for item in args.file.split(',')]
+patterns = [str(item) for item in args.pattern.split(',')]
+if len(patterns) != len(input_file):
+    patterns = [patterns[0]] * len(input_file)
+dic = {}
+files = {}
+dic["phospho_sites"] = {}
+
+for file, pattern in zip(input_file, patterns):
+    output_file = None
+    if pattern in files:
+        output_file = str(files[str(pattern)])
+    dic = create_training_set(pattern, file, args.max_window,
+                              args.nthread, dic["phospho_sites"], phospho_ELM=False, color=args.color,
+                              align_ortho_window=args.ortholog, output_file=output_file)
+    if pattern not in files:
+        files[str(pattern)] = dic["file"]
+pos_sites = dic["phospho_sites"]
+for pattern in list(set(patterns)):
+    find_neg(pos_sites, pattern, args.max_window, args.color, args.nthread, files[pattern],
+             args.ortholog)

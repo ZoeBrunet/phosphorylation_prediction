@@ -29,6 +29,7 @@ def relative_position(seq, position):
 
 def find_pos_in_alignment(align, sequence, taxID, position, phospho_ELM):
     pos = None
+    seq = None
     for record in align:
         if len(find_pattern(str(taxID), str(record.id))):
             seq = record.seq

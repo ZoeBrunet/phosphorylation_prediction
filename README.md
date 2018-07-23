@@ -35,7 +35,7 @@ The dataset will be in data/csv/pattern and its name will be input_pattern_phosp
 | pattern       | regular expression | Amino acid sequence you want to detect | |
 | file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare     | |
 | max_window    | int (optional)     | Max size of the amino acid sequence in which the pattern can be find| 15 |
-| --progression    | bool (optional)     | Show the progression of the program| False |
+| --nthread          | int (optional)  | Number of thread to execute program | 1 |
 | --color    | bool (optional)     | Enable color in console output | False |
 | --ortholog    | bool (optional)     | Show the orthologs in the window | False |
 

@@ -72,14 +72,14 @@ def get_ACH(window, sequence):
     if len(window):
         for i, w in enumerate(window):
             ACH = 0.
-            seq = str(sequence[w[0]:w[1] + 1])
+            seq = str(sequence[int(w[0]):int(w[1] + 1)])
             if "X" in seq:
                 ACH_list[i] = "nan"
             else:
                 for char in seq:
                     ACH = round(ACH + hydrophobicity[char], 2)
                 ACH_list[i] = ACH
-        return ACH_list
+    return ACH_list
 
 
 def get_alignment_ACH(window, file):

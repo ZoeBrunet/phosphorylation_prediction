@@ -19,7 +19,66 @@ import os
 from biothings_client import get_client
 import mygene
 import requests
-from utils.tools import find_pattern, is_metazoan, print_trace
+import ast
+import math
+import numpy as np
+from threading import Thread, RLock
+from utils.tools import find_pattern, is_metazoan
+
+lock = RLock()
+
+
+class fill_csv(Thread):
+    def __init__(self, group_acc_seq,uniprot_id_list, phospho_ELM,
+                 pattern, mt, path, s, writer, resp):
+        Thread.__init__(self)
+        self.group_acc_seq = group_acc_seq
+        self.uniprot_id_list = uniprot_id_list
+        self.phospho_ELM = phospho_ELM
+        self.pattern = pattern
+        self.mt = mt
+        self.path = path
+        self.s = s
+        self.writer = writer
+        self.resp = resp
+
+    def run(self):
+        for i, ((acc, seq), group) in enumerate(self.group_acc_seq):
+            print("import %s from csv file" % acc)
+            if acc not in self.uniprot_id_list:
+                # Info from phospho.ELM
+                pos_list = []
+                for position in group["position"]:
+                    if position - 1 not in pos_list:
+                        pos_list.append(position - 1)
+                if self.phospho_ELM:
+                    neg_list = []
+                    for m in find_pattern(self.pattern, seq):
+                        new_position = round((m.end() + m.start() - 1) / 2)
+                        neg = True
+                        for pos in pos_list:
+                            if abs(new_position - pos) <= 50:
+                                neg = False
+                        if neg:
+                            neg_list.append(new_position)
+
+                # Info from gene
+                r = (self.resp).loc[[acc]]
+                geneID = None
+                taxID = None
+
+                if "_id" in r:
+                    geneID = r["_id"].values[0]
+                if "taxid" in r:
+                    taxID = r["taxid"].values[0]
+                metazoan = is_metazoan(taxID, self.mt)
+
+                # Info from orthoDB
+                with lock:
+                    clusterID = request_cluster_id(acc, geneID, self.path, self.s)
+                    site_type = [pos_list, neg_list] if self.phospho_ELM else [pos_list]
+                    (self.writer).writerow([acc, geneID, taxID, metazoan, self.pattern, seq] +
+                                    site_type + [clusterID])
 
 
 def import_csv(csv, phospho_ELM):
@@ -63,26 +122,40 @@ def uniprotid_to_geneid(uniprotid_list):
         return []
 
 
-def request_cluster_id(clusterID, path, s):
-    name = "%s.fasta" % clusterID
+def request_ortho_db(s, id, ncbi, path2file):
+    request_odb = 'http://www.orthodb.org/fasta?query=%s&ncbi=%s' % (id, ncbi)
+    resp = s.get(request_odb)
+    if resp.status_code == 200:
+        content = resp.content.decode("ascii")
+        try:
+            ast.literal_eval(content)
+        except:
+            request_api = 'wget \'%s\' -O %s' % (request_odb, path2file)
+            os.system(request_api)
+            return True
+    else:
+        print("status code for %s = %s" % (request_odb, resp.status_code))
+    return False
+
+
+def request_cluster_id(acc, geneID, path, s):
+    cluster_id = "nan"
+    name = "%s.fasta" % acc
     path2fastas = "%s/fastas" % path
     path2file = "%s/%s" % (path2fastas, name)
-    if not os.path.exists(path2fastas):
-        os.mkdir(path2fastas)
+    os.makedirs(path2fastas, exist_ok=True)
+    downloaded = False
     if not os.path.exists(path2file):
-        request_odb = 'http://www.orthodb.org/fasta?id=%s' % clusterID
-        resp = s.get(request_odb)
-        if resp.status_code == 200:
-            request_api = "wget %s -O %s" % (request_odb, path2file)
-            os.system(request_api)
-        else:
-            print("status code for %s = %s" % (request_odb, resp.status_code))
+        downloaded = request_ortho_db(s, acc, 0, path2file)
+        if not downloaded and not math.isnan(float(geneID)):
+            downloaded = request_ortho_db(s, geneID, 1, path2file)
+    if downloaded or os.path.exists(path2file):
+        cluster_id = acc
+    return cluster_id
 
 
-def import_ortholog(csv_file, pattern, phospho_ELM, progression):
-
-    if progression:
-        print("Parsing csv")
+def import_ortholog(csv_file, pattern, phospho_ELM, nthread):
+    print("Parsing csv")
 
     if os.path.exists("%s/data" % os.path.dirname(csv_file)):
         path = "%s/data" % os.path.dirname(csv_file)
@@ -91,23 +164,18 @@ def import_ortholog(csv_file, pattern, phospho_ELM, progression):
     file_name = os.path.basename(csv_file)
     os.makedirs("%s/csv/%s" % (path, pattern), exist_ok=True)
     index_file = '%s/csv/%s/index_%s_%s.csv' % (path, pattern, file_name[:-4], pattern)
-    if phospho_ELM:
-        df = import_csv(csv_file, phospho_ELM)
-    else:
-        df = import_csv(csv_file, phospho_ELM)
+    df = import_csv(csv_file, phospho_ELM)
     mt = get_client("taxon")
 
-    if progression:
-        print("Extracting %s phosphorylation site" %pattern)
+    print("Extracting %s phosphorylation site" % pattern)
 
-    sub_df = df[df["code"] == pattern] if phospho_ELM else df
+    sub_df = df[df["code"] == pattern] if phospho_ELM else df[(df["pmids"] != "-") & (df["pmids"].notnull())]
     uniprot_id_list = []
     if os.path.exists(index_file) and os.path.getsize(index_file) > 0:
         index_df = pd.read_csv(index_file, sep=';')
         uniprot_id_list = index_df["uniprotID"].value_counts().keys().tolist()
 
-    if progression:
-        print("Preparing queries")
+    print("Preparing queries")
     uniprot_to_convert = set(sub_df["acc"].tolist()) - set(uniprot_id_list)
     resp = uniprotid_to_geneid(uniprot_to_convert)
 
@@ -120,49 +188,16 @@ def import_ortholog(csv_file, pattern, phospho_ELM, progression):
         if not first_char:
             writer.writerow(['uniprotID', 'geneID', 'taxID', 'metazoan', 'code',
                              sequence_type] + position_type + ['clusterID'])
+
         with requests.Session() as s:
             group_acc_seq = sub_df.groupby(["acc", sequence_type])
-            length = len(group_acc_seq)
-            for i, ((acc, seq), group)in enumerate(group_acc_seq):
-                if progression:
-                    print_trace(i, length, "import %s from csv file" % acc)
-                if acc not in uniprot_id_list:
-
-                    # Info from phospho.ELM
-                    pos_list = []
-                    for position in group["position"]:
-                        if position - 1 not in pos_list:
-                            pos_list.append(position - 1)
-                    if phospho_ELM:
-                        neg_list = []
-                        for m in find_pattern(pattern, seq):
-                            new_position = round((m.end() + m.start() - 1) / 2)
-                            neg = True
-                            for pos in pos_list:
-                                if abs(new_position - pos) <= 50:
-                                    neg = False
-                            if neg:
-                                neg_list.append(new_position)
-
-                    # Info from gene
-                    r = resp.loc[[acc]]
-                    geneID = None
-                    taxID = None
-
-                    if "_id" in r:
-                        geneID = r["_id"].values[0]
-                    if "taxid" in r:
-                        taxID = r["taxid"].values[0]
-                    metazoan = is_metazoan(taxID, mt)
-
-                    # Info from orthoDB
-                    request = request_gene_id(geneID, s)
-                    clusterID = "nan"
-                    if request is not None:
-                        if len(request["data"]):
-                            clusterID = request["data"][0]
-                            request_cluster_id(clusterID, path, s)
-                    site_type = [pos_list, neg_list] if phospho_ELM else [pos_list]
-                    writer.writerow([acc, geneID, taxID, metazoan, pattern, seq] +
-                                    site_type + [clusterID])
+            data_thread = np.array_split(group_acc_seq, nthread)
+            thread_list = []
+            for data in data_thread:
+                thread_list.append(fill_csv(data, uniprot_id_list, phospho_ELM,
+                                            pattern, mt, path, s, writer, resp))
+            for thread in thread_list:
+                thread.start()
+            for thread in thread_list:
+                thread.join()
     return index_file

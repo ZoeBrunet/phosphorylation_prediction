@@ -17,6 +17,7 @@ import os
 from Bio.Align.Applications import MuscleCommandline
 from Bio import SeqIO
 from biothings_client import get_client
+from difflib import SequenceMatcher
 from utils.tools import is_metazoan
 
 
@@ -39,8 +40,8 @@ def split_fasta(file):
     path = os.path.dirname(os.path.dirname(file))
     os.makedirs("%s/metazoa" % path, exist_ok=True)
     os.makedirs("%s/non_metazoa" % path, exist_ok=True)
-    path2metazoa = "%s/metazoa/%s_metazoa.csv" % (path, file_name[:-6])
-    path2nonmetazoa = "%s/non_metazoa/%s_non_metazoa.csv" % (path, file_name[:-6])
+    path2metazoa = "%s/metazoa/%s_metazoa.fasta" % (path, file_name[:-6])
+    path2nonmetazoa = "%s/non_metazoa/%s_non_metazoa.fasta" % (path, file_name[:-6])
     for record in SeqIO.parse(open(file), "fasta"):
         mt = get_client("taxon")
         position = str(record.id).find(":")
@@ -50,15 +51,38 @@ def split_fasta(file):
         SeqIO.write([record], open(f_out, 'a'), "fasta")
 
 
-def sort_fasta(input):
-    id_list = []
-    file = os.path.basename(input)
-    path = os.path.dirname(os.path.dirname(input))
+def add_seq(record, f_out, taxid_list, taxid):
+    r = SeqIO.write([record], open(f_out, 'a'), "fasta")
+    if r != 1:
+        print("Error while writing sequence: %s" % record.id)
+    taxid_list.append(taxid)
+
+
+def sort_fasta(path2cluster, taxID, sequence):
+    taxid_list = []
+    file = os.path.basename(path2cluster)
+    path = os.path.dirname(os.path.dirname(path2cluster))
     os.makedirs("%s/sorted_fastas" % path, exist_ok=True)
     f_out = "%s/sorted_fastas/%s_sorted.fasta" % (path, file[:-6])
+    seq_find = False
     if not os.path.exists(f_out):
-        for record in SeqIO.parse(open(input), "fasta"):
-            if record.id not in id_list:
-                SeqIO.write([record], open(f_out, 'a'), "fasta")
-    path2align = run_muscle(f_out)
-    split_fasta(path2align)
+        for record in SeqIO.parse(open(path2cluster), "fasta"):
+            to_add = True
+            taxonomy = str(record.id).split(":")[0]
+            if float(taxonomy) == float(taxID) and taxID not in taxid_list and not seq_find:
+                match = SequenceMatcher(None, record.seq,
+                                        sequence).find_longest_match(0, len(record.seq),
+                                                                     0, len(sequence))
+                if match.size == 13:
+                    add_seq(record, f_out, taxid_list, taxonomy)
+                    seq_find = True
+                else:
+                    to_add = False
+            if taxonomy not in taxid_list and to_add:
+                add_seq(record, f_out, taxid_list, taxonomy)
+    if not seq_find:
+        os.remove(f_out)
+        print("No corresponding sequence in fasta for %s" % file[:-6])
+    else:
+        path2align = run_muscle(f_out)
+        split_fasta(path2align)

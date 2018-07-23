@@ -14,12 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
-from utils.parser import dataset_parser
-from utils.create_dataset import create_training_set
+from utils.align_ortholog import *
 
-
-args = dataset_parser(sys.argv[1:])
-create_training_set(args.pattern, args.file, args.max_window, args.nthread, {},
-                    color=args.color, align_ortho_window=args.ortholog)
-
+sort_fasta("/home/zoe/dev/phosphorylation_prediction/data/fastas/test.fasta", 9606, "DSTAAMSSDSAAG")
