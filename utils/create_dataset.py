@@ -423,6 +423,8 @@ def create_training_set(string, file, max_window, nthread, phospho_sites, phosph
     csv_dataset = '%s/%s_%s_phospho_sites.csv' % (path2csv, file_name[:-4], string)
     if output_file is not None:
         csv_dataset = output_file
+    if not os.path.exists(csv_dataset):
+        os.system('touch %s' % csv_dataset)
     with open(csv_dataset, 'a+', newline='') as g:
         writer = csv.writer(g, delimiter=";")
         g.seek(0)
