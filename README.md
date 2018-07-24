@@ -42,7 +42,7 @@ The dataset will be in data/csv/pattern and its name will be input_pattern_phosp
 ### Example
 
 ```console
-foo@bar:~$ python create_training_set_phospho_ELM.py --pogression --ortholog Y path/2/data/csv/sample.csv 13
+foo@bar:~$ python create_training_set_phospho_ELM.py --ortholog Y path/2/data/csv/sample.csv 13
 Parsing csv
 Extracting Y phosphorylation site
 Preparing queries
