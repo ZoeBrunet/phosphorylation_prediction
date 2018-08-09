@@ -147,8 +147,9 @@ def request_cluster_id(acc, geneID, path, s):
     downloaded = False
     if not os.path.exists(path2file):
         downloaded = request_ortho_db(s, acc, 0, path2file)
-        if not downloaded and not math.isnan(float(geneID)):
-            downloaded = request_ortho_db(s, geneID, 1, path2file)
+        if geneID is not None:
+            if not downloaded and not math.isnan(float(geneID)):
+                downloaded = request_ortho_db(s, geneID, 1, path2file)
     if downloaded or os.path.exists(path2file):
         cluster_id = acc
     return cluster_id
@@ -169,7 +170,7 @@ def import_ortholog(csv_file, pattern, phospho_ELM, nthread):
 
     print("Extracting %s phosphorylation site" % pattern)
 
-    sub_df = df[df["code"] == pattern] if phospho_ELM else df[(df["pmids"] != "-") & (df["pmids"].notnull())]
+    sub_df = df[df["code"] == pattern] if phospho_ELM else df
     uniprot_id_list = []
     if os.path.exists(index_file) and os.path.getsize(index_file) > 0:
         index_df = pd.read_csv(index_file, sep=';')

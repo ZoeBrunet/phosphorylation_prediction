@@ -30,14 +30,15 @@ hydrophobicity = {"A": 0.62, "C": 0.29, "D": -0.90, "E": -0.74, "F": 1.19,
 
 
 def is_metazoan(taxID, mt):
-    if not math.isnan(taxID) and taxID is not None:
-        info = mt.gettaxon(int(taxID))
-        if info is not None:
-            if "lineage" in info:
-                if 33208 in info["lineage"]:
-                    return True
-                else:
-                    return False
+    if taxID is not None:
+        if not math.isnan(taxID) and taxID is not None:
+            info = mt.gettaxon(int(taxID))
+            if info is not None:
+                if "lineage" in info:
+                    if 33208 in info["lineage"]:
+                        return True
+                    else:
+                        return False
     return "nan"
 
 

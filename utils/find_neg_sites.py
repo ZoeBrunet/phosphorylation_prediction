@@ -58,12 +58,11 @@ class fill_neg_sites(Thread):
         writer = self.writer
         alpha = Alphabet.Gapped(IUPAC.protein)
 
-        for id, vals in phospho_sites.items():
-            for val in vals:
+        for id, val in phospho_sites.items():
+            for position in val._get_positions():
                 clusterID = val._get_clusterID()
                 window_seq = val._get_window_seq()
                 sequence = val._get_sequence()
-                positions = val._get_positions()
                 taxID = val._get_taxID()
                 uniprotID = val._get_uniprotID()
                 metazoan = val._get_metazoan()
@@ -81,9 +80,8 @@ class fill_neg_sites(Thread):
                 for m in result:
                     new_position = round((m.end() + m.start() - 1) / 2)
                     neg = True
-                    for pos in positions:
-                        if abs(new_position - pos) <= 50:
-                            neg = False
+                    if abs(new_position - position) <= 50:
+                        neg = False
                     if neg:
                         path2aligncluster = "%s/%s_align.fasta" % (path2align, clusterID)
                         path2alignclustermetazoa = "%s/metazoa/%s_align_metazoa.fasta" % (path, clusterID)

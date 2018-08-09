@@ -268,13 +268,13 @@ class fill_table(Thread):
                             window_seq = sequence[window[0][0]: window[1][1] + 1]
                         if sequence is not None:
                             if uniprotID not in phospho_sites:
-                               phospho_sites[uniprotID] = [Gene(uniprotID, geneID, position, taxID,
+                               phospho_sites[uniprotID] = Gene(uniprotID, geneID, position, taxID,
                                                                 clusterID, sequence, window_seq,
                                                                 nb_orthologs, metazoan, nb_orthologs_metazoa,
                                                                 nb_orthologs_non_metazoa, pssm_non_metazoa,
-                                                                pssm_metazoa)]
+                                                                pssm_metazoa)
                             else:
-                               phospho_sites[uniprotID].update_positions(position)
+                                phospho_sites[uniprotID].update_positions(position)
                         self.writer.writerow([uniprotID, geneID, position, taxID, clusterID,
                                               sequence, window_seq, nb_orthologs, nb_orthologs_metazoa,
                                               nb_orthologs_non_metazoa, phosphorylation_site, ACH_prot[0],
@@ -434,8 +434,8 @@ def create_training_set(string, file, max_window, nthread, phospho_sites, phosph
         if not first_char:
             header_freq_metazoa = ["freq_metazoa_%s" % i for i in range(0, max_window)]
             header_se_metazoa = ["shanon_entropy_metazoa_%s" % i for i in range(0, max_window)]
-            header_freq_non_metazoa = ["freq_metazoa_%s" % i for i in range(0, max_window)]
-            header_se_non_metazoa = ["shanon_entropy_metazoa_%s" % i for i in range(0, max_window)]
+            header_freq_non_metazoa = ["freq_non_metazoa_%s" % i for i in range(0, max_window)]
+            header_se_non_metazoa = ["shanon_non_entropy_metazoa_%s" % i for i in range(0, max_window)]
             writer.writerow((['uniprotID', 'geneID', 'position',
                               'taxID', 'clusterID', 'sequence', 'seq_in_window',
                               'nb_orthologs', 'nb_orthologs_metazoa', 'nb_orthologs_non_metazoa',
