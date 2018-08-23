@@ -23,7 +23,7 @@ import ast
 import math
 import numpy as np
 from threading import Thread, RLock
-from utils.tools import find_pattern, is_metazoan
+from utils.tools import find_pattern, is_metazoan, find_sequence
 
 lock = RLock()
 
@@ -43,17 +43,18 @@ class fill_csv(Thread):
         self.resp = resp
 
     def run(self):
-        for i, ((acc, seq), group) in enumerate(self.group_acc_seq):
+        for i, (acc, group) in enumerate(self.group_acc_seq):
             print("import %s from csv file" % acc)
             if acc not in self.uniprot_id_list:
                 # Info from phospho.ELM
                 pos_list = []
+                seq = group["seq_in_window"].values[0]
                 for position in group["position"]:
                     if position - 1 not in pos_list:
                         pos_list.append(position - 1)
                 if self.phospho_ELM:
                     neg_list = []
-                    for m in find_pattern(self.pattern, seq):
+                    for m in find_pattern(self.pattern, group["seq_in_window"]):
                         new_position = round((m.end() + m.start() - 1) / 2)
                         neg = True
                         for pos in pos_list:
@@ -76,9 +77,13 @@ class fill_csv(Thread):
                 # Info from orthoDB
                 with lock:
                     clusterID = request_cluster_id(acc, geneID, self.path, self.s)
+                    name = "%s.fasta" % acc
+                    path2fastas = "%s/fastas" % self.path
+                    path2cluster = "%s/%s" % (path2fastas, name)
+                    sequence = find_sequence(path2cluster, seq, taxID)
                     site_type = [pos_list, neg_list] if self.phospho_ELM else [pos_list]
                     (self.writer).writerow([acc, geneID, taxID, metazoan, self.pattern, seq] +
-                                    site_type + [clusterID])
+                                    site_type + [clusterID, sequence])
 
 
 def import_csv(csv, phospho_ELM):
@@ -188,10 +193,10 @@ def import_ortholog(csv_file, pattern, phospho_ELM, nthread):
         position_type = ['pos_sites', "neg_sites"] if phospho_ELM else ['pos_sites']
         if not first_char:
             writer.writerow(['uniprotID', 'geneID', 'taxID', 'metazoan', 'code',
-                             sequence_type] + position_type + ['clusterID'])
+                             sequence_type] + position_type + ['clusterID', 'sequence'])
 
         with requests.Session() as s:
-            group_acc_seq = sub_df.groupby(["acc", sequence_type])
+            group_acc_seq = sub_df.groupby(["acc"])
             data_thread = np.array_split(group_acc_seq, nthread)
             thread_list = []
             for data in data_thread:

@@ -16,6 +16,7 @@
 import ast
 import threading
 import queue
+from utils.filter_index import remove_redundancy
 from utils.import_csv import *
 from utils.score import *
 from utils.align_ortholog import *
@@ -397,8 +398,8 @@ def create_training_set(string, file, max_window, nthread, phospho_sites, phosph
     file_name = os.path.basename(file)
     if os.path.basename(os.path.dirname(file)) == "csv" \
             and os.path.basename(os.path.dirname(os.path.dirname(file))) == "data":
-        path = "%s/data" % os.path.abspath(os.path.dirname
-                                           (os.path.dirname(__file__)))
+        path = "%s" % os.path.abspath(os.path.dirname
+                                      (os.path.dirname(file)))
     else:
         if not os.path.exists("%s/data" % os.path.dirname(file)):
             os.mkdir("%s/data" % os.path.dirname(file))
@@ -416,6 +417,7 @@ def create_training_set(string, file, max_window, nthread, phospho_sites, phosph
     # Data importation
 
     index_file = import_ortholog(file, pattern, phospho_ELM, nthread)
+    index_file = remove_redundancy(index_file)
     genes = pd.read_csv(index_file, sep=';')
 
     # Creation of csv
