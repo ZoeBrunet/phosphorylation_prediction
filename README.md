@@ -14,8 +14,7 @@ Make sure you have Python3. You can find all the needed packages in requierement
 ```console
 foo@bar:~$ pip install -r requirements.txt
 ```
-
-## Create Dataset
+## Create dataset
 
 ### How to use it
 
@@ -302,33 +301,165 @@ example 6 seqs, max length 19, avg  length 9
 path/2/data/align/example_align.fasta
 ```
 
-## Compute Shanon entropy
+
+## Features
+
+You can test each feature we use to enrich our dataset.
+
+### ACH
+
+#### How to use it
+
+Use ACH.py to get Average Cumulative Hydrophobicity of a protein sequence. 
+
+We use hydrophobicity index proposed by Sweet and Eisenberg
+
+The program return a float
+```console
+foo@bar:~$ python ACH.py sequence
+```
+
+#### Parameters
+
+| Name          |     type           |           description              | 
+| ------------- |    -------------   | ------------- | 
+| seq       | string | Amino acid sequence | 
+
+#### Example
+
+```console
+foo@bar:~$ python ACH.py MTPTTPRLS
+-0.92
+```
+
+### Freq
+
+#### How to use it
+
+Use ACH.py to get frequency of a pattern.
+
+If necessary the program create an align directory in which one you will find the multiple alignment. The name of the output file will be inputname_align.fasta. It also return a list of float which is the frequency of the choosen patern for each position in the alignment
+```console
+foo@bar:~$ python freq_pattern.py pattern file
+```
+
+#### Parameters
+
+| Name          |     type           |           description              |
+| ------------- |    -------------   | -------------                    | 
+| pattern       | regular expression | Amino acid sequence you want to detect | 
+| file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare     | 
+
+
+#### Example
+
+```console
+foo@bar:~$ python freq_pattern.py S path/2/phosphorylation_prediction/data_for_test/fastas/example.fasta
+
+MUSCLE v3.8.31 by Robert C. Edgar
+
+http://www.drive5.com/muscle
+This software is donated to the public domain.
+Please cite: Edgar, R.C. Nucleic Acids Res 32(5), 1792-97.
+
+example 6 seqs, max length 18, avg  length 12
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 1
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 2
+00:00:00    25 MB(-7%)  Iter   1  100.00%  Align node
+00:00:00    25 MB(-7%)  Iter   1  100.00%  Root alignment
+00:00:00    25 MB(-7%)  Iter   2  100.00%  Root alignment
+00:00:00    25 MB(-7%)  Iter   3  100.00%  Refine biparts
+[0, 0, 0, 0, 0, 0.8333333333333333, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.3333333333333333, 0, 0, 0]
+```
+
+## Information Content 
 
 ### How to use it
 
-To compute Shanon entropy we use the formula :
+Use information_content.py to get Information Cotent of a fasta file
+We use this formula :
+
+![IC](https://latex.codecogs.com/gif.latex?IC%3D%20%5Csum%5Climits_%7Bj%3D1%7D%5E%7Bmax%5C_window%7D%5Csum%5Climits_%7Bi%3D1%7D%5E%7B20%7D%20p_%7Bij%7D%20log_%7B10%7D%28p_%7Bij%7D%20*%2020%29)
+
+Where P<sub>ij</sub> is the frequency of a particular amino acid i in the j-th column
+
+If necessary the program create an align directory in which one you will find the multiple alignment. The name of the output file will be inputname_align.fasta. It also return a float which is the information content for the alignment.
+```console
+foo@bar:~$ python information_content.py file
+```
+
+### Parameters
+
+| Name          |     type           |           description              |
+| ------------- |    -------------   | -------------                    | 
+| file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare     | 
+
+### Example
+
+```console
+foo@bar:~$ python information_content.py path/2/phosphorylation_prediction/data_for_test/fastas/example.fasta
+
+MUSCLE v3.8.31 by Robert C. Edgar
+
+http://www.drive5.com/muscle
+This software is donated to the public domain.
+Please cite: Edgar, R.C. Nucleic Acids Res 32(5), 1792-97.
+
+example 6 seqs, max length 18, avg  length 12
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 1
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 2
+00:00:00    25 MB(-7%)  Iter   1  100.00%  Align node
+00:00:00    25 MB(-7%)  Iter   1  100.00%  Root alignment
+00:00:00    25 MB(-7%)  Iter   2  100.00%  Root alignment
+00:00:00    25 MB(-7%)  Iter   3  100.00%  Refine biparts
+21.6141621720123
+```
+
+### Shanon entropy
+
+#### How to use it
+
+Use shanon_entropy.py to get Shanon Entropy of a fasta file
+We use this formula :
 
 ![IC](https://latex.codecogs.com/gif.latex?-%5Csum%5Climits_%7Bi%3D1%7D%5E%7B20%7D%20p_i%20log_2%28p_i%29)
 
 Where p<sub>i</sub> is the frequency of a particular amino acid.
 
-```console
-foo@bar:~$ python shanon_entropy.py file.fasta
-```
-It will create an align directory in which one you will find the multiple alignment. The name of the output file will be inputname_align.fasta 
+If necessary the program create an align directory in which one you will find the multiple alignment. The name of the output file will be inputname_align.fasta. It also return a list of float which is the shanon entropy for each position in the alignment.
 
-### Parameters 
+```console
+foo@bar:~$ python shanon_entropy.py file
+```
+
+#### Parameters 
 
 | Name          |     type           |           description              |
 | ------------- |    -------------   | -------------                    | 
 | file          | absolute path to fasta file   | Sequence of orthologs protein you want to compare  |
 
 
-### Example
+#### Example
 
 ```console
-foo@bar:~$ python shanon_entropy.py path/2/data/align/example.fasta
-[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.2516291673878228, 0.0, 1.0, 1.0, 1.4591479170272448, 1.5219280948873621, 0.9709505944546686, 1.9219280948873623, 0.8112781244591328]
+foo@bar:~$ python shanon_entropy.py path/2/phosphorylation_prediction/data_for_test/fastas/example.fasta
+
+MUSCLE v3.8.31 by Robert C. Edgar
+
+http://www.drive5.com/muscle
+This software is donated to the public domain.
+Please cite: Edgar, R.C. Nucleic Acids Res 32(5), 1792-97.
+
+example 6 seqs, max length 18, avg  length 12
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 1
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 2
+00:00:00    25 MB(-7%)  Iter   1  100.00%  Align node
+00:00:00    25 MB(-7%)  Iter   1  100.00%  Root alignment
+00:00:00    25 MB(-7%)  Iter   2  100.00%  Root alignment
+00:00:00    25 MB(-7%)  Iter   3  100.00%  Refine biparts
+[0.6500224216483541, 0.6500224216483541, 0.6500224216483541, 0.6500224216483541, 
+0.6500224216483541, 0.6500224216483541, 0.6500224216483541, 0.7219280948873623, 
+0.7219280948873623, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ```
 
 ## License

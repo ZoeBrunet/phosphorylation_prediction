@@ -23,18 +23,20 @@ import ast
 import math
 import numpy as np
 from threading import Thread, RLock
-from utils.tools import find_pattern, is_metazoan, find_sequence
+import queue
+from source.utils.tools import find_pattern, function_in_thread
+from source.utils.sequence import is_metazoan, find_sequence
+
 
 lock = RLock()
 
 
 class fill_csv(Thread):
-    def __init__(self, group_acc_seq,uniprot_id_list, phospho_ELM,
+    def __init__(self, group_acc_seq,uniprot_id_list,
                  pattern, mt, path, s, writer, resp):
         Thread.__init__(self)
         self.group_acc_seq = group_acc_seq
         self.uniprot_id_list = uniprot_id_list
-        self.phospho_ELM = phospho_ELM
         self.pattern = pattern
         self.mt = mt
         self.path = path
@@ -46,23 +48,9 @@ class fill_csv(Thread):
         for i, (acc, group) in enumerate(self.group_acc_seq):
             print("import %s from csv file" % acc)
             if acc not in self.uniprot_id_list:
-                # Info from phospho.ELM
                 pos_list = []
-                seq = group["seq_in_window"].values[0]
-                for position in group["position"]:
-                    if position - 1 not in pos_list:
-                        pos_list.append(position - 1)
-                if self.phospho_ELM:
-                    neg_list = []
-                    for m in find_pattern(self.pattern, group["seq_in_window"]):
-                        new_position = round((m.end() + m.start() - 1) / 2)
-                        neg = True
-                        for pos in pos_list:
-                            if abs(new_position - pos) <= 50:
-                                neg = False
-                        if neg:
-                            neg_list.append(new_position)
-
+                seq_list = []
+                que = queue.Queue()
                 # Info from gene
                 r = (self.resp).loc[[acc]]
                 geneID = None
@@ -73,33 +61,55 @@ class fill_csv(Thread):
                 if "taxid" in r:
                     taxID = r["taxid"].values[0]
                 metazoan = is_metazoan(taxID, self.mt)
+                clusterID = function_in_thread(que, [acc,
+                                                     geneID,
+                                                     self.path,
+                                                     self.s],
+                                               request_cluster_id)
+                name = "%s.fasta" % acc
+                path2fastas = "%s/fastas" % self.path
+                path2cluster = "%s/%s" % (path2fastas, name)
+                sequence = function_in_thread(que, [path2cluster,
+                                                    group["seq_in_window"].tolist(),
+                                                    taxID], find_sequence)
+                if sequence != "None":
+                    for position, seq in zip(group["position"], group["seq_in_window"]):
+                        match = function_in_thread(que, [seq, sequence], find_pattern)
+                        tmp_position = None
+                        if len(match):
+                            for r in match:
+                                if tmp_position is None:
+                                    dist = len(sequence) + 1
+                                else:
+                                    dist = abs(tmp_position - position)
+                                if dist > abs(6 + r.start() - position):
+                                    tmp_position = 6 + r.start()
+                            position = tmp_position
+                        else:
+                            position = None
+                        if position not in pos_list and position is not None:
+                            pos_list.append(position)
+                            seq_list.append(seq)
 
-                # Info from orthoDB
-                with lock:
-                    clusterID = request_cluster_id(acc, geneID, self.path, self.s)
-                    name = "%s.fasta" % acc
-                    path2fastas = "%s/fastas" % self.path
-                    path2cluster = "%s/%s" % (path2fastas, name)
-                    sequence = find_sequence(path2cluster, seq, taxID)
-                    site_type = [pos_list, neg_list] if self.phospho_ELM else [pos_list]
-                    (self.writer).writerow([acc, geneID, taxID, metazoan, self.pattern, seq] +
-                                    site_type + [clusterID, sequence])
+                    with lock:
+                        if len(pos_list):
+                            (self.writer).writerow([acc, geneID, taxID, metazoan, self.pattern, seq_list,
+                                                    pos_list, clusterID, sequence])
 
 
-def import_csv(csv, phospho_ELM):
-    df = pd.read_csv(csv, sep="\t") if phospho_ELM else pd.read_csv(csv, sep="\t", header=None)
-    if not phospho_ELM:
-        df.columns = [
-            'prot_name',
-            'acc',
-            'position',
-            'type',
-            'pmids',
-            'database',
-            'code',
-            'tpm',
-            'seq_in_window'
-        ]
+def import_csv(csv):
+    df = pd.read_csv(csv, sep="\t", header=None)
+    df.columns = [
+        'prot_name',
+        'acc',
+        'position',
+        'type',
+        'pmids',
+        'database',
+        'code',
+        'tpm',
+        'seq_in_window'
+    ]
     # Convert data into category
     for cat in df.columns:
         if cat != "position":
@@ -160,7 +170,7 @@ def request_cluster_id(acc, geneID, path, s):
     return cluster_id
 
 
-def import_ortholog(csv_file, pattern, phospho_ELM, nthread):
+def import_ortholog(csv_file, pattern, nthread):
     print("Parsing csv")
 
     if os.path.exists("%s/data" % os.path.dirname(csv_file)):
@@ -170,37 +180,35 @@ def import_ortholog(csv_file, pattern, phospho_ELM, nthread):
     file_name = os.path.basename(csv_file)
     os.makedirs("%s/csv/%s" % (path, pattern), exist_ok=True)
     index_file = '%s/csv/%s/index_%s_%s.csv' % (path, pattern, file_name[:-4], pattern)
-    df = import_csv(csv_file, phospho_ELM)
+    df = import_csv(csv_file)
     mt = get_client("taxon")
 
     print("Extracting %s phosphorylation site" % pattern)
 
-    sub_df = df[df["code"] == pattern] if phospho_ELM else df
     uniprot_id_list = []
     if os.path.exists(index_file) and os.path.getsize(index_file) > 0:
         index_df = pd.read_csv(index_file, sep=';')
         uniprot_id_list = index_df["uniprotID"].value_counts().keys().tolist()
 
     print("Preparing queries")
-    uniprot_to_convert = set(sub_df["acc"].tolist()) - set(uniprot_id_list)
+    uniprot_to_convert = set(df["acc"].tolist()) - set(uniprot_id_list)
     resp = uniprotid_to_geneid(uniprot_to_convert)
 
+    sub_df = df[df["acc"].isin(list(uniprot_to_convert))]
+    sub_df.reset_index()
     with open(index_file, 'a+', newline='') as g:
         writer = csv.writer(g, delimiter=";")
         g.seek(0)
         first_char = g.read(1)
-        sequence_type = 'sequence' if phospho_ELM else 'seq_in_window'
-        position_type = ['pos_sites', "neg_sites"] if phospho_ELM else ['pos_sites']
         if not first_char:
             writer.writerow(['uniprotID', 'geneID', 'taxID', 'metazoan', 'code',
-                             sequence_type] + position_type + ['clusterID', 'sequence'])
-
+                             'seq_in_window', 'pos_sites', 'clusterID', 'sequence'])
         with requests.Session() as s:
-            group_acc_seq = sub_df.groupby(["acc"])
+            group_acc_seq = sub_df.groupby(["acc"], observed=True)
             data_thread = np.array_split(group_acc_seq, nthread)
             thread_list = []
             for data in data_thread:
-                thread_list.append(fill_csv(data, uniprot_id_list, phospho_ELM,
+                thread_list.append(fill_csv(data, uniprot_id_list,
                                             pattern, mt, path, s, writer, resp))
             for thread in thread_list:
                 thread.start()

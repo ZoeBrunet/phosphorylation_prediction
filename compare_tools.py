@@ -14,10 +14,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
-from utils.parser import info_parser
-from utils.enrich_csv import print_pie
+from source.utils.parser import compare_tools_parser
+from source.benchmark.request_tools import *
 
+args = compare_tools_parser(sys.argv[1:])
+benchmark = args.benchmark
+tool_dict = {"musite": args.musite, "RF_Phos": args.rfp}
+models = args.models
+if models is not None:
+    models = [str(item) for item in models.split(',')]
+else:
+    models = []
 
-args = info_parser(sys.argv[1:])
-
-print_pie(args.file, args.column, args.caption, True)
+directory = tools_prediction(benchmark, tool_dict)
+model_list = model_prediction(directory, args.model_directory, models, benchmark)
+tool_list = [key for (key, value) in tool_dict.items() if value]
+model_list += tool_list
+results = benchmark_result(directory, model_list)
+stat = get_result_info(results, args.step)
+plot_curves(stat)

@@ -18,12 +18,12 @@ from Bio.Align.Applications import MuscleCommandline
 from Bio import SeqIO
 from biothings_client import get_client
 from difflib import SequenceMatcher
-from utils.tools import is_metazoan
+from source.utils.sequence import is_metazoan
 
 
 def run_muscle(file_input):
     file = os.path.basename(file_input)
-    file_output = "%s_align.fasta" % file[:-13]
+    file_output = "%s_align.fasta" % os.path.splitext(file)[0]
     path = os.path.dirname(os.path.dirname(file_input))
     path2align = "%s/align" % path
     if not os.path.exists(path2align):

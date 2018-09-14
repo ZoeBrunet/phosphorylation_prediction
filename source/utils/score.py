@@ -14,7 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
-from utils.tools import *
+import math
+from source.utils.tools import *
 
 
 def get_freq_of_pattern(pattern, window, file, max_window):

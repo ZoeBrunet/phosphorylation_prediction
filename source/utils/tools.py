@@ -14,14 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import re
-import os
 from Bio import Alphabet
-from Bio import SeqIO
 from Bio import AlignIO
 from Bio.Align import AlignInfo
 from Bio.Alphabet import IUPAC
-from difflib import SequenceMatcher
-import math
+from threading import Thread
 
 
 global hydrophobicity
@@ -32,23 +29,14 @@ hydrophobicity = {"A": 0.62, "C": 0.29, "D": -0.90, "E": -0.74, "F": 1.19,
                   "Z": -0.79, "B": -0.84, "-": 0}
 
 
-def is_metazoan(taxID, mt):
-    if taxID is not None:
-        if not math.isnan(taxID) and taxID is not None:
-            info = mt.gettaxon(int(taxID))
-            if info is not None:
-                if "lineage" in info:
-                    if 33208 in info["lineage"]:
-                        return True
-                    else:
-                        return False
-    return "nan"
-
-
-def print_trace(i, length, request):
-    print("%s %s/%s = %s"
-          % (request, str(i + 1), str(length),
-             str(round(((i + 1) / length) * 100, 2)) + "%"))
+def function_in_thread(que, args, func):
+    t = Thread(target=lambda q, arg: q.put(func(*arg)), args=(que, args[:]))
+    t.start()
+    t.join()
+    result = None
+    while not que.empty():
+        result = que.get()
+    return result
 
 
 def find_pattern(pattern, seq):
@@ -81,23 +69,3 @@ def get_pssm(summary_align):
     consensus = summary_align.dumb_consensus()
     my_pssm = summary_align.pos_specific_score_matrix(consensus, chars_to_ignore=['-'])
     return my_pssm
-
-
-def find_seq(align, taxID):
-    for record in align:
-        if len(find_pattern(str(taxID), str(record.id))):
-            return str(record.seq).replace('-', '')
-    return None
-
-
-def find_sequence(path2cluster, seq, taxID):
-    if os.path.exists(path2cluster):
-        for record in SeqIO.parse(open(path2cluster), "fasta"):
-            taxonomy = str(record.id).split(":")[0]
-            if float(taxonomy) == float(taxID):
-                match = SequenceMatcher(None, record.seq,
-                                        seq).find_longest_match(0, len(record.seq),
-                                                                0, len(seq))
-                if match.size == 13:
-                    return record.seq
-    return None

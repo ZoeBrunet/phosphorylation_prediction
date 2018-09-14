@@ -13,11 +13,15 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import sys
-from utils.parser import info_parser
-from utils.enrich_csv import print_pie
+from source.utils.parser import dataset_parser
+from source.dataset.create_dataset import create_training_set
 
+args = dataset_parser(sys.argv[1:], 'Run final_index_to_dataset to get dataset from index')
+file = args.file
+pattern = args.pattern
 
-args = info_parser(sys.argv[1:])
-
-print_pie(args.file, args.column, args.caption, False)
+create_training_set(pattern, args.max_window,
+                    args.nthread, file, phospho_ELM=False, color=args.color,
+                    align_ortho_window=args.ortholog)

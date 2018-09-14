@@ -27,12 +27,14 @@ def arg_parser(parser):
                         help='Size of the windows which contain your pattern')
 
 
-def dataset_parser(args):
-    parser = argparse.ArgumentParser(description='Run program to get training set in csv files')
+def dataset_parser(args, desc):
+    parser = argparse.ArgumentParser(description=desc)
     parser.add_argument('pattern',
                         help='Input Python regular expression you want to detect')
     parser.add_argument('--nthread', type=int, nargs='?', default=1,
                         help='Input number of thread you want to use')
+    parser.add_argument('--species', nargs='?', default=None,
+                        help='Input taxid list coma separated')
     arg_parser(parser)
     parser.add_argument('--color', action='store_true',
                         help='Enable this bool to have color in output console')
@@ -41,9 +43,8 @@ def dataset_parser(args):
     return parser.parse_args(args)
 
 
-def IC_parser(args):
-    parser = argparse.ArgumentParser(description='Run information_content '
-                                                 'to get information content')
+def score_parser(args, desc):
+    parser = argparse.ArgumentParser(description=desc)
     arg_parser(parser)
     return parser.parse_args(args)
 
@@ -51,14 +52,6 @@ def IC_parser(args):
 def muscle_parser(args):
     parser = argparse.ArgumentParser(description='Run run_muscle '
                                                  'to align orthologs from fasta file')
-    file_parser(parser)
-    return parser.parse_args(args)
-
-
-def shanon_parser(args):
-    parser = argparse.ArgumentParser(description='Run shanon_entropy to get the '
-                                                 'shanon entropy of each position '
-                                                 'in the alignment')
     file_parser(parser)
     return parser.parse_args(args)
 
@@ -97,6 +90,8 @@ def machine_learning_parser(args):
     parser = argparse.ArgumentParser(description='Run machine learning to create '
                                                  'model from dataset')
     file_parser(parser)
+    parser.add_argument('directory_name',
+                        help='Input the name of the directory where you want to store models')
     parser.add_argument('-max_models', default=None,
                         help='Input number of model you want to create')
     parser.add_argument('-max_time', default=None,
@@ -106,4 +101,49 @@ def machine_learning_parser(args):
                              'This value must a multiple of 1024 greater than 2MB. '
                              'Append the letter m or M to indicate megabytes, '
                              'or g or G to indicate gigabytes.')
+    return parser.parse_args(args)
+
+
+def boxplot_parser(args):
+    parser = argparse.ArgumentParser(description='Run program to get boxplot or pie-chart')
+    parser.add_argument('feature',
+                        help='Input the feature you want to plot')
+    parser.add_argument('files',
+                        help='Input list of csv with "," as separator')
+    parser.add_argument('filename',
+                        help='Input the path of the output')
+    parser.add_argument('-names', default=None,
+                        help='Optional input list of name "," as separator for boxplot')
+    return parser.parse_args(args)
+
+
+def model_parser(args):
+    parser = argparse.ArgumentParser(description='Run program to get info on model')
+    parser.add_argument('model', help='Input path to model')
+    return parser.parse_args(args)
+
+
+def split_parser(args):
+    parser = argparse.ArgumentParser(description='Run program to split dataset '
+                                                 'into validation and training set')
+    parser.add_argument('dataset', help='Input path to dataset')
+    parser.add_argument('used_protein', help='Input path to file in which are '
+                                             'Musite and RF-phos dataset')
+    parser.add_argument('-convert', default=None,
+                        help='Optional input convert file to translate id into uniprotid')
+    return parser.parse_args(args)
+
+
+def compare_tools_parser(args):
+    parser = argparse.ArgumentParser(description='Run program to compare models predictions')
+    parser.add_argument('benchmark', help='Input path to benchmark')
+    parser.add_argument('model_directory', help='Input the directory in whom models are stored')
+    parser.add_argument('--musite', action='store_true',
+                        help='Enable this bool to enable Musite prediction')
+    parser.add_argument('--rfp', action='store_true',
+                        help='Enable this bool to enable RF-Phos prediction')
+    parser.add_argument('-step', default=100,
+                        help='Optional input step for threshold')
+    parser.add_argument('-models', default=None,
+                        help='Optional input list of models you want to test')
     return parser.parse_args(args)

@@ -13,7 +13,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import sys
+import pandas as pd
+import plotly
+import plotly.graph_objs as go
+from source.utils.parser import boxplot_parser
 
-from utils.align_ortholog import *
+args = boxplot_parser(sys.argv[1:])
+files = [str(item) for item in args.files.split(',')]
+feature = args.feature
+filename = args.filename
 
-sort_fasta("/home/zoe/dev/phosphorylation_prediction/data/fastas/test.fasta", 9606, "DSTAAMSSDSAAG")
+for file in files:
+    df = pd.read_csv(file, sep=";")
+    label = df[feature].value_counts().keys().tolist()
+    values = df[feature].value_counts().tolist()
+    trace = go.Pie(labels=label, values=values, textinfo='value')
+    plotly.offline.plot([trace], filename=filename, image='png')

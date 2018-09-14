@@ -13,7 +13,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from utils.tools import *
+from source.utils.tools import *
 from difflib import SequenceMatcher
 
 
@@ -83,4 +83,4 @@ def get_big_window(file):
     with open(file) as f:
         align = AlignIO.read(f, "fasta")
         length = align.get_alignment_length()
-    return [0, length]
+    return [[0, 1], [0, 1], [0, length]]

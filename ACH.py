@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
-from utils.parser import ACH_parser
-from utils.score import get_ACH
+from source.utils.parser import ACH_parser
+from source.utils.score import get_ACH
 
 args = ACH_parser(sys.argv[1:])
-window = [0, len(args.seq)]
+window = [[0,1],[0,1],[0, len(args.seq)]]
 
-print(get_ACH(window, args.seq))
+print(get_ACH(window, args.seq)[2])

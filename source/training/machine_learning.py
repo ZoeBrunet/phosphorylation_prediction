@@ -14,12 +14,11 @@
 # You should have received a copy of the GNU General Public License
 import sys
 import h2o
-import os
 from h2o.utils.shared_utils import _locate
 from h2o.automl import H2OAutoML
 
 
-def train_model(file, max_mod, max_time, max_mem_size):
+def train_model(file, max_mod, max_time, max_mem_size, directory_name):
     h2o.init(nthreads=-1, max_mem_size=max_mem_size)
 
     print("Import and Parse data")
@@ -39,8 +38,8 @@ def train_model(file, max_mod, max_time, max_mem_size):
     # Variable selection
 
     df_names_x = df.names[:]
-    for col in ["phosphorylation_site", "uniprotID", "geneID",
-                "clusterID", "nb_orthologs"]:
+    for col in ["phosphorylation_site", "uniprotID", "geneID", "sequence", "position", "seq_in_window", "metazoa",
+                "clusterID", "nb_orthologs", "taxID", "nb_orthologs_metazoa", "nb_orthologs_nonmetazoa"]:
          df_names_x.remove(col)
 
     # Model creation
@@ -49,19 +48,14 @@ def train_model(file, max_mod, max_time, max_mem_size):
     aml.train(x=df_names_x, y="phosphorylation_site",
               training_frame=df)
     lb = aml.leaderboard
-    path = os.path.dirname(os.path.dirname(os.path.dirname(file)))
-    pattern = os.path.dirname(file)[-1:]
 
     # Save models
-    if max_mod:
-        path2models = "%s/models/%s/%smodels" % (path, pattern, max_mod)
-    else:
-       path2models = "%s/models/%s/%smodels" % (path, pattern, lb.nrows)
+
     for id in list(lb['model_id'].as_data_frame().iloc[:, 0]):
         model = h2o.get_model(id)
-        h2o.save_model(model, path=path2models,
+        h2o.save_model(model, path=directory_name,
                        force=True)
-    with open('%s/info.txt' % path2models, 'w', newline='') as g:
+    with open('%s/info.txt' % directory_name, 'w', newline='') as g:
         orig_stdout = sys.stdout
         sys.stdout = g
         print(lb.head(rows=lb.nrows))

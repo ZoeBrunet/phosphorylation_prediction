@@ -14,13 +14,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
-from source.utils.parser import score_parser
-from source.utils.score import get_information_content
-from source.utils.align_ortholog import run_muscle
-from source.utils.window import get_big_window
+import os
+from source.utils.parser import model_parser
+from source.benchmark.plot_varimp import plot_varimp
 
-args = score_parser(sys.argv[1:], 'Run information_content to get information content')
-outputfile = run_muscle(args.file)
-window = get_big_window(outputfile)
+args = model_parser(sys.argv[1:])
+model = args.model
 
-print(get_information_content(window, outputfile)[2])
+path = os.path.dirname(model)
+info_name = "%s_info.txt" % os.path.basename(model)
+varimp_name = "%s_varimp.csv" % os.path.basename(model)
+path2info = "%s/%s" % (path, info_name)
+path2varimp = "%s/%s" % (path, varimp_name)
+
+plot_varimp(model, path2info, path2varimp)
+

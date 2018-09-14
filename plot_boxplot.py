@@ -13,13 +13,21 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import plotly.offline as py
+import plotly.graph_objs as go
+import pandas as pd
 import sys
-from utils.parser import dataset_parser
-from utils.create_dataset import create_training_set
+from source.utils.parser import boxplot_parser
 
+args = boxplot_parser(sys.argv[1:])
+files = [str(item) for item in args.files.split(',')]
+names = [str(item) for item in args.names.split(',')]
+feature = args.feature
+filename = args.filename
 
-args = dataset_parser(sys.argv[1:])
-create_training_set(args.pattern, args.file, args.max_window, args.nthread, {},
-                    color=args.color, align_ortho_window=args.ortholog)
-
+data = []
+for name, file in zip(names, files):
+    df = pd.read_csv(file, sep=";")
+    y = df[feature].tolist()
+    data.append(go.Box(name=name, y=y))
+py.plot(data, filename=filename, image='png')

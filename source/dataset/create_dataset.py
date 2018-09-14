@@ -14,14 +14,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import ast
-import threading
 import queue
-from utils.filter_index import remove_redundancy
-from utils.import_csv import *
-from utils.score import *
-from utils.align_ortholog import *
-from utils.window import create_window, find_pos_in_alignment
-from utils.find_neg_sites import function_in_thread
+import threading
+import pandas as pd
+import csv
+import numpy as np
+from threading import RLock
+from source.utils.score import *
+from source.utils.window import create_window, find_pos_in_alignment
 
 
 class Gene:
@@ -29,7 +29,7 @@ class Gene:
     def __init__(self, uniprotID, geneID, position, taxID,
                  clusterID, sequence, window_seq, nb_orthologs,
                  metazoan, nb_orthologs_metazoa, nb_orthologs_non_metazoa,
-                 pssm_non_metazoa, pssm_metazoa):
+                 pssm_non_metazoa, pssm_metazoa, pattern):
 
         self.uniprotID = uniprotID
         self.geneID = geneID
@@ -44,9 +44,13 @@ class Gene:
         self.nb_orthologs_non_metazoa = nb_orthologs_non_metazoa
         self.pssm_non_metazoa = pssm_non_metazoa
         self.pssm_metazoa = pssm_metazoa
+        self.pattern = set(pattern)
 
     def update_positions(self, new_position):
         self.positions.append(new_position)
+
+    def update_pattern(self, new_pattern):
+        self.pattern.add(new_pattern)
 
     def _get_uniprotID(self):
         return self.uniprotID
@@ -87,13 +91,16 @@ class Gene:
     def _get_pssm_metazoa(self):
         return self.pssm_metazoa
 
+    def _get_pattern(self):
+        return self.pattern
+
 
 lock = RLock()
 
 
 class fill_table(Thread):
     def __init__(self, genes, phospho_ELM, path2fastas, path2align, max_window,
-                 path, pattern, color, align_ortho_window, writer, phospho_sites):
+                 path, pattern, color, align_ortho_window, writer):
         Thread.__init__(self)
         self.genes = genes
         self.phospho_ELM = phospho_ELM
@@ -105,7 +112,6 @@ class fill_table(Thread):
         self.color = color
         self.align_ortho_window = align_ortho_window
         self.writer = writer
-        self.phospho_sites = phospho_sites
 
     def run(self):
         genes = self.genes
@@ -116,19 +122,19 @@ class fill_table(Thread):
         path = self.path
         pattern = self.pattern
         color = self.color
-        phospho_sites = self.phospho_sites
         alpha = Alphabet.Gapped(IUPAC.protein)
 
-        gene_seq = genes["sequence"] if phospho_ELM else genes["seq_in_window"]
-        gene_pos = zip(genes["pos_sites"], genes["neg_sites"]) if phospho_ELM else genes["pos_sites"]
+        gene_seq = genes["sequence"] if phospho_ELM else zip(genes["seq_in_window"], genes["neg_seq_in_window"])
+        gene_pos = zip(genes["pos_sites"], genes["neg_sites"])
+
         for i, (uniprotID, geneID, taxID,
-                metazoan, sequence, sites, clusterID) in enumerate(zip(genes["uniprotID"], genes["geneID"],
-                                                       genes["taxID"], genes["metazoan"],
-                                                       gene_seq, gene_pos, genes["clusterID"])):
+                metazoan, sequence_list, sites, clusterID, seq) in enumerate(zip(genes["uniprotID"], genes["geneID"],
+                                                                                 genes["taxID"], genes["metazoan"],
+                                                                                 gene_seq, gene_pos, genes["clusterID"],
+                                                                                 genes["sequence"])):
 
             nb_orthologs_metazoa = 0
             nb_orthologs_non_metazoa = 0
-            window_seq = None if phospho_ELM else sequence
             path2cluster = "%s/%s.fasta" % (path2fastas, clusterID)
             path2aligncluster = "%s/%s_align.fasta" % (path2align, clusterID)
             path2alignclustermetazoa = "%s/metazoa/%s_align_metazoa.fasta" % (path, clusterID)
@@ -189,54 +195,33 @@ class fill_table(Thread):
                     ortholog_non_metazoa = True
 
             # fill csv
-            phospho_bool = [True, False] if phospho_ELM else [True]
-            if not phospho_ELM:
-                sites = [sites]
-            for position_list, phosphorylation_site in zip(sites, phospho_bool):
-                for position in ast.literal_eval(position_list):
-                    window = create_window(sequence, position, max_window, phospho_ELM)
+            phospho_bool = [True, False]
+            for position_list, phosphorylation_site, seq_list in zip(sites, phospho_bool, sequence_list):
+                for position, sequence in zip(ast.literal_eval(position_list), ast.literal_eval(seq_list)):
+                    seq_csv = seq
+                    window_seq = None if phospho_ELM else sequence
+                    que = queue.Queue()
+                    window = function_in_thread(que, [sequence,
+                                                      position,
+                                                      max_window,
+                                                      phospho_ELM], create_window)
                     rel_window = []
                     nb_orthologs = 0
-                    if not phospho_ELM:
-                        sequence = None
-                    rel_sequence = sequence
                     #for vecteur bool pour metazoa et non metazoa zip
                     if ortholog_metazoa or ortholog_non_metazoa:
                         with open(path2aligncluster) as f:
                             align = AlignIO.read(f, "fasta", alphabet=alpha)
                             nb_orthologs = align.__len__()
-                            if not phospho_ELM:
-                                sequence = find_seq(align, taxID)
-                            que = queue.Queue()
-                            t = Thread(target=lambda q, align,
-                                                     sequence,
-                                                     taxID,
-                                                     position,
-                                                     phospho_ELM: q.put(find_pos_in_alignment(align,
-                                                                                              sequence,
-                                                                                              taxID,
-                                                                                              position,
-                                                                                              phospho_ELM) if phospho_ELM \
-                                else find_pos_in_alignment(align, window_seq, taxID,
-                                                           position, phospho_ELM)), args=(que,
-                                                                                          align,
-                                                                                          sequence,
-                                                                                          taxID,
-                                                                                          position,
-                                                                                          phospho_ELM))
-                            t.start()
-                            t.join()
-                            finder = None
-                            while not que.empty():
-                                finder = que.get()
-                            finder = find_pos_in_alignment(align, sequence, taxID,
-                                                           position, phospho_ELM) if phospho_ELM \
-                                else find_pos_in_alignment(align, window_seq, taxID,
-                                                           position, phospho_ELM)
-                            rel_pos = finder["position"]
+                            finder = function_in_thread(que, [align, seq, taxID,
+                                                              position, True], find_pos_in_alignment)
+                            rel_position = finder["position"]
                             rel_sequence = finder["sequence"]
-                            rel_window = create_window(rel_sequence, rel_pos, max_window, True)
-
+                            if rel_sequence != '':
+                                rel_window = function_in_thread(que, [rel_sequence, rel_position, max_window, True],
+                                                                create_window)
+                            else:
+                                rel_sequence = sequence
+                                seq_csv = None
                     # Score orthologs
                     que = queue.Queue()
 
@@ -267,17 +252,8 @@ class fill_table(Thread):
                     # Fill csv
                         if window_seq is None:
                             window_seq = sequence[window[0][0]: window[1][1] + 1]
-                        if sequence is not None:
-                            if uniprotID not in phospho_sites:
-                               phospho_sites[uniprotID] = Gene(uniprotID, geneID, position, taxID,
-                                                                clusterID, sequence, window_seq,
-                                                                nb_orthologs, metazoan, nb_orthologs_metazoa,
-                                                                nb_orthologs_non_metazoa, pssm_non_metazoa,
-                                                                pssm_metazoa)
-                            else:
-                                phospho_sites[uniprotID].update_positions(position)
                         self.writer.writerow([uniprotID, geneID, position, taxID, clusterID,
-                                              sequence, window_seq, nb_orthologs, nb_orthologs_metazoa,
+                                              seq_csv, window_seq, nb_orthologs, nb_orthologs_metazoa,
                                               nb_orthologs_non_metazoa, phosphorylation_site, ACH_prot[0],
                                               ACH_prot[1], ACH_prot[2], ACH_metazoa[0], ACH_metazoa[1],
                                               ACH_metazoa[2], ACH_non_metazoa[0], ACH_non_metazoa[1],
@@ -292,8 +268,10 @@ class fill_table(Thread):
                             rel_window = window
                             rel_sequence = sequence
                         if sequence is None:
-                            rel_window = create_window(window_seq, 6, 13, phospho_ELM)
+                            rel_window = function_in_thread(que, [window_seq, 6, 13, phospho_ELM], create_window)
                             rel_sequence = window_seq
+                        if rel_sequence=='':
+                            rel_sequence = seq_csv
 
                         red = "\n\033[31;4m" if color else "\n"
                         blue = "\033[34m" if color else ""
@@ -391,15 +369,15 @@ class fill_table(Thread):
                                      " " * (int(space[1] / 2) - 3), lamb(ACH_prot[1]), end))
 
 
-def create_training_set(string, file, max_window, nthread, phospho_sites, phospho_ELM=True,
+def create_training_set(string, max_window, nthread, file, phospho_ELM=True,
                         color=False, align_ortho_window=True, output_file=None):
     # Initialisation
 
-    file_name = os.path.basename(file)
-    if os.path.basename(os.path.dirname(file)) == "csv" \
-            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "data":
-        path = "%s" % os.path.abspath(os.path.dirname
-                                      (os.path.dirname(file)))
+    if os.path.basename(os.path.dirname(file)) == "%s" % string \
+            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "csv" \
+            and os.path.basename(os.path.dirname(os.path.dirname(os.path.dirname(file)))) == "data":
+        path = "%s" % os.path.abspath(os.path.dirname(os.path.dirname
+                                      (os.path.dirname(file))))
     else:
         if not os.path.exists("%s/data" % os.path.dirname(file)):
             os.mkdir("%s/data" % os.path.dirname(file))
@@ -416,13 +394,11 @@ def create_training_set(string, file, max_window, nthread, phospho_sites, phosph
 
     # Data importation
 
-    index_file = import_ortholog(file, pattern, phospho_ELM, nthread)
-    index_file = remove_redundancy(index_file)
-    genes = pd.read_csv(index_file, sep=';')
+    genes = pd.read_csv(file, sep=';')
 
     # Creation of csv
 
-    csv_dataset = '%s/%s_%s_phospho_sites.csv' % (path2csv, file_name[:-4], string)
+    csv_dataset = '%s/%s_phospho_sites.csv' % (path2csv, string)
     if output_file is not None:
         csv_dataset = output_file
     if not os.path.exists(csv_dataset):
@@ -436,17 +412,17 @@ def create_training_set(string, file, max_window, nthread, phospho_sites, phosph
         if not first_char:
             header_freq_metazoa = ["freq_metazoa_%s" % i for i in range(0, max_window)]
             header_se_metazoa = ["shanon_entropy_metazoa_%s" % i for i in range(0, max_window)]
-            header_freq_non_metazoa = ["freq_non_metazoa_%s" % i for i in range(0, max_window)]
-            header_se_non_metazoa = ["shanon_non_entropy_metazoa_%s" % i for i in range(0, max_window)]
+            header_freq_non_metazoa = ["freq_nonmetazoa_%s" % i for i in range(0, max_window)]
+            header_se_non_metazoa = ["shanon_entropy_nonmetazoa_%s" % i for i in range(0, max_window)]
             writer.writerow((['uniprotID', 'geneID', 'position',
                               'taxID', 'clusterID', 'sequence', 'seq_in_window',
-                              'nb_orthologs', 'nb_orthologs_metazoa', 'nb_orthologs_non_metazoa',
+                              'nb_orthologs', 'nb_orthologs_metazoa', 'nb_orthologs_nonmetazoa',
                               'phosphorylation_site','ACH_prot_left', 'ACH_prot_right',
                               'ACH_prot_tot', 'ACH_metazoa_left', 'ACH_metazoa_right',
-                              'ACH_metazoa_tot', 'ACH_non_metazoa_left', 'ACH_non_metazoa_right',
-                              'ACH_non_metazoa_tot', 'IC_metazoa_left', 'IC_metazoa_right',
-                              'IC_metazoa_tot', 'IC_non_metazoa_left', 'IC_non_metazoa_right',
-                              'IC_non_metazoa_tot', 'metazoa']
+                              'ACH_metazoa_tot', 'ACH_nonmetazoa_left', 'ACH_nonmetazoa_right',
+                              'ACH_nonmetazoa_tot', 'IC_metazoa_left', 'IC_metazoa_right',
+                              'IC_metazoa_tot', 'IC_nonmetazoa_left', 'IC_nonmetazoa_right',
+                              'IC_nonmetazoa_tot', 'metazoa']
                              + header_freq_metazoa + header_freq_non_metazoa +
                              header_se_metazoa + header_se_non_metazoa))
         data_thread = np.array_split(genes, nthread)
@@ -456,9 +432,8 @@ def create_training_set(string, file, max_window, nthread, phospho_sites, phosph
                                           path2fastas, path2align,
                                           max_window, path, pattern,
                                           color, align_ortho_window,
-                                          writer, phospho_sites))
+                                          writer))
         for thread in thread_list:
             thread.start()
         for thread in thread_list:
             thread.join()
-    return {"phospho_sites": phospho_sites, "file": csv_dataset}

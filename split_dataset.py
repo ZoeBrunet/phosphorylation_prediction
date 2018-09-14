@@ -14,9 +14,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import sys
-from utils.parser import enrichment_parser
-from utils.enrich_csv import enrich_csv
+from source.utils.parser import split_parser
+from source.benchmark.list_forbiden_genes import split_dataset
+from source.utils.get_info_on_dataset import get_info
 
-args = enrichment_parser(sys.argv[1:])
+args = split_parser(sys.argv[1:])
+dict = split_dataset(args.used_protein, args.convert, args.dataset)
 
-enrich_csv(args.csv1, args.csv2)
+for value in dict.items():
+    get_info(value[1])
+# Print les infos pour chaque dataset
