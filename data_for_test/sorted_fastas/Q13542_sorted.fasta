@@ -1,0 +1,997 @@
+>10036:00430b {"pub_gene_id":"101842422", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSASTGGGHQPSQSRAIPTRTVAISDAAQLPQDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDEAQFEMDI
+>10042:0039a7 "pub_gene_id":"102920991", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146
+MSASAGGGHQPSQSRAIPTRTVAISDAAQLPQDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDEAQFEMDI
+>10090:0008f7 {"pub_gene_id":"Eif4ebp2;ENSMUSG00000020091", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"Phosphorylated heat- and acid-stable protein regulated by insulin 2"}
+MSASAGGSHQPSQSRAIPTRTVAISDAAQLPQDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGALIEDSKVEVNNLNNLNNHDRKHAVGDEAQFEMDI
+>10116:005057 {"pub_gene_id":"ENSRNOG00000055391", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"Eukaryotic translation initiation factor 4E binding protein 2"}
+MSASAGGGHQPSQSRAIPTRTVAISDAAQLPQDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGALMEDSKVEVNNLNNLNNHDRKHAVGDEAQFEMDI
+>10141:000066 {"pub_gene_id":"ENSCPOG00000000133", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+PAQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRRNSPMAQT
+PPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDSQFEMDI
+>10160:00408a {"pub_gene_id":"101587738", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNHDRKHAVGDDSQFEMDI
+>1026970:000f20 {"pub_gene_id":"103729718", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSASAGGGHQPSQSRAIPTRTVAISDAAQLPQDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>29078:00142a {"pub_gene_id":"103289498", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>30608:0035b0 {"pub_gene_id":"ENSMICG00000015076", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>30611:00112d {"pub_gene_id":"ENSOGAG00000005714", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>34839:001e56 {"pub_gene_id":"102013760", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTRPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDSQFEMDI
+>37293:003009 {"pub_gene_id":"105722652", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSSHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>37347:000c28 {"pub_gene_id":"ENSTBEG00000003587", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+TRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHA
+VGDDAQFEMI
+>379532:003964 {"pub_gene_id":"105822073", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>43179:0021d9 {"pub_gene_id":"ENSSTOG00000012937", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHTVGDDAQFEMDI
+>482537:003f14 {"pub_gene_id":"103602054", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>51337:002c26 {"pub_gene_id":"101608589", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLLEDSKVEVNNLNNHDRKHAVGDDAQFEMDI
+>60711:001f6e {"pub_gene_id":"ENSCSAG00000008294", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>61622:001762 {"pub_gene_id":"104661982", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>61853:003aa4 {"pub_gene_id":"ENSNLEG00000016121", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVAISDATQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9402:00252d {"pub_gene_id":"ELK09566.1", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MLKSNRHLSGTSYKRYTEEAKPSQSPPIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGG
+TRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHA
+VGDDAQFEMDI
+>9478:001272 {"pub_gene_id":"ENSTSYG00000005208", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9483:0034bc {"pub_gene_id":"ENSCJAG00000016301", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"Eukaryotic translation initiation factor 4E-binding protein 2 "}
+MSSSAGSSHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNSHDRKHAVGDDAQFEMDI
+>9531:0044a8 {"pub_gene_id":"105597277", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9544:004799 {"pub_gene_id":"ENSMMUG00000023169", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9545:000645 {"pub_gene_id":"105466073", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9555:0038fd {"pub_gene_id":"ENSPANG00000021392", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"Uncharacterized protein "}
+MSSSAGSGHPPSQSRAFPTHTVVISYAAQLPHDHCTTPEGTLFSTTPGGTRIIYDRKFLL
+DLRSSPMARTPPCHLPNIPGVTSPGTLSEGSKVEVSNLNNPDKKHAVGGGASWRWTS
+>9568:0033eb {"pub_gene_id":"105546136", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHPPSQSRAFPTHTVVISYAAQLPHDHCTAPEGTLFSTTPGGTRIIYDRKFLL
+DLRSSPMARTPPCHLPNIPGVTSPGTLSEGSKVEVSNLNNPDKKHAVGGGASWRWTSDSP
+ARIRRKAATGTPECT
+>9595:003fd2 {"pub_gene_id":"ENSGGOG00000023205", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9597:0026bf "pub_gene_id":"100982004", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146
+MSSSAGSGHQPSQSRAFPTHTVAISDAAQLPHDYCTTPEGTLFSTTPGETQIIYDRKFLL
+DLRSSPMAQTPXCHLPNIPGVTSPGTLIEDSQVEVNNLNNLNNHDRKHALGGDAQLEMDI
+>9598:00071e {"pub_gene_id":"ENSPTRG00000002590", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9601:0008cf {"pub_gene_id":"ENSPPYG00000002371", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQLSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9606:00233d {"pub_gene_id":"EIF4EBP2;ENSG00000148730", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVAISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9978:00372e {"pub_gene_id":"ENSOPRG00000015819", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9986:000a30 {"pub_gene_id":"ENSOCUG00000003475", "pub_og_id":"EOG09031BS5", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":314146, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>109478:0000a9 {"pub_gene_id":"EPQ01544.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MWKNEQAGGSKWLYQCPCSLPGTRIIYDRKFLMECRNSPVAKTPPRDLPTIPGVTSPVSD
+EPPTEASQNHLQNSPEDKPAGGEESQFEMDI
+>118200:001373 {"pub_gene_id":"KFV65918.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+GTRIIYDRKFLLDRRNSPMAQTPPCHLPDIPGVTSPGSAGEEPKADTNSSNHQEGKPSMG
+DDAQFEMDI
+>118797:001449 {"pub_gene_id":"103074746", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MSSGSSCSQTPSRAIPATRRVVLSDGVHLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVTKTPPRDLPTIPGVTSPVGDEPPTEASRDHLSSSPEDKPAGGEESQFEMDI
+>121530:0009dc {"pub_gene_id":"KFV03696.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E-binding protein 1-like"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNSDEKVSAGEE
+EQFDMDI
+>128390:001c24 {"pub_gene_id":"KFQ97726.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+GTRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGSAGEEPKADTNSLNHQEGKPSMG
+DDAQFEMDI
+>132908:00005f {"pub_gene_id":"ENSPVAG00000000103", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+GGGGGGXQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGV
+TSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>13616:001f8b {"pub_gene_id":"ENSMODG00000010768", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSAGGSCGQTPSRAIPATRRVVLSDGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVAKTPPRDLPAIPGVTSPASEEAAPEMNPNHLANSHEDKPGSNEESQFEMDI
+>13735:001113 {"pub_gene_id":"ENSPSIG00000004398", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+REMSSSGGHQHSQSRAIPTRTVPISDATQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTTVEDSKVEVNNLNNHDRKPAVGDDAQFEMDI
+>143302:001d5a {"pub_gene_id":"101626868", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MSGGSSCSQTPSRAIPATRRVVLGDGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVTKTPPRDLPTIPGVTSPASDEPSTEASQNHLRNSPEEKPVGSEESQFEMDI
+>175835:001d65 "pub_gene_id":"KFO90470.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTRIIYDRKFLLECKNSPVARTPPCCLPQIPGVTS
+>176057:00057b {"pub_gene_id":"KFQ42453.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+IYDRKFLLDRRNSPMAQTPPCHLPSIPGVTSLGSAGEEPKADANNLNHQEGKPSMGDDAQ
+FEMDI
+>176946:000925 {"pub_gene_id":"103050438", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MTGPKSSSYFCSFSTSPGTRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGSVTEDS
+KVEVNNLNNHDGKPVIGDDAQFEMDI
+>181096:002996 "pub_gene_id":"104694846", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+MFLSPPPGTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKLENHHVQNCEE
+KVSAAGEEEQFDMDI
+>181119:001907 {"pub_gene_id":"102105579", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MSGRCCQGQTPSRDIPGPGKCLALPDGAPLPPGDYSTTPGGTVFGTTPGGTRIIYDRKFL
+MECRNSPVAKTPPSDLPDIPGVTSPSVEELKLENHHVQSCEEKVSAGEEEQFDMDI
+>185453:002c67 {"pub_gene_id":"102829333", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 3"}
+MSTSTSCPIPGGLDRLPDCYSTTPEGTLYATTPGGTRIIYDRKFLLECKNSPIAQTPPCC
+LPQIPGVTTPTAPLSKLEELKEQKETEEEIPDDAQFEMDI
+>187382:002bf3 {"pub_gene_id":"KFP45840.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSAGEE
+EQFDMDI
+>188344:001224 {"pub_gene_id":"KFQ05210.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E-binding protein 2-like"}
+GTRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGSAGEEPKTDTNSLNHQEGKPSMG
+DDAQFEMDI
+>188379:0021f4 {"pub_gene_id":"KFP17437.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPLAKTPPSDLPDIPGVTSPSVEELKIENNHVQNCEEKVSAGEE
+EQFDMDI
+>225400:00022b {"pub_gene_id":"ELK23693.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 3"}
+MSTFTSCPIPGGRDRLPDCYSTTPGGTLYATTPGGTRIIYDRKFLLECKNSPIARTPPCC
+LPQIPGVTTPPTAPSSKLEELKEQKETEEEIPDDAQFEMDI
+>240206:002bd8 {"pub_gene_id":"KFV17309.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKASAGEE
+EQFDMDI
+>246437:0002a5 {"pub_gene_id":"ELV09834.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MLQTRGRDPKTPTFSPEELKHQTGLTWTPDPASDGGNQDPRSETTFAARRAVNPGHLRDH
+HPRLAGLRGREARGSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXRAIPAT
+RRVVLGDGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLMECRNSPVAKTPPRDLPSI
+PGVTSPASDEPPVEASQSHLRNSPEDKRAGGEWQSWPGCPWKGSLQPMGSSPGEFQGGDE
+GDCPHPPPSAEQLRTWPP
+>279965:002afb "pub_gene_id":"KFZ63427.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTRIIYDRKFLLECKNSPVARTPPCYLPQIPGVTFLAQSSLVKLEELKEQNESEEAMTDQ
+DQFEMDI
+>28377:001b01 {"pub_gene_id":"ENSACAG00000008388", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSSSRNSSGGVGPLHPSQSRAIPTRTVPISDSSQLPHDYCTTPGGTLFSTTPGGTRII
+YDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGSMTEDSKVEVNNLNNHDGKAIIGDDAQF
+EMDI
+>28737:002547 {"pub_gene_id":"102859181", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 3"}
+MSTSTSCPIPGGQSQLPDCYSTTPGGTLYATTPGGTRIIYDRKFLLECKNSPIARTPPCC
+LPQIPGVTTPIAPLSKLEELKEKETEEEIPDDAQFEMDI
+>29073:00081e {"pub_gene_id":"103659121", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MALSPSLPPPPLGTRIIYDRKFLMECRNSPVTKTPPRDLPTIPGVTSPASEEPPTEPSQN
+HLRHSPEDKPAGGEESQFEMDI
+>30419:0007c4 {"pub_gene_id":"KFR03044.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKASAGEE
+EQFDMDI
+>30455:0013bf {"pub_gene_id":"KFV98555.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPIAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSAGEE
+EQFDMDI
+>30538:00096d {"pub_gene_id":"ENSVPAG00000002634", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+NLIIYDPKFLLDHRYSPLAQTPPCHLPNIPGVTIPGTLNDYSSQVNNLNNLNNHDRKHVG
+DDAQFEMDI
+>328815:0020fb {"pub_gene_id":"KFW83597.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+GTRIIYDRKFLLARRNSPMAKTPPCHLPNIPGVTSPGEAGEEPKEDSNSLNHQEGKPSMG
+DDAQFEMDI
+>345164:00071a {"pub_gene_id":"102047520", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MEPSAEGVEQLLEDASSWGIFPCKWNLAPEQGASKVLDSSQSDAEGEAACQPAASGSLVP
+TDAQHRRGSTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCD
+EKVSAGEEEQFDMDI
+>345573:000dc5 "pub_gene_id":"KFZ56071.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTLIIYDRKFLLECKNSPVARTPPCCLPQIPGVTSPAQS
+>36300:000e1a {"pub_gene_id":"KFQ55716.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPLAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSAGEE
+EQFDMDI
+>37040:002867 {"pub_gene_id":"KFV59127.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPIAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSAGEE
+EQFDMDI
+>38654:000928 {"pub_gene_id":"102370402", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MKNVKFKNLSTYYAVGLIKDPSLSGTRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSP
+GTVAEDSKVEVNNLNNHDGKPAVGDDAQFEMDI
+>419612:00270d {"pub_gene_id":"EPY82282.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MKPAAFQMLPPKHQVLFSLKSLPFMKELKEGTRIIYDRKFLMECRNSPVTRTPPRDLPTI
+PGVTSPTGEEPPMEASQNHLRSSPEDKPAGGSQAEVPAEAIFPLAPFSVTVTIKRLKSKA
+QGHRANREMLWSENQRFGKGGLRQQTSKCLFQLCPPHSDFTSLC
+>42254:000305 {"pub_gene_id":"ENSSARG00000000841", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+TRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHA
+VGDDAQFEMDI
+>43455:000a32 "pub_gene_id":"KFP48570.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSAGEC
+MQ
+>44394:000149 {"pub_gene_id":"102060777", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MLSPPGTRIIYDRKFLMECRNSPGAKTPPSDLPDIPGVTSPSVEELKVENHHVQSCEEKV
+STGEEEQFDMDI
+>48883:000611 {"pub_gene_id":"102032913", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MGSFPLCLLARRGTSCTRIIYDRKFLMECRNSPGAKTPPSDLPDIPGVTSPSVEELKLEN
+HHVQSCEEKVSTGEEEQFDMDI
+>50402:001b21 {"pub_gene_id":"KGL92735.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSTGEE
+EQFDMDI
+>52644:000405 {"pub_gene_id":"104828813", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MSGRCCQGQTPSRDIPGPGKCLALPDGAPLPPGDYSTTPGGTVFGTTPGGTRIIYDRKFL
+MECRNSPVAKTPPSHLPDIPGVTSPNVEELKIENNHVQNCDEKVSTGEEEQFDMDI
+>54131:004708 "pub_gene_id":"105525209", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+DGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLMECRNSPVTKTPPKDLPAIPGVTSP
+SSDEPPTEASQSHLRNSPEDKRAGGEESQFEMDI
+>54374:000baa {"pub_gene_id":"KFQ25344.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+LDRRNSPMAQTPPCHLPNIPGVTSPGSAGEEHKVDTNSLNHQEGKPSMGDDAQFEMDI
+>54380:000627 {"pub_gene_id":"KFP58357.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 3"}
+GTRIIYDRKFLLECKNSPVARTPPCCLPQIPGVTS
+>54383:00008a {"pub_gene_id":"KFV89939.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"ankyrin repeat and KH domain-containing protein 1-like"}
+GTRIIYDRKFLLECKNSPVARTPPCCLPQIPGVTS
+>55661:000056 "pub_gene_id":"KFO69215.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQKCDEKVSPGE
+>56313:001516 {"pub_gene_id":"KFV48800.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"ankyrin repeat and KH domain-containing protein 1-like"}
+GTRIIYDRKFLLECKNSPVARTPPCCLPQIPGVTS
+>57068:001718 {"pub_gene_id":"KFP77505.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEEMKLENHHVQNCEEKVSAGEE
+EQFDMDI
+>57397:00138d "pub_gene_id":"KFP83456.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTRLLYARMECKNSPVARTPPCCLPQIPGVTSLAQSSLVKLEELKERNESEEAMPDQDQF
+EMDI
+>57412:0006cb {"pub_gene_id":"KFP25068.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E-binding protein 1-like"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPTVEELKAENNHVQNCDEKASAGEE
+EQFDMDI
+>59463:001805 {"pub_gene_id":"ENSMLUG00000007526", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSGGSSCSQTPSRAIPATHRVVLSDGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVTKTPPRDLPTIPGVTSPVSDEPPTEASQNHLQNSPEDKPAGGEESQFEMDI
+>59538:00129b {"pub_gene_id":"102320524", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLRTRIIYDRKFLLDRRNSPMAQTPPCHLPNI
+PGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>59729:001194 {"pub_gene_id":"ENSTGUG00000004591", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+GTRIIYDRKFLLDRRNSPMAKTPPCHLPNIPGVTSPGEAGEEPKADSNSLNHQEGKPSMG
+DDAQFEMDI
+>59894:001a3f {"pub_gene_id":"ENSFALG00000006751", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+VPPGTRIIYDRQFLMECRNSPVAKTPPSDLPDIPGVTSPSGEELKLENHHVQSCEEKVSA
+AGEEEQFDMDI
+>72004:001135 {"pub_gene_id":"ELR48813.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MSGGSSCSQTPSRAIPTTRRVVLADGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVTKTPPRDLPTIPGVTSPTGDEPPTEARQNHLRSSPEDKPAGGEESQFEMDI
+>8364:003474 {"pub_gene_id":"ENSXETG00000025651", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+QARNMSAGHQHSQSRAIPTRTIPISDSSQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPLAQTPPRRLPDIPGVTSPNTAVEESKVETNNLNNHDTKTAAGDDSQFEMDI
+>8469:004226 {"pub_gene_id":"EMP40602.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSGGHQHSQSRAIPTRTVPISDTTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDR
+RNSPMAQTPPCHLPNIPGVTSPGTMVEDSKVEINNLNNHDRKTAMGDDAQFEMDI
+>8496:001c7b {"pub_gene_id":"102565581", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 3"}
+MAAVAAAAPGAADSGSCPIPGGRCPPSADGYSCTPGGTLYSTTPGGTRIIYDRKFLLECK
+NSPIAKTPPCCLPQIPGVTTPTHTALSKLEDLKEQNELEEESPEEEQFKMDI
+>85066:0002b3 {"pub_gene_id":"KFO53106.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKLENHHVQNCEEKVSAGEE
+EQFDMDI
+>8665:002c2f "pub_gene_id":"ETE67024.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+MQGWSLRTRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGSVTEDSKVEVNNLNNHD
+GKPIIGDDAQFEMDI
+>8801:0029c4 "pub_gene_id":"KFV85000.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQSYDEKASIGEE
+EQFDMDI
+>8839:003acd {"pub_gene_id":"ENSAPLG00000015855", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+VPAGTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPSVEELKVENNHVQNDDEKPSV
+GEEEQFDMDI
+>885580:000507 {"pub_gene_id":"KFO19334.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"ankyrin repeat and KH domain-containing protein 1"}
+MSTSTSCPIPGGLDRLPDCYSTTPGGTLYATTPGGTRIIYDRKFLLECKNSPIARTPPCC
+LPQIPGVTTPTAPPSKLELLKEQKETEDEIPDDAQFEMDI
+>8897:000ba7 {"pub_gene_id":"KFU86325.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPHVEELKIENNHVPNCDEKVSTAEE
+EQFDMDI
+>8932:0012b0 {"pub_gene_id":"EMC81505.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+PPGTRIIYDRKFLMECRNSPVAKTPPSHLPDIPGVTSPSVEELKMENNHVQNCEEKVSAG
+EEEQFDMDI
+>89462:0030e2 {"pub_gene_id":"102405041", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>8954:00209d {"pub_gene_id":"101918789", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"uncharacterized LOC101918789"}
+MEPSAEGVEQLLEDASSWGVFPCKWNLAPEQGASKVLDSSQSDAEGEAACQPAASGSLVP
+TDAQHRRGSTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCD
+EKVSAGEEEQFDMDI
+>8962:0007d2 "pub_gene_id":"105401062", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+MSGRCCQGQTPSRDIPGPGKCLALPDGAPLPPGDYSTTPGGTVFGTTPGGTRIIYDRKFL
+MECRNSPVAKTPPSHLPDIPGVTSPNVDELKIENNHVQNCDEKVSTGEEEQFDMDI
+>8969:0011bd {"pub_gene_id":"KFP98852.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSHLPDIPGVTSPNVEELKIENNHVQNCDEKVSTGEE
+EQFDMDI
+>9031:00080c {"pub_gene_id":"ENSGALG00000003205", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSGRCCQGQTPSRDIPGPGKRLALPDGAPLPPGDYSTTPGGTVFGTTPGGTRIIYDRKFL
+MECRNSPVAKTPPSDLPDIPGVTSPIVEELKIENNHVQNYDEKANVGEEEQFDMDI
+>9103:000560 {"pub_gene_id":"ENSMGAG00000002216", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPIVEELKIENNHVQNYDEKANVAGE
+EEQFDMDI
+>9135:0027f8 {"pub_gene_id":"103822697", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MSGRCCHGQTPSRDIPGPGKCLALPDGAPLPPGDYSTTPGGTVFGTTPGGTRIIYDRQFL
+MECRNSPGAKTPPSNLPDIPGVTSPSVEELKLENHHVQNCEEKVSTGEEEQFDMDI
+>9209:001942 {"pub_gene_id":"KFW93066.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPLAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSAGEE
+EQFDMDI
+>9217:000105 "pub_gene_id":"KFQ73117.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKASTGEE
+EQFDMDI
+>9233:000093 {"pub_gene_id":"KFM00387.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRDSPVAKTPPSDLPDIPGVTSPNVEELKTENNHVRNCDEKVSAGEE
+EQFDMDI
+>9238:000ad3 {"pub_gene_id":"KFW63387.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRDSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSAGEE
+EQFDMDI
+>9244:001043 {"pub_gene_id":"KFO99006.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMDCRNSPGAKTPPSDLPDIPGVTSPKVEELKMENNHIQSCDEKANTGE
+>925459:001d51 "pub_gene_id":"KFO10920.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQSCDEKASTGEE
+EQFDMDI
+>9258:00052b {"pub_gene_id":"ENSOANG00000001494", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 3 "}
+LNALLSAGTRIIYDRKFLLECKNSPIARTPPCCLPQIPGVTTPPQAPLSKLEELKEQNEA
+EEEIRDEAQFEMDI
+>9305:004228 {"pub_gene_id":"ENSSHAG00000017097", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MPDGPIFVLSVTGTRIIYDRKFLMECRNSPVAKTPPRDLPTIPGVTSPPGDEPTTEMTPN
+HLPNSHEDKPGSRGGR
+>9315:0029f9 {"pub_gene_id":"ENSMEUG00000011831", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+TRIIYDRKFLLDRRNSPMAQTPPCQLPNIPGVTSPGTLIEDSKVEVNNLNNHDRKPTVGD
+DAQFEMDI
+>9358:002181 {"pub_gene_id":"ENSCHOG00000009721", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+TRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHA
+V
+>9361:00107d {"pub_gene_id":"ENSDNOG00000010090", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9365:002a19 {"pub_gene_id":"ENSEEUG00000011808", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGPLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHTVGDDAQFEMDI
+>9371:000edf {"pub_gene_id":"ENSETEG00000004669", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSGGSSCSQDPSRAIPATRRVVLGEGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVAKTPPRDLPTIPGITSPASEKPPMEARRSLPRNGPENNQPAG
+>94827:000acf {"pub_gene_id":"KGL74964.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"ankyrin repeat and KH domain containing 1"}
+GTRIIYDRKFLLECKNSPVARTPPCCLPQIPGVTSPAQ
+>9615:0011e5 {"pub_gene_id":"ENSCAFG00000006154", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSGGSSCSQTPSRAIPATRRVVLGDGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVTKTPPRDLPTIPGVTSPASEEPPTEPSQNHLRNSPEDKPAGGEESQFEMDI
+>9646:0028ac {"pub_gene_id":"ENSAMEG00000011071", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+ETMSGGSSCSQTPSRAIPATRRVVLGDGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKF
+LMECRNSPVTKTPPRDLPTIPGVTSPASEEPPTEPSQNHLRHSPEDKPTGGEESQFEMDI
+>9669:00107e {"pub_gene_id":"ENSMPUG00000004300", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9685:001b26 {"pub_gene_id":"ENSFCAG00000010425", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSGSSSCSQTPSRAIPATRRVDLGDGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVTKTPPRDLPTIPGVTSPTSDEPPTDTRQNHLRNSPEEKPAGGEESQFEMDI
+>9694:0010e3 "pub_gene_id":"102954152", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+MSTSTSCPIPGGRDRLPDCYSTTPGGTLYATTPGGTRIIYDRKFLLECKNSPIARTPPCC
+LPQIPGVTTPPTAPPSKLEELKEQKETEEEIPDDAQFEMDI
+>9707:001707 "pub_gene_id":"101370076", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>97097:001637 {"pub_gene_id":"KFQ71288.1", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+GTRIIYDRKFLMECRNSPVAKTPPSDLPDIPGVTSPNVEELKIENNHVQNCDEKVSTGEE
+EQFDMDI
+>9713:000be7 {"pub_gene_id":"102729416", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 3"}
+MSTSTSCPIPGGRDRLPDCYSTTPGGTLYATTPGGTRIIYDRKFLLECKNSPIARTPPCC
+LPQIPGVTTPPTAPPSKLEELKEQKETEEEIPDDAQFEMDI
+>9739:000b9d {"pub_gene_id":"ENSTTRG00000003181", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGNGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKIEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9755:002826 {"pub_gene_id":"102986306", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+TRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKIEVNNLNNLNNHDRKHA
+IGDDAQFEMDI
+>9767:0006bd "pub_gene_id":"102999431", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+MSTSTSCPIPGGRDWLPDCYSTTLGGTLYATTPGGTRIIYDRKFLLECKNSPIAQTPPCC
+LPQIPGVTTPPTAPPSRLKERKEQKETEEEIPDDAQFEMDI
+>9778:003208 "pub_gene_id":"101355477", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPSTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9785:00125f {"pub_gene_id":"ENSLAFG00000006809", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+GTRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPSTLIEDSKVEVNNLNNLNNHDRKH
+TVGDDAQFEMDI
+>9796:002fda {"pub_gene_id":"ENSECAG00000015719", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSRGSSCSQTPSRAIPATRRVVLGDGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVTKTPPRDLPTIPGVTSPASDEPPTEASQNHLRNSPEDKPAGGEESQFEMDI
+>9798:000abb {"pub_gene_id":"103543726", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MTHFSEHIPFVKRRMTVCKMPDVKGSQGGLETAESRAAARHLNKPHPSLVQLLQENLLPL
+LQPHLKEAGKRGGRGSGWLCQCPCPLPGTRIIYDRKFLMECRNSPVTKTPPRDLPTIPGV
+TSPASDEPPTEASQNHLRNSPEDKPAGGEESQFEMDI
+>9813:0020bf {"pub_gene_id":"ENSPCAG00000009025", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSGGSSCSQTPSRTIPATRRVVLADGVQLPPGDYSTTPGGTLFCTTPGGTRIIYDRKFLM
+ECRNSPVAKTPPRDLPAIPGVTSPASEEPPVEAKQSPLPNSPEDKPTSGEESQEMDI
+>9823:001ca7 {"pub_gene_id":"ENSSSCG00000010268", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9837:000fbf {"pub_gene_id":"105066341", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9838:001294 {"pub_gene_id":"105089940", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MRNLRVTGTRIIYDRKFLMECRNSPVTRTPPRDLPTIPGVTSPTGEEPPTEASQNHLRSS
+PEDKPAGGEESQFEMDI
+>9901:0018dc "pub_gene_id":"104987728", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523
+MSGGSSCSQTPSRAIPTTRRVVLADGVQLPAGDYSTTPGGTLFSTTPGGTRIIYDRKFLM
+ECRNSPVTKTPPRDLPTIPGVTSPTGDEPPTEARQNHLRSSPEDKPAGGEESQFEMDI
+>9913:00300a {"pub_gene_id":"ENSBTAG00000019124", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSAGSGHQPSQSRAIPTRTVPISDAAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLL
+DRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSKVEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9925:0001e6 {"pub_gene_id":"100861353", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MTFGSSFEKLLLASMKGTRIIYDRKFLLDRRNSPMAQTPPCHLPNIPGVTSPGTLIEDSK
+VEVNNLNNLNNHDRKHAVGDDAQFEMDI
+>9940:00043f {"pub_gene_id":"ENSOARG00000001124", "pub_og_id":"EOG09070FWE", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":32523, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+ETMSGGSSCSQTPSRAIPTTRRVVLADGVQLPPGDYSTTPGGTLFSTTPGGTRIIYDRKF
+LMECRNSPVTKTPPRDLPTIPGVTSPTGDEPPTEASQNHLRSSPEDKPAGGEESQFEMDI
+>106582:001efa {"pub_gene_id":"101471989", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E-binding protein 1-like"}
+MSAGGQATRNRDIPAVRRVAIHDAAHLPNDYSTTPGGTLFSTTPGGTRIIYDRKFLLQCR
+TSPLTRTPPNLPDIPGVTRPLKPDASSDTNQPDQSLSNNTDHSVHAESAGEDAQFEMDI
+>113540:001207 "pub_gene_id":"KKW98833.1", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742
+TRIIYDRKFLLDCRSSPLAQTPPSCLPDIPGVTSPPVAPTGSKKAEPEPAVNNHESPPAD
+KGAGDEAQFEMDI
+>144197:0008c6 {"pub_gene_id":"103355133", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSTSRQLSESRAIPTRTVLINDTTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRRN
+SPIAQTPPAHLPVIPGVTSQHVLSENQKNEANNHINNHDGKPTTGDDAQFEMDI
+>215358:0033ab {"pub_gene_id":"KKF21881.1", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSASRQLSESRAIPTKTVLINDTTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRRN
+SPIAQTPPAHLPVIPGVTSQNVLRENQKNEANNHINNHDGKPTNGDDAQFEMDI
+>244447:002688 {"pub_gene_id":"103387244", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSTSRQLSESRAIPTRTVLINDTTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRRN
+SPIAQTPPAHLPVIPGVTSQVLSENQKNEANKHIKNHDGKPATGEDAQFEMDI
+>303518:0002fb {"pub_gene_id":"102192782", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E-binding protein 1-like"}
+MSAGGQATRSRDIPAVRRVAIHDAAHLPNDYSTTPGGTLFSTTPGGTRIIYDRKFLLQCR
+TSPLTRTPPNLPDIPGVTRPLKPDASSDTNQPDLSLSNNTDRSVHAESAGEDAQFEMDI
+>31033:001aa5 {"pub_gene_id":"ENSTRUG00000006895", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+ALKMSRQLSESRAIPTRTVLINDTTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRR
+NSPIAQTPPAHLPVIPGVTSQNVVRENKKNEANNRINKHDDKSANGDDAQFEMDI
+>32507:0014f8 {"pub_gene_id":"102781422", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E-binding protein 2-like"}
+MSTSRQLSESRAIPTKTVLINDTTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRRN
+SPIAQTPPAHLPVIPGVTSLNVLTENQKNEANNHVNNHDGKPATGDDAQFEMDI
+>48698:00173a {"pub_gene_id":"ENSPFOG00000006081", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MFCRNAVTCLEFFLSTTWSGGSYSLKSEAFTLLLLLFYRARHRRCSVCEMSAAGQTSRSL
+EIPAVRRIAIHDAAHMPKEYSTTPGGTLFSTTPGGTRIIYDRKFLLQCRTSPLTRTPPKL
+PDIPGVTRPLDPESSSNENHPEELPSNNADDHSLNTEENSAEDAQFEMDI
+>69293:0021cd {"pub_gene_id":"ENSGACG00000008729", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+RRRKMSTSRQLSECRAIPTRTVLINDTTQLPHDYCTTPGGTLFSTTPGAGTRIIYDRKFL
+LDRRNSPIAQTPPAHLPVIPGVTSQNVLRENKKNEANKHIIKHDGKPATGDDAQFEMDI
+>7868:002552 {"pub_gene_id":"103182493", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E-binding protein 2-like"}
+MSTSRHYSESRAIPTRRVVLSDSAQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLECRK
+SPVTRTPPLHLPHIPGVTVLSSTENTKAEPNNLKDGERNGREGKSATGDESQFEMDI
+>7897:001ed0 {"pub_gene_id":"ENSLACG00000007967", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSSGCQNLQTQSKAIPTRRVTVNDTAQLPQDYSTTPGGTLFSTTPGGTRIIYDRKFLMEC
+RNSPVAKTPPRDLPNIPGVTSPNTGDSKAETNHINNHEEKQAAGDDAQFEMDI
+>7918:0013fa {"pub_gene_id":"ENSLOCG00000005123", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+QMSSSRQHSESRAIPTRTVLINDTTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRR
+NSPIAQTPPAHLPDIPGVTSLNTMNENKKNEMNNANNHEGKAVIENLFECKYNILGDDAQ
+FEMDI
+>7950:0007cc {"pub_gene_id":"105890582", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E-binding protein 1-like"}
+MSVSSQKTTSRAIPSTRRVTISDAAHMPHDYSTTPGGTLFSTTPGGVTSPAVSTANNDTA
+HTKPPLNNNCSPPAHKAAGEDAQFEMDI
+>7955:0014ee {"pub_gene_id":"ENSDARG00000031819", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 2 "}
+MSSSRQLSESRAIPTRTVLINDSTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDRRN
+SPIAQTPPAHLPVIPGVTGKNILNEIKRNEANNINNHDAKPGQGEDAQFEMDI
+>7994:00230e {"pub_gene_id":"ENSAMXG00000008975", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSVSSQKTTSRAIPATRRVIINDSAHMPHDYSTTPGGTLFSTTPGGTRIIYDRKFLLDCR
+SSPLARTPPCCLPDIPGVTSPPTATVKNDKAQETLNNNASPPVDKASGEDAQFEMDI
+>8010:0038bd {"pub_gene_id":"105021430", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 2"}
+MSSSTSRQLSESRAIPTRTVLINDTTQLPHDYCTTPGGTLFSTTPGGTRIIYDRKFLLDR
+RNSPIAQTPPAHLPIIPGVTSLNVLTENGRNEANNHIKSHNSHGKTATGEDAQFEMDI
+>8049:002e5f {"pub_gene_id":"ENSGMOG00000012219", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSESSLKTTSKSIPTRRVVINSADHMPQVDYSSTPGGTLFSTTPGGTRIIYDRKFLLERR
+SSPVARTPPRGLPDIPGVTSPPVKDKAPNGEPLNNNVIKTPDSKAAGDDAQFEMDI
+>8078:002853 {"pub_gene_id":"105926885", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E-binding protein 1-like"}
+MSTDCQKTTATAIPSMRRVTINNADHMPHDYSTTPGGTLFSTTPGGTRIIYDRKFLLECR
+SSPLARTPPRGLPPIPGVTSPPSKEPNDKTVNGEVENNNSISAPDMSNAGRLTPQENITW
+CLNRL
+>8083:000932 {"pub_gene_id":"ENSXMAG00000002361", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSAAGQASRSLEIPAVRRIAIHDAAHMPKEYSTTPGGTLFSTTPGGTRIIYDRKFLLQCR
+TSPLTRTPPKLPDIPGVTRPLDPELSSNENQPEELPSNNADDHSLNTEENSAEDAQFEMD
+I
+>8090:001813 {"pub_gene_id":"ENSORLG00000006498", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+EKMSTECQKTTAKAIPSTKRVTINNADHMPHDYSTTPGGTLFSTTPGETGTRIIYDRKFL
+LECRSSPLAKTPPRGLPSIPGVTSPPTKEFNKKTLNGEVVNIDTPAADSSSAGDDAQFEM
+DI
+>8128:003416 {"pub_gene_id":"ENSONIG00000013351", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+MSTDCQKTTAKAIPSIRRVTINDAEHMPHDYSTTPGGTLFSTTPGGTRIIYERKFLLDCR
+SSPLARTPPANLPVIPGVTSPASKNTSKNTQNGELLNNNTAAPDSSTAGDDAQFEMDI
+>8153:002188 {"pub_gene_id":"102298036", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E-binding protein 1-like"}
+MSAGGQATRSRDIPAVRRVAIHDAAHLPNDYSTTPGGTLFSTTPGGTRIIYDRKFLLQCR
+TSPLTRTPPNLPDIPGVTRPLKPDASSDTNQPDQSLSNNTDHSVHAESAGEDAQFEMDI
+>8208:0002d3 {"pub_gene_id":"104941580", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1"}
+MSTEFLKTTAKAIPSTRRVTINDAAHMPNDYSTTPGGTLFSTTPGGTRIIYDRKFLLGCR
+SSPVAKTPPHGLPNIPGVTSPPSNEPRKKAPNAEQLNNKTTAPESSSTGDDSQFEMDI
+>99883:0032dd {"pub_gene_id":"ENSTNIG00000013238", "pub_og_id":"EOG090B0IOH", "og_name":"eukaryotic translation initiation factor 4E binding protein 2 ","level":7742, "description":"eukaryotic translation initiation factor 4E binding protein 1 "}
+VDMSAGGQATRSREIPAVRRVAIHDTAHMPQDYSTTPGGTVFSTTPGGTRIIYDRKFLLQ
+CRSSPLTRTPPNLPDIPGVTRSVKRTPSCDSPQPHETPSTNSEHSVHTEEHAALDDAQFE
+IDI
+>10224:0049b9 "pub_gene_id":"Sakowv30031995m", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSEQAVPPFSKSREIPTRRVILNDPSQMPSDYCTTPGGTIFSTTPGGTRIIYERNKLMQM
+RNSPLARTPPKNLPLIPGVTSPLENEKDKNEKNKSSPNHDKEKGDLDEPQFEMDI*
+>10228:0021ef {"pub_gene_id":"TriadG59660", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSDSTRSKTVDIPFKRILVTDPCQLPNSYSTTPGGTIFSTTPGGTRIIYDRAFLLQMRNS
+PHAQIPPSNLPNIPGVTSPPIKEDKFPKSKDHPEKSTNPVTSRPNVEQKEDKGEEEQFAM
+EMEE
+>103372:0007a8 "pub_gene_id":"AECH11961", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRIVIHDPNQLPVDYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRNPLTIPSELLKGNTPVITKDPAKNTNKDSLMIEESAEQFEMDM
+>104421:00207f "pub_gene_id":"CFLO18320", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRIVIHDPNQLPTDYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPVSRTPPRNTLSIPSELLKGSTPAIVRDPAKNSDKDVLVIEESAEQFEMDM
+>1049336:000ead "pub_gene_id":"EDAN003758", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSRHVVINDASQLPMDYSTTPGGTLFSTTPGGTRIVYDRSFLLQ
+LRNSPVARTPPKNLPVIPGITTDAVTAISPLMPLQQETRARSSSSWKSKMPTLLHNRHWP
+LSKKQQQSTQDVQLFFGSTSLNTCLIL
+>109461:000b2e "pub_gene_id":"0:g27337", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSSAKTISIRRVTNPSQLPANYSQTPGGTLFGTTPGGTRVVYERAFLLSLQQSPLSRTPP
+TLPMIPGFTLPKGSPHSVSPKKTSCSPSPRAATTVSSKAAVSEDEQFAMDI
+>112268:0018ab "pub_gene_id":"AMIN006366", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPLHLLRSGGSPNSKPMTTLSAAKQQVPVRNSPPKYDEHQEQFDM
+DL
+>113334:003409 "pub_gene_id":"MCINX013326", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATHSQTIPTRRVLITDPAQMPDVYSSTPGGTIYSTTPGGTRIVYERSFMMS
+LRHSPISKTPPSCSLPAAMLKNPPIAQQTPTSVQKPRSNSISFDESQETFSMDL
+>114398:001588 "pub_gene_id":"PTEP005513", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+LSKKFVMEIIDETCAVTEQSPVIIKKEKDGNSSSRNLDVKANEDVSDSDQSITWEVVEKK
+IECIDLISDEEKGEDEGKSLKKDILHENVQIKESSFPLPTTAPATTVSSKSSSCSSLSEK
+QTLDNFMTNIRISYDVEFLKELQNSPLAQTDPKNLPIIPSFTSRKKRKKRSNIKHIVENT
+EKKLPPKSNVVCELCGALLGSKKARRSHNRMHNKEKQKLKQLKECTANEKSSLLNISTQI
+R
+>121225:001053 "pub_gene_id":"PHUM269140", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPVARQTTNCQNIPSRRVVVNDASQLPHDYSTTPGGTLFSTTPGGSLNSKF
+>1218281:000a35 "pub_gene_id":"LLUN002614", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MTILFRTRIVYERAFMMNLRNSPISKTPPRCSLPSGLVRGAPSSPPRAPVPTPAFVRPEP
+RVEESAIDEQFDMEL
+>121845:002197 "pub_gene_id":"ref0018757-processed-gene-0.11-mRNA-1", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSTSQSQVIPIRRVLLTDDSQLPSNYSSTPGGTLYSTTPNGRYPEVFQILRFPIIFSPSF
+LYYYDSNKKRRTYPNLVDLYIKLKVFLPGTQKWWCKFCPEESKPFRERTLSVSDNVHPGR
+KSNPGPSAF
+>123851:00454c "pub_gene_id":"LFUL017741", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPVARQASRSQSIPQRKVVINDPSQLPMDYSTTPDGTLYSTTPGGTRIVYERSFLLH
+LRNSPLARTPPKNLPNIPEILLSSSLAKENGSDTPNPVKEKEQKDDSQEQFQLDM
+>126957:003960 "pub_gene_id":"SMAR015484", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSANSVARHTSQCRDIPSRRVIINDASQLPADYCTTPGGTIFSTTPGGTRIIYDRAFLLQ
+MRNSPMAKTPPKNLPNIPGVTCKAVTVPESPKENGEANGPKANSGKHGNGNETHTKRCNI
+LSANTFQNLKKKSYCKEKI
+>12957:003565 "pub_gene_id":"ACEP23670", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRIVIHDPNQLPVDYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRNPLTIPSELLKGNTPVIMKDPTKNTNKDSLMIEESAEQFEMDM
+>13037:0010f9 "pub_gene_id":"DPOGS204664-PA", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATSSQTIPSRRVLISDPAQMPDVYSSTPGGTIYSTTPGGTRIVYDRSFMMS
+LRQSPISQTPPKCSLPAALLKNPPSSSNSTATPVQKPRSNSISFDESQETFSMDL
+>132113:00259b "pub_gene_id":"Bimp_2.0", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQNIPSKRVVINDPSQLPIDYSSTPGGTLFSTTPGGTRIVYERDFLMN
+LRNSPISRTPPRNMPSIPGELLKNTSNLSTSTKNQINKDTPVIEESAEQFEMDM
+>13249:00387a "pub_gene_id":"RPRC014883", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPVARQATMSQSIPSKRILISDSSQLPIDYSTTPGGTLYSTTPGGTRIVYERSTLMF
+LRNSPLSQTPPNIPDCCKRGNDIKSNRENGLRRNPLKKTHENDDCNEQFQIDI
+>133901:003623 "pub_gene_id":"FOCC013860", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+LLLVPCDSVVVVWCCVWPELVRLTRLAVFVSVVSRGLTWSEGVVAVNPLWICAPCACRAR
+RLECRLAPRQTKEIAKMSASPIARQATQSIPVRRVMLSDASQLPNDYSTTPGGTLYSTTP
+GGTRVVYERNFLLQLRNSPLSRTPPSNLPNIPESLLKGSVDRPIISPPKENGAIKTVPVK
+KDANPDEEQFEMDM
+>136037:00188e "pub_gene_id":"Znev_16639", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQCQTIPSRRVVINDASQLPVDYSTTPGGTVYSTTPGGTRIVYERAFLMQ
+LRNSPIARTPPKNYPNFPASLIKG
+>139723:001dff "pub_gene_id":"ACUA015428", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGKRIQIKKKTI
+SFPISGDTVYRRRTVRSYERERTYAIYAEEHTASAQTLFLTITFLSFIVRLRVCCKFCVC
+LSVCVCAKIRCGRKCEKGKLSVWGKGVLLFWVRLGSNIHGHAQNGASKNTTQ
+>143995:001e3a "pub_gene_id":"MROTU:001e3a", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSSSPTAKQATQSQNIPSKRIVINDSSQLPTDYSSTPGGTLFSTTPGGTRIVYERDFLMN
+LRNSPISQTPPRNMPSIPVELLRNASPNLVTSAKSPTNKDTPIIEESAEQFEMDM
+>144034:00193c "pub_gene_id":"PB16575", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRVVIHDPNQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRNTLTIPSELLKGNTPAITRDPAKNLNKDALVIEESAEQFEMDM
+>1518534:001916 "pub_gene_id":"ACOM031028", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPMNLLRTGVVSPNTKPMTTLSVKQQKPARNSPPKYDEHQEQFDM
+DL
+>166361:00069f "pub_gene_id":"OTAU001696", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPMARQVTESKSIPIRRTINDHSELPSDYSTTPGGTLYSTTPGGTKIVYEKSFLMHL
+KGSPISKTPPKFDIPEALQKGTKYSPPKRVPKMNHHVKRSAKEKTTFEDQDQFALEL
+>166423:001f8f "pub_gene_id":"MQUAD:001f8f", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQTTQSQNIPSKRVVINDPSQLPVDYSSTPGGTLFSTTPGGTRIVYERDFLMN
+LRNSPISRTPPRNMPSIPGELLKNTLQNFSTSAKNQINKDTPVIEESAEQFEMDM
+>178035:001d69 "pub_gene_id":"DNOVA:001d69", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPLKKILFTDPSQLPADYSSTPGGTLFSTTPGGTRIVYERDFLMN
+LQNSPISRTPPQNISSIPAELLKNTPLNSTAPVKTQTNRG
+>197043:000d07 "pub_gene_id":"HVIT003336", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+LYTRPSACCVLKHRGCLSYIELLLSLYLFGNLKCQHLQSPVKLHKVKIFLLEEYLSQIHH
+NYQLIILLHLVELYTQQLLETPPKNLAAIPEYLIKGHEFVDHPKENGHDSSSPVKKDIED
+ENDQFEMDM
+>199890:001bd0 "pub_gene_id":"AEPI007162", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACATISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPLNLLRGGVGSPNTKPMSTLSTKQQKPARNSPPKYDEHQEQFDM
+DL
+>211228:001c43 "pub_gene_id":"CCINC:001c43", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATHSQSIPSKRIFINDPKELPTDYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPKNMPSIPADLLKGTPAITTMAPSPISKDIPVIEESPEQFEMDM
+>217634:002b1e "pub_gene_id":"AGLA011039", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+LSRVTLFSVPERELWILLSEHQPVEMSASPMARQAAGSKAIPIKKVFVSDPSELPAHYSS
+TPGGTLFSTTPGGTRIVYEKNFLMNLRNSPSSKTPPSYDIPDGLIKGFGGPTKKNSPPKP
+RNGLPPRRNSHSQKKTNCHEDQFEIEL
+>218467:001f42 "pub_gene_id":"CSCU008003", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSNQQCKITNSCQIPSRRIVINDDAQLPVDYSSTPGGTIFSTTPGAEDGHRIPKNYFSLS
+FDALFLTYILILNEDLNICCNLQHKEHRCDNGIICWDKISLILAIGVK
+>225164:00427e {"pub_gene_id":"LotgiG220154", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSAKESVSLGREIPATRRVILHDAAHMPNDYSSTPGGTIFSTTPGGTRIVYDRAFLLQCR
+NSPLTKSPPPNMAKIPGVTTPAEKGSPKVNGNPECKTVAEKPENPGDEPQFEMDI
+>256737:002bbd "pub_gene_id":"LHES011198", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MTLESFGLLATETVLATSHVIIVCLRRGSGSSNTREIPGRRVVINDPSQLPIDYSSTPGG
+SIFSTTPGGL
+>27457:0033d7 "pub_gene_id":"11790385", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQAFTHALPKTKKIFISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFLKD
+LRGSPLSQTPPSDLPTCLLRGTPRTPFRKCVPPPVDLVKKPRSMKIEDHEQFQLEL
+>283909:001c21 {"pub_gene_id":"CapteG171289", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSGLSPNEKKMSGSATNIPIRRVVLNDPSAMPADYSTTPGGTLFSTTPGGTRIIYDRAFL
+MQCRNSPLTKSPPPNLPRIPGVTCPEEKAAPQENGHGRPPAPQKPPQNKNENGDEPQFEM
+DI
+>28584:00048e "pub_gene_id":"DS10_00000228", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQAITQALPMMTRKIIISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFMK
+NLRGSPLSQTPPPNVPSCLLRGTPRTPFRKCVPVPTELVKKTKSLKIEDQEQFQLDL
+>28588:0035dd "pub_gene_id":"11871401", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQAFTHVLPKTKKIFISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFLKD
+LRGSPLSQTPPSDLPTCLLRGTPRTPFRKCVPPPVDLVKKSRSMKIEDHEQFQLEL
+>286306:00366e "pub_gene_id":"Cobs_14616", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRIVIHDPNQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRSTLTIPSDLLKGNAPAITKDPAKNINKDSLVIEESAEQFEMDM
+>29031:002140 "pub_gene_id":"PPATMP008513", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPVARQACSHAQAIPSKRVLVTDASQLPEVYSSTPGGTLFSTTPGGTRIIYDRAFLM
+NLKNSPLSRTPPKNLPPALMRGSPAQKNNGWKAPANQSRRASNDQATRHHEEQQFDIDI
+>29053:000e88 "pub_gene_id":"CFLO003721", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQTQSQNIPTKKIEAVQMPIDYSSTPGGTLYSTTPGVSQQFFVADIFRSYKNF
+PPKVSYMRRLFDSVI
+>29159:0047a6 {"pub_gene_id":"CGI_10020407", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"eukaryotic translation initiation factor 4E-binding protein 1-like"}
+MSSQGTPQQVLSSREIPKRVVLNDLSQLPQDYSTTPGGSIFSTTPGGTKIFYDRHFLLKC
+RNSPLTKSPPANMAKIPGITTPGVVDIPKENGTQGAIQDENQKKREGHEEQPQFEMDI
+>30069:0018e2 "pub_gene_id":"ASTE006409", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPLNLLRSGGGSPNSKPLTTLSVKQQKPARNSPPKYDEHQEQFDM
+DLTSRLIKMPEAPARNPLESFLNAVQATIDGPVTWFREKIVEPNRQTYPWYHQQFRRVPT
+IDQCYTDDAVCIFEANQQFRRDKMVDNEILSILRQRFEDCVLYEQPDHERKCRSLLDTYE
+KAAENWFIKYGDLGGYANAKTAYMKQKHRMIWERRHGPVGTGMKQVAGEDEAASEH
+>30195:00155c "pub_gene_id":"15208218", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQNIPSKRVVINDPNQLPIDYSSTPGGTLFSTTPGGTRIVYERDFLMN
+LRNSPISRTPPRNMPSIPGVLLKNTSSLSTSAKNQINKDTPVIEESAEQFEMDM
+>307658:00197e "pub_gene_id":"2152880580", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQNIPSKRIVIHDPNQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRNTLTIPSELLKGNSPAITKDPTKNINTKESLVIEESAEQFEMDM
+>31234:007238 {"pub_gene_id":"CRE29461", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Putative uncharacterized protein "}
+MLPTTIIACSTPSDHLFCGELSKCPEGSTSPLIKIVDGVDTVVGFSVYYNDECKKKTFAS
+VMHYKQQLCDLTGICQKTSPGPYTPKQIPPPTEISLSNKFIKLTKSEDVANTESCGKPTN
+PGSSLPIDLTPWTVNVNTPNDNGYIYNPATLISKRHVVVAAFALFQDKPAKYFDGTAVDL
+SKCQNNVMEISTEIIKKTSVDLSTCNDPSKCGSQISKQVKSAVYFGVCEPEVRAFGVVLL
+EMDSDLPAELPYFVPSCIPEKKVPEVGDSLHLHSIGQDKNKQYTRRISVAKTGKCTKGYR
+MYCQICATQTDCNEHSNGGFSRTQNGREVLIGVMYYHDSTCTVEDLVSMEVLSDLFCLYA
+GICNTKSTVNATGQKHGGKDSQKQSVPQKQAGNPKKPDGAEETGDGGDDSKVDAASSCLL
+TIYFSAVAFSLMSTLFGF
+>315563:000220 "pub_gene_id":"IU25_00544", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQAHSHAQLIPSMRKILISEPSQMPDVYSSTPNGTLYSTTPGGTKIVYERTFL
+MNLRHSPLANTPPKNIPCHLMKGDQSAFHHHNHQNQMNGTYHPPPHKQAQPNKEKDKSNG
+WSKVRKSADADDHLFDMDI*
+>319348:0021e8 "pub_gene_id":"Pv.10060", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQAHSHAQLIPAMRKVLINDASQMPDVYSSTPNGTIYSTTPNGTKIVYERTFL
+LNLRNSPLSHTPPKNVPCHLMKDDNSPFHNHNHQNQMNGTYHPPKNNHHNNHHQKASNNN
+KNANNSSNEWRRPSAASAASDDHQFDMDM
+>32264:0040b7 "pub_gene_id":"tetur32g01210", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MPKMESETKSASTVVSGLNIPTKKVHLTNLSQLPDNYCQTPGGTLFAHTPGGTRIIYDRS
+FLLKMRNSPIASTPPKNLPYIAGVTTGISPESLKENKSPFKKSIHKSAEPVQKKVEEPKT
+LPKKTAPETLEATTEEPQFSMEM
+>34638:001b78 "pub_gene_id":"1147218", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSITSSSIPIRRLVTDPSQLPSDYSRTPGGTLFSTTPGGTRIVYDRTFLLSLQQSPLSQT
+PPSLPTIPGCTVPKGSLSVSPKKEFHVPQAVDRRSSKTGADDEQFAIDI
+>34690:00051c "pub_gene_id":"AMEC001818", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPMNLLRTGVVSPNTKPMTTLSVKQQKPARNSPPKYDEHQEQFDM
+DL
+>34691:000e23 "pub_gene_id":"AQUA003640", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPMNLLRTGVVSPNTKPMTTLSVKQQKPARNSPPKYDEHQEQFDM
+DL
+>34740:002ad9 "pub_gene_id":"HMEL016247", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATHSQSIPSRRVLITDPAQMPDVYSSTPGGTIYSTTPGGTRIVYDRSFMMS
+LRQSPISQTPPKCSLPSALLKNPGLAREAPPPAQKPRSNSISFDESQETFSMDL
+>35525:00571e "pub_gene_id":"Dapma7bEVm012171t1", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+IIYCKNLSGRQFSFFQVTCYTLSPLPVTAKMSASPIARQAAQPQGQAIPRRILINDASQL
+PHDYSSTPNGTLYSTTPGGTKIIYDRNFLLQMRNSPVARTPPKNLPVIPGVTCDSPHKEK
+EKSKLINGQKNVTAQHKPVELPTVEVEKVEDKKQEEPQFEMDI
+>36166:00269b "pub_gene_id":"MESCA010658", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACISQSQAIPQIKRVVITDPADMPANYSSTLVTLAHSPLCKTPPKNIPYCL
+VRGAPRTPFRKCVPSPKADIKKKQEEDSYKIEDQEQFQLEL
+>37001:001de0 "pub_gene_id":"GBRI023283", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQVLSMPVKTKRITISDPIQMPEVYSSTPGGTMYSTTPGGTKIIYERAFLKEL
+RGSPLSLSPPANIPICLLRGTPRTPFRKCVPPPADLVKKTESLKIEDQEQFQLEL
+>37344:000694 "pub_gene_id":"AROS001685", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRVLINDPNQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRNIPAIPADLLKGSPAISTIPSPTIK
+>39758:001e2b "pub_gene_id":"Mdes007724", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQVCSTHAQAIPSKKVLINDPNQMPDVYSSTPGGTLYSTTPGGTRIIYERAFL
+MNLRNSPLSRTPPTNVPSSLMRGCKNVPISRLNGNHHQYSNSVNRSSPQRKGSDEQQFDI
+EL
+>400682:005a74 {"pub_gene_id":"Aqu1.223568", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSEEAKKGPTGLDRQSSNSLDIPSRTVLVKDASELPSSYCMTPGGTMYSTTPGGTRIIYD
+RKMLLQLRDSPYSRTPPTRLPPIPDIIAEGSVAVPQGTKSPLAVPSE
+>407821:005a5f "pub_gene_id":"KFM79635.1", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MMNNNSPQRKSSNTREIPGRRVVINDASQLPIDYSSTPGGTIFSTTPGGTRIIYDRAFLM
+QMRNSPIARTPPKNLPNIPGITSLNQNKPKENGTIVEGAAEDKQENHEDALFTMDV
+>411798:0021e7 "pub_gene_id":"19040416", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRVVIHDPNQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRNTLTIPSELLKGSTPAITRDPAKNINKDSLVIEESAEQFEMDM
+>41427:0028cf "pub_gene_id":"AATE016178", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASITQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPLTLLRSGGSPNGTSKPLSTLSVGKPKQSAGVRNSPPKFDEHQE
+QFDMDL
+>43041:00144b "pub_gene_id":"ACHR005196", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPLNLQRSGGGSPNLKPMSTLSTKQQKPARNSPPKYDEHQEQFDM
+DL
+>43151:0019cc "pub_gene_id":"ADAC006785", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASITQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGASRPSSGGPST
+RIVYERAFLMNLKNSPLARTPPNNVPLNLLRANGSPTGGASAKPLSTLSLSKPNQQKPAR
+NSPPKYDEHQEQFDMDLEAKMPEAPARNPLDSFLNAVHATIDGPVTWFREKIVEPNRQTY
+PWYHQQFRRVPTIDQCYTDDAVCIFEANQQFRRDK
+>443821:002db3 {"pub_gene_id":"EZA58036.1", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"eukaryotic translation initiation factor 4E-binding protein 1"}
+MSASPIARQATQSQSIPSKRIVIHDPNQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRNTLTIPSELLKGSTPAITRDPAKNTDKDAVIEESAEQFEMDM
+>45351:0020f0 {"pub_gene_id":"NEMVEDRAFT_v1g194654", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"hypothetical protein"}
+MNGTQAERGSPLARAIPSRRVPVHDPNHMPSDYSTTPGGTIYSTTPGGTRIIYERKFLLE
+LRNSPLAKSPPANLPVIPGVTCEDNGKPEPEEKPEVTSLPGARGEGDGEEPQFQMDI
+>45779:0024c7 "pub_gene_id":"pgl4028.9", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQVTHSQVIPSRKVLITDPSQMPDVYSSTPGGTIYSTTPGGTRIVYERSFMMS
+LRQSPISQTPPKCNLPAALLRNPGSSPQTPNTPAQKPRSDSLSFDESQETFSMDL
+>51511:001d64 {"pub_gene_id":"ENSCSAVG00000007678", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Uncharacterized protein "}
+MSESKGIPIRHIRLNHLSELPNDYGTTPGGTLYSTTPGGTRIIYDRSFLLKCRSSPMANT
+PPSNLPDIPGVTSPDKSPNRQITKIVEEKEVTNGKDKPKENGGILPNWSMHGPHVPAFHP
+CPANGPLQQYRQRSLQQQRQAMLDKALDPNLVYTISGPVGQNVNPMVPPDYISYPPPPRS
+PQAQFYDSNNNLQNNAGDGLWQMNGMPMLPQSNKPYPMSQLTSWRRMKVNQAITHAFTQS
+NQPFPNASQSQGAAVNFANQFSSCSCRNLHNKVTLYVPLTAICPAIATNRRWWMKIQTLS
+HTHKDEEQFDMEI
+>51655:003ae0 "pub_gene_id":"Px002868", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQTTVSQAIPTRRVLITDPAQMPDVYSSTPGGTVYSTTPGGTRIIYEKSFLMS
+LSKSPISQTPPKCALPAAMMKNPGSGPVLQTSGQKNRSNSISFDESQETFSMDL
+>516756:0029f0 "pub_gene_id":"EMEXI:0029f0", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQATQSQNIPSKRIVINDPSQLPTDYSSTPGGTLFSTTPGGQCLFFSYVI
+>52612:003bdf "pub_gene_id":"size280991-augustus-gene-1.13-mRNA-1", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPVARQASRSQSIPQRKVVINDASQLPVDYSTTPGGTLYSTTPGGTRIVYERAFLLQ
+LRNSPLARTPPKNLPNIPGILLNNSLAKENGSGIPSPIKEKEQKDDSQEQFQLDM
+>54969:003320 "pub_gene_id":"Pn.13089", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MQLTXTKIIYERNFLLNLKNSPLSHTPPKNVPCHLMKDDNSSFHQHNHQNQMNGTYHPPK
+THHKNPNNHNHKHTNNNSSNEWRRPSAASAVSDDHQFDMDM
+>597456:001d4d "pub_gene_id":"HLABO:001d4d", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQNIPSKRIVINDPSQLPADYSSTPGGTLFSTTPGGTRIVYERDFLMN
+LRNSPISRTPPRNMPSIPIELLKNTPPNPAVPAKLQINKDSPVIEETAEQFEMDM
+>59916:000e12 "pub_gene_id":"maker-JHQJ01000005.1-augustus-gene-4.135", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQAFTHALPKTKKIFISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFLKD
+LRGSPLSQTPPSDLPTCLLRGTPRTPFRKCVPPPVDLVKKARSMKIEDHEQFQLEL
+>6087:00083d "pub_gene_id":"449665691", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSSNSSSSIPVRRVQITEPQNMPSRYSETPGGTIFSTTPGGTRIIYERKFLLDLKSSPLS
+RTPTNLPVIPGVTLDDNGKIIEEMEELKEDSVPKTSQLNGDQKKEVLIPNKILLNKPECM
+WNIDVKSDGSMYDETGMQLELKPRRVVARIQNTFRVKQVATKRQLLLYVA
+>610380:002994 "pub_gene_id":"HSAL20645", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRIVIHDPNQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRSTLAIPSELLKGTPAITTNAAKNADKDALIEESAEQFEMDM
+>6183:000aa3 {"pub_gene_id":"Smp_074390", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Putative eukaryotic translation initiation factor 4e-binding protein "}
+MERQPTEPIPVKRVTVKDLSQIPSNHGTTPGGTLFSTTPGGTRIIYERDFILSCRNSPIA
+QTPPSDMIYLPELTPSSLHNDKTIHPCNGHKVKDSLNVSESTSNDHSKLSKGEDAPFEMD
+V
+>62324:00266a "pub_gene_id":"AFUN009835", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLTRTPPNNVPLNLLRSGGSPNSKPMSTLSAVKQQKPVRNSPPKYDEHQEQFDM
+DL
+>6412:0009c2 {"pub_gene_id":"HelroG147773", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MPDIYSSTPGGTIYSTTPGGTRIIYDRNFLIQCRNSPLSQTPPTNLPLIPGITCP
+>64793:003595 "pub_gene_id":"23060391", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRVVIHDPNQLPTDYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRSTLTIPSELLKGNTPAITKDHPAKNVNKDNNSLVIEESAEQFEMDM
+>64838:002f65 "pub_gene_id":"6718452", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQNIPFKTIVIHDPNEMPIDYSSTPGGTIYSTTPGGTRIVYERAFLMS
+LRKSQISRTPPTNSTLIPVDLLKNTAAIAPVISNICSKSKKDIPVTDETSEQFQMDM
+>6526:001a45 "pub_gene_id":"BGLTMP006726-PA", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MASQEQSPKGRDIPAIRRVVLNDVSQLPSDYSSTPGGTLFSTTPGGTRIVYDRSRLMQLR
+NSPLARSPPANMAKIPGITDFNADALSPKLKDKENGLTEEKDHLKEDGKYGHDEHPQFEM
+DI
+>6669:003b35 {"pub_gene_id":"DAPPUDRAFT_290539", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Putative translation inhibitor eIF4E-binding protein "}
+MSASPIARQAAQPQGQAIPRRILINDASQLPHDYSSTPNGTLYSTTPGGTKIIYDRNFLL
+QMRNSPVARTPPKNLPVIPGVTCDSPHKEKSKLINGQKNVTVQHKPVELPTVEIEKVEEK
+KQEEPQFEMDI
+>69004:002286 "pub_gene_id":"AFAF014065", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASITQAIPSKRVLIHDASEMPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPLNLLRAGVGSPNSKPLSTLSVQQQKPSRNSPPKYDEHQEQFDM
+DL
+>6945:001b06 {"pub_gene_id":"ISCW008362", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"eukaryotic translation initiation factor 4E binding protein, putative "}
+MAARSPDHKISSSRSIPTRRVVINDASQLPIDYSSTPGGTIFSTTPGGSRIIYDRSFLMQ
+MRNSPVARTPPKNLPLIPGVTVSCSPESKLAAQPQKPVENGTASPAKPPSKPEGSGDEPQ
+FAMDI
+>6973:005bcd "pub_gene_id":"BGER023502", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQCQTIPSRRVVINDASQLPVDYSTTPGGTLYSTTPGGTRIVYERAFVMQ
+FRNSPIARTPPKNYPSFPSSLMKGNLSKENANIISSPTKKEVLLAGDKYTQNVKERFREC
+FPNSNCPHPDTVHDLMKKFRVTGNFNQLIMSDSVEKRGTSSSQVPSGSIRTYDANFKLMV
+VKYAEATNNCAAGWKYEMQMSRKTSFRWKSKDFLGAALKWSWSEELIL
+>7029:000073 "pub_gene_id":"ACYPI000121", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MFLIIKQFHLVNLYTLLVTTNSLLSSVIMVVVDYSSHDRIRRNDYDQNDDTNQQLLVDQD
+AVVDFGIANFCPRLREAISALSRHTVGPLQQRVQLSDFQSSTLSSLPTDDLSSHIQLPRN
+DKFILALPYLYEDNLPISRYNFMVRWSIIAQCGRPDKAPEVILLETDNSSINSGYGETTL
+RKTQQRPQQLQHRQHQTNQIIQERYWQQYVASDAFYIQCLTKWDKTNNNSSSILQYCLLA
+DQLYECYVNFQVYKLKISLKSTPTMLHPPPQLVLAYTQYKQLTKLSKLNMTEVGNALTDI
+NIELFIDLENGINNYDDRRNQTTLAATVRMRAIISLVSSEQTASTAPITTEATDCKNDTK
+VLSQLASITGTFLPTGNKNATKPGDTNVALNKKFVVRILSSKLSRTTPQGTMMATMLNAI
+TDQCFDTTMMDYVTYVRRVQQAAVQAYNYDVSNSQEDKPSADVSYNNSIKLLLEALNEAF
+CDYPSNGNCLLDYKIDNNETSTKNTTSYFRFLLIDDDIVTETTQLKYILTIEYNKKLYEK
+LQTSTDLENTNQSTVKESFPVVSIRSVYDDENTDNYLNINIDNLTETDKNLVKYNSELAN
+IIKIAAINGMRKLRKDVLTPVLTRYNKQWAPTDPYFMASSSTPPPYPATL
+>7070:0013b6 {"pub_gene_id":"TC006808", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Putative uncharacterized protein "}
+MSASPMARQVTESKAIPTKKVLINDPSELPSHYSSTPGGTLYSTTPGGTKIVYEKAFLMN
+LRNSPISKTPPSYGIPENLMRGKTNGSAPIRRFSPPTKNHSAKIEDSHDEHQFQIDI
+>7091:001d29 "pub_gene_id":"BGIBMGA007466", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATHSQSIPSRRVLITDPAQMPDVYSSTPGGTIYSTTPGGTRIVYERSFMLS
+LRQSPISQTPPQCALPAALLKNPSSVPNAQPASTQKPRSNSISFDESQETFSMDL
+>7130:000d6d "pub_gene_id":"Msex2.03452", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MKMSASPIARQATHSQAIPSRRVLITDPSQMPDVYSSTPGGTVYSTTPGGTRIVYDRSFM
+MSLRQSPISQTPPKCSLPAALLRNPPANAQSTPVQAPKPSSNSIVFDESQETFSMDL*
+>7159:0006e7 {"pub_gene_id":"AAEL001864", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"eukaryotic translation initiation factor 4E binding protein (4EBP) "}
+MSASPIARQACSQTQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFLM
+NLKNSPLARTPPSNLNNLPHNILRNGTTGVTSKPKPQQQPQNSPPKFDEHQEQFDMDL
+>7165:001b6e {"pub_gene_id":"AGAP007781", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E-binding protein 1 "}
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPMNLLRTGVVSPNTKPMTTLSVKQQKPARNSPPKYDEHQEQFDM
+DL
+>7167:001ee4 "pub_gene_id":"AALB008010", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASITQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPLNLLRANGSPTSGASAKPLSTLSLKPNQQKPARNSPPKYDEHQ
+EQFDMDL
+>7168:0002c2 "pub_gene_id":"ADIR000709", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASITQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPMNLLRAGVVSPNSKPLSTLSVQQQKPSRNSPPKYDEHQEQFDM
+DL
+>7173:002e37 "pub_gene_id":"AARA011978", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASISQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGTRIVYERAFL
+MNLKNSPLARTPPNNVPMNLLRTGVVSPNTKPMTTLSVKQQKPARNSPPKYDEHQEQFDM
+DL
+>7176:0011e8 {"pub_gene_id":"CPIJ004808", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding protein"}
+MSASPIARQAAMTIPSRKVLIHDASDLPDLYSSTPGGTLYSTTPGGTRIVYERAFLMNLK
+NSPLARTPPTNLNNLPHNILRNSPTANRQQQHVPQAKKQPNAQPKFDEHQEQFDMDL
+>7200:001c8e "pub_gene_id":"LLOTMP007311", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPVARQACSHAQTIPSKRVLVTDASQLPDVYSSTPGGTLFSTTPGGTRIIYDRAFLM
+NLKNSPLSRTPPKNLPPALMKGSPTQKSGPWKAPASGPRRASNDQAARQHDNEHQFDMDI
+>7213:0015c3 "pub_gene_id":"CCAP005572", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQAFSQVLPRTKKILITDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFLKD
+LRASPLSQTPPSNLPNCLLRGTPRTPFRKCVPPPADLVKKTQSLKIEDHEQFQLEL
+>7217:00121d {"pub_gene_id":"FBgn0092264", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAITQALPMMTRKIVISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFMK
+NLRGSPLSQTPPSNVPSCLMRGTPRTPFRKCVPVPTELVKKAQSLKIEDQEQFQLEL
+>7220:003057 {"pub_gene_id":"FBgn0117077", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAITQALPMITRKVVISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFMK
+NLRGSPLSQTPPSNVPSCLLRGTPRTPFRKCVPVPTELVKQTKSLKIEDQEQFQLDL
+>7222:0000c4 {"pub_gene_id":"FBgn0117695", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAISHVLPLAMCKTKKVVVTDPIQMPEVYSSTPGGTIYSTTPGGTKLIYERN
+FMKNLRGSPLSQTPPNNIPSCLMRGTPRTPFRKCVPVPTELVKKTPASLKIEDQEQFQLE
+L
+>7227:0031d2 {"pub_gene_id":"FBgn0261560", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Thor "}
+MSASPTARQAITQALPMITRKVVISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFMK
+NLRGSPLSQTPPSNVPSCLLRGTPRTPFRKCVPVPTELIKQTKSLKIEDQEQFQLDL
+>7230:000fe9 {"pub_gene_id":"FBgn0137747", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAISHALPMAMTKTKKVIISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERA
+FMKNLRGSPLSQTPPSNIPSCLMRGTPRTPFRKCVPVPTDLVKKTQSLKIEEQEQFQLEL
+>7234:0020f8 {"pub_gene_id":"FBgn0156257", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAVSHALPMMAIAKTKKIVITDPIQMPEVYSSTPGGTLYSTTPGGTKLIYER
+AFMKNLRASPLSQTPPSNIPSCLMRGTPRTPFRKCVPVPTELVKKTQSLKIEDQEQFQLE
+L
+>7237:002034 "pub_gene_id":"FBgn0081352", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQAVSHALPMMAIAKTKKIVITDPIQMPEVYSSTPGGTLYSTTPGGTKLIYER
+AFMKNLRASPLSQTPPSNIPSCLMRGTPRTPFRKCVPVPTELVKKTQSLKIEDQEQFQLE
+L
+>7238:000494 {"pub_gene_id":"FBgn0166088", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAITQALPMITRKVVISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFMK
+NLRGSPLSQTPPSNVPSCLLRGTPRTPFRKCVPVPTELVKQTKSLKIEDQEQFQLDL
+>7240:0000dc {"pub_gene_id":"FBgn0067508", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAITQALPMITRKVVISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFMK
+NLRGSPLSQTPPSNVPSCLLRGTPRTPFRKCVPVPTELVKQTKSLKIEDQEQFQLDL
+>7244:00181b {"pub_gene_id":"FBgn0204414", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAFSHALPLAMTKTKKVVITDPIQMPEVYSSTPGGTLYSTTPGGTKVIYERA
+FMKNLRGSPLSQTPPSNIPSCLLRGTPRTPFRKCVPVPTDLAKKTQSLKIEEQEQFQLEL
+>7245:000072 {"pub_gene_id":"FBgn0067434", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAITQALPMITRKVIISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFMK
+NLRGSPLSQTPPSNVPSCLLRGTPRTPFRKCVPVPTELVKQTKSLKIEDQEQFQLDL
+>7260:00014e {"pub_gene_id":"FBgn0212421", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSASPTARQAVSHAMPMMAMARTKKIVISDPIQMPEVYSSTPGGTLYSTTPGGTKLIYER
+AFMKNLRGSPLSQTPPSNIPSCLMRGTPRTPFRKCVPVPTELVKKTQQSLKIEDQEQFQL
+EL
+>7370:00178f "pub_gene_id":"17012373", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQAMHVPQKTKTIRISDPIQMPEVYSSTPGGTLYSTTPGGTRLIYERAFLKNL
+RQSPLSQSPPTNIPTCLLKGTPRTPFRKCVPPPTDLIKKTESMKIEDQEQFQLEL
+>7375:00081e "pub_gene_id":"FF38_07967", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQAMHVPQKTKKITITDPIQMPEVYSSTPGGTLYSTTPGGTKLIYERAFLKNL
+RQSPLSQSPPTNIPSCLMRGTPRTPFRKCVPPPSDLSKKVESLKIEEQEQFQLEL
+>7394:0000cd "pub_gene_id":"GMOY000206", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQVLSMPIKTKRITISDPIQMPEVYSSTPGGTMYSTTPGGTKIIYERAFLKEL
+RGSPLSLSPPVNIPVCLLRGTPRTPFRKCVPPPADLVKKTESLKIEDQEQFQLDL
+>7395:002c21 "pub_gene_id":"GAUT030378", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQVLSMPVKTKRITISDPIQMPEVYSSTPGGTMYSTTPGGTKIIYERAFLKEL
+RGSPLSLSPPVNIPVCLLRGTPRTPFRKCVPPPADLVKKTESLKIEDQEQFQLDL
+>7396:0014e1 "pub_gene_id":"GFUI014057", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQVLSMPVKTKRITISDPIQMPEVYSSTPGGTMYSTTPGGTKIIYERAFLKEL
+RGSPLSLSPPVNIPVCLLRGTPRTPFRKCVPPPADLVKKTESLKIEDQEQFQLEL
+>7397:001ea6 "pub_gene_id":"GPPI021554", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQVLSMPVKTKRITISDPIQMPEVYSSTPGGTMYSTTPGGTKIIYERAFLKEL
+RGSPLSLSPPVNIPVCLLRGTPRTPFRKCVPPPADLVKKTESLKIEDQEQFQLEL
+>7398:001203 "pub_gene_id":"GPAI011288", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPTARQVLSMPIKTKRITISDPIQMPEVYSSTPGGTMYSTTPGGTKIIYERAFLKEL
+RGSPLSLSPPANIPVCLLRGTPRTPFRKCVPPPADLVKKTESLKIEDQEQFQLDL
+>7425:0007d0 "pub_gene_id":"Nasvi2EG002633", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQTQSIPAKKVVIHDANQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISQTPPKNMPTIPASLLKGAAPTVTAPNKIPSPPAKDAAVLDESAEQFEMDM
+>743375:001f0b "pub_gene_id":"PdomMRNAr1.2-08171", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQNIPSKRIIIDDPKQLPANYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRDSPISRTPPNIPSIPVDLLKVTPTISTPAKISPRKDTLTIEESPEQFEMDM
+>7460:002bb3 "pub_gene_id":"GB51712", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MLTSRVHSPLFFINYAVKLFVNKTERSSMSASPIARQATQSQNIPSKRIVINDPSQLPND
+YSSTPGGTLFSTTPGGTRIVYERDFLMNLRNSPISRTPPRNMPSIPGELLKHASPNPLTS
+VKNQIIKDTPVIEESAEQFEMDM
+>7462:00128b "pub_gene_id":"51575625", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MLTSRVHSPLFFINYAVKLFVNKTERSSMSASPIARQATQSQNIPSKRIVINDPSQLPND
+YSSTPGGTLFSTTPGGTRIVYERDFLMNLRNSPISRTPPRNMPSIPGELLKHTSPNPLTS
+VKNQIIKDTPVIEESAEQFEMDM
+>7463:002b96 "pub_gene_id":"3570424724", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQNIPSKRIVINDPSQLPNDYSSTPGGTLFSTTPGGTRIVYERDFLMN
+LRNSPISRTPPRNMPSIPGELLKHTSPNPLTSIKNQINKDTPVIEESAEQFEMDM
+>74873:002cfd "pub_gene_id":"ASIC014172", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQACASITQAIPSKRVLIHDASELPDLYSSTPGGTLYSTTPGGKFPGKRNGK
+>7536:000be8 "pub_gene_id":"OFAS003120", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MANRTPAQAIPTKRVLLSDSSQLPSNYSTTPGGTLYSTTPGGTRIVYERSTLMFLRNSPL
+SKTPPNIPDLPDSLSRGLDIKSFHKNGLRTSPIKKTQSDDRGEQFEIDI
+>7668:001727 {"pub_gene_id":"SPU_005957", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"4E-BP protein"}
+MSAPAASRQLSAGRDIPSKRVTVNDPSQLPHDYSTTPGGTLFSTTPGGTRIIYDRNFLLN
+MRNSPLSQTPPKNLPSIPGVTCPEVGAGAEKPNGARKTATKTDPAEDQFQMDI
+>7719:0035dd {"pub_gene_id":"ENSCING00000022186", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208, "description":"Uncharacterized protein "}
+MSESKGIPIRHIRLNHLSELPNDYGTTPGGTFYSTTPGGTRIIYDRSFLLKCRSSPMANT
+PPSNLPDIPGVTSPDKSPTRQITKIKEEEEIANKDGSNGKENGDSHKDEEQFDLEI
+>79782:00365c "pub_gene_id":"CLEC004672", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MKSASLENHVVDVANNSNGKLLLPRKGRSPGALLYFFIYLSVLSVLKRTRIVYERSTLMY
+LRNSPLSNTPPKFLDDFPCRKGAVDKIITNGFRKSPSKFT
+>83485:003756 "pub_gene_id":"LH24354", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPSKRIVIHDPNQLPADYSSTPGGTLYSTTPGGTRIVYERAFLMN
+LRNSPISRTPPRNTLTIPPELLKGSTPAITRDPTKITNKDALVIEESAEQFEMDM
+>88015:002d89 "pub_gene_id":"EAFF011658", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPMARATTIGQDIPRRVVINNEDDMPDDYSGTIFGTTPGGTKIVYERAFLMNMRNSP
+LAKTPPNNMPCIPGVTTDLKTKDDQKKKTSVDKKVEQNKDEDDQFSMDI
+>88501:002ff4 "pub_gene_id":"Lalb_06303", "pub_og_id":"EOG091G0ZHJ", "og_name":"Eukaryotic translation initiation factor 4E binding","level":33208
+MSASPIARQATQSQSIPLKKILFTDPSQLPADYSSTPGGTLFSTTPGGTRIVYEREFLMN
+LQNSPISRTPPQNISAIPAELLKNTSSNSTTLVKTNRDTPAIEESAEQFEMDM
+>1220926:0021d0 {"pub_gene_id":"S2J675", "pub_og_id":"EOG0937185N", "og_name":"Eukaryotic translation initiation factor 4E binding","level":2759, "description":"Eukaryotic translation initiation factor 4E binding"}
+MAVDQGNRVNYDRTTLLALAGSPFAKVPPVKMAFIPGVTRTPNQSDVVMSFRKTKDRKKE
+KEKEKKTFNPFALLGDDE
+>237631:000b97 "pub_gene_id":"Q4P4H6", "pub_og_id":"EOG0937185N", "og_name":"Eukaryotic translation initiation factor 4E binding","level":2759
+MSSTIAISTPASSCTTSANATCSVYGTTPGGTPRISYSRDELLNLASSPLSRSPPKFDVP
+AAISRTRKSASERFEHQPPASNANTTKHADPVDSDDEQEDATAFTMEL
+>246409:000ecb {"pub_gene_id":"I1BQ86", "pub_og_id":"EOG0937185N", "og_name":"Eukaryotic translation initiation factor 4E binding","level":2759, "description":"Eukaryotic translation initiation factor 4E binding"}
+MAVQQGESNGTRVSYDRPTLLALAGSPFSKLPPVKMAFIPGVTRTPNQSDVVQSFRKEKD
+RKKEKEKKQKTFNPFALLGDGDE
+>3847:0081f9 {"pub_gene_id":"GLYMA13G02570", "pub_og_id":"EOG0937185N", "og_name":"Eukaryotic translation initiation factor 4E binding","level":2759, "description":"Uncharacterized protein "}
+MLSQYPLNPNAQSYYSTPNNQVFYDPRFIHHYVPPSNLGVYPPSPFPFPCDQNVKTVQVW
+ARVRGRKLLAENNARAKPLGNRAVPFPNTVQEAKTSSITTVMIRNIPNQFKFEDLQLILD
+EHCFKQNKSAEDPKAWSKFDFVYLPMDYGKHAIEKKKSNLGYAFVNFTTPAAAFKFYSEF
+QGFEWDVAKNKKICEINVAQYQGKDTLKRIFQGKVFKCESRDFLPVLYSGGGRDGLNRRI
+KGTYVGKHVLGLPRKKNPRNLFLLINPNV
+>671144:0011fc {"pub_gene_id":"I4YBE0", "pub_og_id":"EOG0937185N", "og_name":"Eukaryotic translation initiation factor 4E binding","level":2759, "description":"Eukaryotic translation initiation factor 4E binding"}
+MDIPKQASRLNLSKTPTGNNFYGSTPGGTKIVYSRDQLLSLASSPLSHTPPKGLSHFPAA
+MSRSEHKPVELAQPGKEATKTNEDTTFEMDD
+>747089:003d98 {"pub_gene_id":"U9T036", "pub_og_id":"EOG0937185N", "og_name":"Eukaryotic translation initiation factor 4E binding","level":2759, "description":"Eukaryotic translation initiation factor 4E binding"}
+IKKAESGASLPAHYSTTPSGTIYSSTPGGSRIIYDRTTLLNLAHSPLAKTPPSNLAYVPG
+VTKVPHTE
+>7539:001b35 "pub_gene_id":"LDEC006966", "pub_og_id":"EOG0937185N", "og_name":"Eukaryotic translation initiation factor 4E binding","level":2759
+MDKIKNKHSCGPDSIAGHVIKRIAPYIIAPLRYLINISLQQGQFPLLLKHSIVSPILKKG
+NSHNLENYHPIAVTSALSKVFQYIMLEFTHNFLNLNDILTPHQHGFRSNHSTTIAIISFY
+SNLLQSVEAGENPTGIFCDLRRAFDCVRHGNLLDKLYKTGTRIVYDMDYLRNLRNSPLSK
+TPPKFHIPEHLAISSPKRNAGRSQQKTNEIEDQFPIDL
+>999809:00086b {"pub_gene_id":"E6ZQ97", "pub_og_id":"EOG0937185N", "og_name":"Eukaryotic translation initiation factor 4E binding","level":2759, "description":"Eukaryotic translation initiation factor 4E binding"}
+MSSTIPIASSHTTTNGSTSVYGTTPGGTPRISYSRDELLNLASSPLSRSSPNFDLPAAIS
+RTPKLDGDKFDVPANANVIDEEREEEGDEESTAFAMDL

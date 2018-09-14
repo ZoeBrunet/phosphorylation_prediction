@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import ast
 import queue
+from pathlib import Path
 import threading
 import pandas as pd
 import csv
@@ -22,6 +23,7 @@ import numpy as np
 from threading import RLock
 from source.utils.score import *
 from source.utils.window import create_window, find_pos_in_alignment
+from source.utils.align_ortholog import *
 
 
 class Gene:
@@ -157,17 +159,16 @@ class fill_table(Thread):
                     for record in SeqIO.parse(open(path2cluster), "fasta"):
                         to_add = True
                         taxonomy = str(record.id).split(":")[0]
+                        que = queue.Queue()
                         if float(taxonomy) == float(taxID) and taxID not in taxid_list and not seq_find:
-                            match = SequenceMatcher(None, record.seq,
-                                                    sequence).find_longest_match(0, len(record.seq),
-                                                                                 0, len(sequence))
-                            if match.size == 13:
-                                add_seq(record, sorted_file, taxid_list, taxonomy)
+                            if seq == str(record.seq).replace('-', ''):
+
+                                function_in_thread(que, [record, sorted_file, taxid_list, taxonomy], add_seq)
                                 seq_find = True
                             else:
                                 to_add = False
                         if taxonomy not in taxid_list and to_add:
-                            add_seq(record, sorted_file, taxid_list, taxonomy)
+                            function_in_thread(que, [record, sorted_file, taxid_list, taxonomy], add_seq)
                     if not seq_find:
                         os.remove(sorted_file)
                         print("No corresponding sequence in fasta for %s" % clusterID)
@@ -291,14 +292,14 @@ class fill_table(Thread):
                         space = [20, 5*half_window, 5, 5*half_window]
 
                         # Print sequence
-                        for name, freq, shanon_entropy, IC, ACH, nb_ortho in zip(["metazoa", "non metazoa"],
-                                                                                    [freq_metazoa, freq_non_metazoa],
-                                                                                    [shanon_entropy_metazoa,
-                                                                                     shanon_entropy_non_metazoa],
-                                                                                    [IC_metazoa, IC_non_metazoa],
-                                                                                    [ACH_metazoa, ACH_non_metazoa],
-                                                                                    [nb_orthologs_metazoa,
-                                                                                     nb_orthologs_non_metazoa]):
+                        for name, pathortho, freq, \
+                            shanon_entropy, IC, ACH, \
+                            nb_ortho in zip(["metazoa", "non metazoa"],
+                                            [path2alignclustermetazoa, path2alignclusternonmetazoa],
+                                            [freq_metazoa, freq_non_metazoa],
+                                            [shanon_entropy_metazoa, shanon_entropy_non_metazoa],
+                                            [IC_metazoa, IC_non_metazoa], [ACH_metazoa, ACH_non_metazoa],
+                                            [nb_orthologs_metazoa, nb_orthologs_non_metazoa]):
                             print("%s%s%s :    %snb_ortholog:%s %s" % (red, name, end, underline,
                                                                        end, nb_ortho))
                             seq_left = (' ' * 4).join(rel_sequence[rel_window[0][0]:
@@ -312,18 +313,19 @@ class fill_table(Thread):
                                      phospho_site, green, seq_right, end))
 
                             if self.align_ortho_window:
-                                align = AlignIO.read(path2aligncluster, "fasta")
-                                for record in align:
-                                    if not len(find_pattern(str(taxID), str(record.id))):
-                                        seq_left = (' ' * 4).join(record.seq[rel_window[0][0]:
-                                                                             rel_window[0][1] + 1]) + (" " * 4)
-                                        phospho_site = (' ' * 4).join(record.seq[rel_window[0][1] + 1:
-                                                                                 rel_window[1][0]]) + (" " * 4)
-                                        seq_right = (' ' * 4).join(record.seq[rel_window[1][0]:
-                                                                              rel_window[1][1] + 1]) + (" " * 4)
-                                        print("%s%s:%s%s%s%s%s%s%s \n "
-                                              % (record.id, " " * (space[0] - len(record.id)), blue, seq_left, end,
-                                                 phospho_site, green, seq_right, end))
+                                if os.path.exists(pathortho):
+                                    align = AlignIO.read(pathortho, "fasta")
+                                    for record in align:
+                                        if not len(find_pattern(str(taxID), str(record.id))):
+                                            seq_left = (' ' * 4).join(record.seq[rel_window[0][0]:
+                                                                                 rel_window[0][1] + 1]) + (" " * 4)
+                                            phospho_site = (' ' * 4).join(record.seq[rel_window[0][1] + 1:
+                                                                                     rel_window[1][0]]) + (" " * 4)
+                                            seq_right = (' ' * 4).join(record.seq[rel_window[1][0]:
+                                                                                  rel_window[1][1] + 1]) + (" " * 4)
+                                            print("%s%s:%s%s%s%s%s%s%s \n "
+                                                  % (record.id, " " * (space[0] - len(record.id)), blue, seq_left, end,
+                                                     phospho_site, green, seq_right, end))
 
                             # Print frequence
 
@@ -374,8 +376,7 @@ def create_training_set(string, max_window, nthread, file, phospho_ELM=True,
     # Initialisation
 
     if os.path.basename(os.path.dirname(file)) == "%s" % string \
-            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "csv" \
-            and os.path.basename(os.path.dirname(os.path.dirname(os.path.dirname(file)))) == "data":
+            and os.path.basename(os.path.dirname(os.path.dirname(file))) == "csv":
         path = "%s" % os.path.abspath(os.path.dirname(os.path.dirname
                                       (os.path.dirname(file))))
     else:
@@ -401,9 +402,8 @@ def create_training_set(string, max_window, nthread, file, phospho_ELM=True,
     csv_dataset = '%s/%s_phospho_sites.csv' % (path2csv, string)
     if output_file is not None:
         csv_dataset = output_file
-    if not os.path.exists(csv_dataset):
-        os.system('touch %s' % csv_dataset)
-    with open(csv_dataset, 'a+', newline='') as g:
+    Path(csv_dataset).touch(exist_ok=True)
+    with open(csv_dataset, 'r+', newline='') as g:
         writer = csv.writer(g, delimiter=";")
         g.seek(0)
         first_char = g.read(1)
