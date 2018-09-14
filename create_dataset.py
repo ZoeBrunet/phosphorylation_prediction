@@ -35,22 +35,25 @@ dic = {}
 files = {}
 file_list = []
 index_list = []
+suffix = ""
+for t in species:
+    suffix += str("_%s" % t)
 
 for file, pattern in zip(input_file, patterns):
     index_file = import_ortholog(file, pattern, args.nthread)
-    index_file = filter_species(index_file, species)
-    index_file = remove_redundancy(index_file)
+    index_file = filter_species(index_file, species, suffix)
+    index_file = remove_redundancy(index_file, suffix)
     file_list.append(index_file)
 
 for file, pattern in zip(file_list, patterns):
     tmp = file_list.copy()
     tmp.remove(file)
-    index_list.append(write_final_index(file, tmp, pattern))
+    index_list.append(write_final_index(file, tmp, pattern, suffix))
 
 for file, pattern in zip(index_list, patterns):
     output_file = None
     if pattern in files:
         output_file = str(files[str(pattern)])
     create_training_set(pattern, args.max_window,
-                        args.nthread, file, phospho_ELM=False, color=args.color,
+                        args.nthread, file, suffix, phospho_ELM=False, color=args.color,
                         align_ortho_window=args.ortholog, output_file=output_file)

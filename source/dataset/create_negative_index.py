@@ -63,11 +63,11 @@ def merge_index(file1, file2, output):
     return output
 
 
-def write_final_index(input_file, file_list, pattern):
+def write_final_index(input_file, file_list, pattern, suffix):
     name = "index_neg_%s.csv" % pattern
     path = os.path.dirname(input_file)
     output_file = "%s/%s" % (path, name)
     output_file = write_neg_sites(output_file, input_file, file_list, pattern)
-    output = "%s/final_index_%s.csv" % (path, pattern)
+    output = "%s/final_index_%s%s.csv" % (path, pattern, suffix)
     return merge_index(input_file, output_file, output)
 

@@ -371,7 +371,7 @@ class fill_table(Thread):
                                      " " * (int(space[1] / 2) - 3), lamb(ACH_prot[1]), end))
 
 
-def create_training_set(string, max_window, nthread, file, phospho_ELM=True,
+def create_training_set(string, max_window, nthread, file, suffix, phospho_ELM=True,
                         color=False, align_ortho_window=True, output_file=None):
     # Initialisation
 
@@ -399,11 +399,11 @@ def create_training_set(string, max_window, nthread, file, phospho_ELM=True,
 
     # Creation of csv
 
-    csv_dataset = '%s/%s_phospho_sites.csv' % (path2csv, string)
+    csv_dataset = '%s/%s_phospho_sites%s.csv' % (path2csv, string, suffix)
     if output_file is not None:
         csv_dataset = output_file
     Path(csv_dataset).touch(exist_ok=True)
-    with open(csv_dataset, 'r+', newline='') as g:
+    with open(csv_dataset, 'w+', newline='') as g:
         writer = csv.writer(g, delimiter=";")
         g.seek(0)
         first_char = g.read(1)

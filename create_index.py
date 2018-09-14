@@ -33,14 +33,17 @@ dic = {}
 files = {}
 file_list = []
 index_list = []
+suffix = ""
+for t in species:
+    suffix += str("_%s" % t)
 
 for file, pattern in zip(input_file, patterns):
     index_file = import_ortholog(file, pattern, args.nthread)
-    index_file = filter_species(index_file, species)
-    index_file = remove_redundancy(index_file)
+    index_file = filter_species(index_file, species, suffix)
+    index_file = remove_redundancy(index_file, suffix)
     file_list.append(index_file)
 
 for file, pattern in zip(file_list, patterns):
     tmp = file_list.copy()
     tmp.remove(file)
-    write_final_index(file, tmp, pattern)
+    write_final_index(file, tmp, pattern, suffix)

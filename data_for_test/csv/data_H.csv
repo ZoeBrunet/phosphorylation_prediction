@@ -3,3 +3,4 @@ PTHP_BACTI	Q9F166	14	Tele-phosphohistidine; alternate.	-	Swiss-Prot 1010711	H	Ph
 ENVZ_ECOLI	P0AEJ4	243	Phosphohistidine; by autocatalysis.	8132603	Swiss-Prot 1010711	H	Phosphorylation	LMAGVSHDLRTPL
 GLCT_BACSU	O31691	104	Phosphohistidine; by EII-Glc.	9765562	Swiss-Prot 1010711	H	Phosphorylation	HIALTDHIAFAIK
 NDKB_HUMAN	P22392	93	Phosphohistidine	17157250	Phosphositeplus.1010730	H	Phosphorylation	VGRNIIHGSDSVK
+SLN1_YEAST	P39928	576	Phosphohistidine; by autocatalysis.	8808622	Swiss-Prot 1010711	H	Phosphorylation	FIANISHELRTPL

@@ -19,10 +19,10 @@ import os
 import csv
 
 
-def remove_redundancy(index_file):
+def remove_redundancy(index_file, suffix):
     path = os.path.dirname(index_file)
     file_name = "filter_%s" % os.path.basename(index_file)
-    path2file = "%s/%s" % (path, file_name)
+    path2file = "%s/%s%s.csv" % (path, file_name.split(".")[0], suffix)
     if not os.path.exists(path2file):
         if os.path.exists(index_file):
             genes = pd.read_csv(index_file, sep=';')

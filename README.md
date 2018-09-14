@@ -56,7 +56,7 @@ foo@bar:~$ python create_dataset.py pattern1,pattern2 file1,file2
 
 ```console
 foo@bar:~$ python create_dataset.py --ortholog --nthread 4 H,T path/2/phosphorylation_prediction/data_for_test/csv/data_H.csv,path/2/phosphorylation_prediction/data_for_test/csv/data_T.csv --color
--0.92
+foo@bar:~$ python create_dataset.py H path/2/phosphorylation_prediction/data_for_test/csv/data_H.csv --species 559292
 ```
 
 ### Create index
