@@ -96,7 +96,7 @@ def machine_learning_parser(args):
                         help='Input number of model you want to create')
     parser.add_argument('-max_time', default=None,
                         help='Input the time in second to rum autoML')
-    parser.add_argument('-max_mem_size', default='2g',
+    parser.add_argument('-max_mem_size', default='1g',
                         help='Input the maximum size, in bytes, of the memory allocation pool to H2O. '
                              'This value must a multiple of 1024 greater than 2MB. '
                              'Append the letter m or M to indicate megabytes, '

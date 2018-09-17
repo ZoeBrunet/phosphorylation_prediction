@@ -43,7 +43,7 @@ def h2o_prediction(input_file, prediction, benchmark):
 
         df_names_x = df.names[:]
         for col in ["phosphorylation_site", "uniprotID", "geneID", "sequence", "position", "seq_in_window",
-                    "clusterID", "nb_orthologs", "taxID", "nb_orthologs_metazoa", "nb_orthologs_non_metazoa"]:
+                    "clusterID", "nb_orthologs", "taxID", "nb_orthologs_metazoa", "nb_orthologs_nonmetazoa"]:
             df_names_x.remove(col)
         predict = model.predict(df).as_data_frame(use_pandas=True, header=True)
         bench = pd.read_csv(benchmark, sep=';')

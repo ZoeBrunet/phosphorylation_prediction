@@ -222,11 +222,84 @@ foo@bar:~$ python create_models.py -max_time 60 /path/2/phosphorylation_predicti
 
 ### Compare tool
 
+#### How to use it
+
+Use compare_tools.py to get performance of models.
+
+If necessary the program create a prediction directory in which you will find all the results
+
+```console
+foo@bar:~$ python compare_toold.py benchmark model_directory
+```
+
+#### Parameters
+
+| Name          |     type           |           description              | Default value|
+| ------------- |    -------------   | -------------                    | :-------------: |
+| benchmark          | string   | Validation set     | |
+| model_directory          | string   | Path to the directory where models are stored     | |
+| --musite    | bool     | Enable this bool to have Musite prediction| False |
+| --rfp    | bool     | Enable this bool to have Musite prediction| False |
+| -step    | int (optional)     |  Step for threshold | 100 |
+| -models   | list(string) (optional)     |  List of models you want to compare | best of each family |
+
+
+#### Example
+
+```console
+foo@bar:~$ python compare_tools.py /path/2/phosphorylation_prediction/data_for_test/csv/T/phospho_sites_T_benchmark.csv /path/2/phosphorylation_prediction/data_for_test/models
+foo@bar:~$ python compare_tools.py /path/2/phosphorylation_prediction/data_for_test/csv/T/phospho_sites_T_benchmark.csv /path/2/phosphorylation_prediction/data_for_test/models -models  GBM_grid_0_AutoML_20180917_124949_model_46,XRT_0_AutoML_2
+```
+
 ## Figures
 
 ### Piechart
 
+#### How to use it
+
+Use pie-chart.py to plot pie chart with index or dataset
+
+```console
+foo@bar:~$ python pie-chart.py feature file filename
+```
+
+#### Parameters
+
+| Name          |     type           |           description              | 
+| ------------- |    -------------   | -------------                    | 
+| feature          | string   | Name of the column to plot | 
+| files          | string   | Path to the csv  | 
+| filename   | string     | Path to the plot | 
+
+#### Example
+
+```console
+foo@bar:~$ python pie-chart.py phosphorylation_site /path/2/phosphorylation_prediction/data_for_test/csv/T/phospho_sites_T.csv /path/2/phosphorylation_prediction/data_for_test/figures/pie_chart_example.html 
+```
+
 ### Boxplot
+
+#### How to use it
+
+Use boxplot.py to plot boxplot with index or dataset
+
+```console
+foo@bar:~$ python boxplot.py feature file filename
+```
+
+#### Parameters
+
+| Name          |     type           |           description              | 
+| ------------- |    -------------   | -------------                    | 
+| feature          | string   | Name of the column to plot | 
+| files          | list(string)   | Path to csv  | 
+| filename   | string     | Path to the plot | 
+| -names | list(string) (optional) | names for each boxplot |
+#### Example
+
+```console
+foo@bar:~$ python boxplot.py nb_orthologs /path/2/phosphorylation_prediction/data_for_test/csv/T/phospho_sites_T.csv,/path/2/phosphorylation_prediction/data_for_test/csv/H/phospho_sites_H.csv /path/2/phosphorylation_prediction/data_for_test/figures/boxplot_example.html -names orthologs_T,orthologs_H
+```
 
 ### Model info
 
