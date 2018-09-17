@@ -372,13 +372,12 @@ class fill_table(Thread):
 
 
 def create_training_set(string, max_window, nthread, file, suffix, phospho_ELM=True,
-                        color=False, align_ortho_window=True, output_file=None):
+                        color=False, align_ortho_window=True, output_file=None, final_index=False):
     # Initialisation
-
     if os.path.basename(os.path.dirname(file)) == "%s" % string \
             and os.path.basename(os.path.dirname(os.path.dirname(file))) == "csv":
         path = "%s" % os.path.abspath(os.path.dirname(os.path.dirname
-                                      (os.path.dirname(file))))
+                                          (os.path.dirname(file))))
     else:
         if not os.path.exists("%s/data" % os.path.dirname(file)):
             os.mkdir("%s/data" % os.path.dirname(file))
@@ -387,7 +386,6 @@ def create_training_set(string, max_window, nthread, file, suffix, phospho_ELM=T
         if not os.path.exists("%s/data/csv/%s" % (os.path.dirname(file), string)):
             os.mkdir("%s/data/csv/%s" % (os.path.dirname(file), string))
         path = "%s/data" % os.path.dirname(file)
-
     pattern = r"%s" % string
     path2fastas = '%s/fastas' % path
     path2align = '%s/align' % path
@@ -399,7 +397,8 @@ def create_training_set(string, max_window, nthread, file, suffix, phospho_ELM=T
 
     # Creation of csv
 
-    csv_dataset = '%s/%s_phospho_sites%s.csv' % (path2csv, string, suffix)
+    csv_dataset = '%s/phospho_sites_%s%s.csv' % (path2csv, string, suffix) if not final_index \
+        else '%s/phospho_sites%s' % (path2csv, suffix)
     if output_file is not None:
         csv_dataset = output_file
     Path(csv_dataset).touch(exist_ok=True)

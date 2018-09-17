@@ -13,15 +13,16 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import os
 import sys
 from source.utils.parser import dataset_parser
 from source.dataset.create_dataset import create_training_set
 
 args = dataset_parser(sys.argv[1:], 'Run final_index_to_dataset to get dataset from index')
 file = args.file
+suffix = os.path.basename(file).replace("final_index", "")
 pattern = args.pattern
 
 create_training_set(pattern, args.max_window,
                     args.nthread, file, phospho_ELM=False, color=args.color,
-                    align_ortho_window=args.ortholog)
+                    align_ortho_window=args.ortholog, suffix=suffix, final_index=True)

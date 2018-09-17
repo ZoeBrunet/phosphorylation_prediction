@@ -34,7 +34,7 @@ We have several intermediate files to store information.
 
 Use create_dataset.py to create csv dataset needed for model training.
 
-If necessary the program create an data, fastas, metazoa, non_metazoa, sorted_fastas, align and csv directory. The index and the dataset are stored in data/csv/pattern/
+If necessary the program create an data, fastas, metazoa, non_metazoa, sorted_fastas, align and csv directory. The index and the dataset are stored in data/csv/pattern/.
 ```console
 foo@bar:~$ python create_dataset.py pattern1,pattern2 file1,file2
 ```
@@ -61,9 +61,99 @@ foo@bar:~$ python create_dataset.py H path/2/phosphorylation_prediction/data_for
 
 ### Create index
 
+#### How to use it
+
+Use create_index.py to create csv index needed for creation of dataset.
+
+If necessary the program create an data, fastas and csv directory. The index and the dataset are stored in data/csv/pattern/. The program will create index, filtered_index, neg_index and final_index
+```console
+foo@bar:~$ python create_index.py pattern1,pattern2 file1,file2
+```
+
+#### Parameters
+
+|Name          |     type           |           description              | Default value|
+| :------------- |    :-------------   | :-------------                    | :------------- |
+| pattern       | list(regexpr) | Amino acid sequence you want to detect | |
+| file          | list(string)   | dump of dbPTM     | |
+| max_window    | int (optional)     | Max size of the amino acid sequence in which the pattern can be find| 15 |
+| --nthread          | int (optional)  | Number of thread to execute program | 1 |
+| --species    | list(int) (optional)   | Species you want to include in your dataset | All |
+
+
+#### Example
+
+```console
+foo@bar:~$ python create_index.py --ortholog --nthread 4 H,T path/2/phosphorylation_prediction/data_for_test/csv/data_H.csv,path/2/phosphorylation_prediction/data_for_test/csv/data_T.csv
+foo@bar:~$ python create_index.py H path/2/phosphorylation_prediction/data_for_test/csv/data_H.csv --species 559292
+```
+
 ### Final index to dataset
 
+#### How to use it
+
+Use final_index_to_dataset.py to create csv dataset from final_index.
+
+If necessary the program create an  metazoa, non_metazoa, sorted_fastas and align directory. The dataset is stored in data/csv/pattern/
+```console
+foo@bar:~$ python create_index.py pattern1,pattern2 file1,file2
+```
+
+#### Parameters
+
+|Name          |     type           |           description              | Default value|
+| :------------- |    :-------------   | :-------------                    | :------------- |
+| pattern       | regexpr | Amino acid sequence you want to detect | |
+| file          | string   | final_index     | |
+| max_window    | int (optional)     | Max size of the amino acid sequence in which the pattern can be find| 15 |
+| --nthread          | int (optional)  | Number of thread to execute program | 1 |
+| --color    | bool (optional)     | Enable color in console output | False |
+| --ortholog    | bool (optional)     | Show the orthologs in the window | False |
+
+
+
+#### Example
+
+```console
+foo@bar:~$ python final_index_to_dataset.py --ortholog --nthread 4 H path/2/phosphorylation_prediction/data_for_test/csv/H/final_index_H.csv
+```
+
 ### Run muscle
+
+Use run_muscle.py to align proteines sequence in a fasta file.
+
+If necessary the program create an align directory. The fasta is stored in align
+```console
+foo@bar:~$ python run_muscle.py file
+```
+
+#### Parameters
+
+|Name          |     type           |           description              | 
+| :------------- |    :-------------   | :-------------                    | 
+| file          | string   | fasta file     | |
+
+
+
+#### Example
+
+```console
+foo@bar:~$ python run_muscle.py path/2/phosphorylation_prediction/data_for_test/fastas/example.fasta
+MUSCLE v3.8.31 by Robert C. Edgar
+
+http://www.drive5.com/muscle
+This software is donated to the public domain.
+Please cite: Edgar, R.C. Nucleic Acids Res 32(5), 1792-97.
+
+example 6 seqs, max length 18, avg  length 12
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 1
+00:00:00    23 MB(-6%)  Iter   1  100.00%  K-mer dist pass 2
+00:00:00    25 MB(-7%)  Iter   1  100.00%  Align node       
+00:00:00    25 MB(-7%)  Iter   1  100.00%  Root alignment
+00:00:00    25 MB(-7%)  Iter   2  100.00%  Root alignment
+00:00:00    25 MB(-7%)  Iter   3  100.00%  Refine biparts
+/path/2/phosphorylation_prediction/data_for_test/align/example_align.fasta
+```
 
 ## Training set and Benchmark
 
