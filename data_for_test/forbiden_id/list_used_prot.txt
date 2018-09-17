@@ -1,0 +1,2 @@
+/path/2/phosphorylation_prediction/data_for_test/forbiden_id/example.txt
+/pat/2/phosphorylation_prediction/data_for_test/forbiden_id/example.xml

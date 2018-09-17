@@ -96,7 +96,7 @@ Use final_index_to_dataset.py to create csv dataset from final_index.
 
 If necessary the program create an  metazoa, non_metazoa, sorted_fastas and align directory. The dataset is stored in data/csv/pattern/
 ```console
-foo@bar:~$ python create_index.py pattern1,pattern2 file1,file2
+foo@bar:~$ python final_index_to_dataset.py pattern file
 ```
 
 #### Parameters
@@ -159,9 +159,64 @@ example 6 seqs, max length 18, avg  length 12
 
 ### Split dataset
 
+#### How to use it
+
+Use split_dataset.py to create training and validation set from dataset. The validation test is create with all the proteines who are not used in musite and PhosphoSVM training set.
+
+The validation and training set are stored in the same directory than the input file. The have the same name with suffix "_benchmark.csv" and "_training.csv" there are also 2 info files to sum up the important information
+
+```console
+foo@bar:~$ python split_dataset.py dataset used_proteines 
+```
+
+#### Parameters
+
+|Name          |     type           |           description              | Default value|
+| :------------- |    :-------------   | :-------------                    | :------------- |
+| dataset      | string | path to dataset | |
+| used_protein          | string   | path to text file in which path to forbiden protein id are stored     | |
+| -convert    | string (optional)     | If somme protein have no uniprotID you can provide a csv in which you hava manually translate id. First column is the UniprotID and second column is the id of the protein in the other file| None |
+
+
+
+
+#### Example
+
+/!\ Before using these command line, please change the absolute path in /pat/2/phosphorylation_prediction/data_for_test/forbiden_id/convert.csv
+```console
+foo@bar:~$ python split_dataset.py  -convert /path/2/phosphorylation_prediction/data_for_test/forbiden_id/convert.csv /path/2/phosphorylation_prediction/data_for_test/csv/T/phospho_sites_T.csv /path/2/phosphorylation_prediction/data_for_test/forbiden_id/list_used_prot.txt
+```
+
 ## Machine learning
 
 ### Create models
+
+#### How to use it
+
+Use create_models.py to create models.
+
+The models are all stored in the same directory. A file info.txt give some metrics for each model.
+
+```console
+foo@bar:~$ python create_models.py file directory_name
+```
+
+#### Parameters
+
+| Name          |     type           |           description              | Default value|
+| ------------- |    -------------   | -------------                    | :-------------: |
+| file          | string   | Dataset before machine learning     | |
+| directory_name          | string   | Path to the directory where models will be stored     | |
+| -max_models    | int (optional)     | Number of models to test| None |
+| -max_time    | int (optional)     |  The maximum runtime in seconds that you want to allot in order to complete the model | 3600 |
+| -max_mem_size    | string (optional)     |  the maximum size, in bytes, of the memory allocation pool to H2O. This value must a multiple of 1024 greater than 2MB. Append the letter m or M to indicate megabytes, or g or G to indicate gigabytes.  | 1g |
+
+
+#### Example
+
+```console
+foo@bar:~$ python create_models.py -max_time 60 /path/2/phosphorylation_prediction/data_for_test/csv/T/phospho_sites_T_training.csv /path/2/phosphorylation_prediction/data_for_test/models
+```
 
 ## Model validation
 

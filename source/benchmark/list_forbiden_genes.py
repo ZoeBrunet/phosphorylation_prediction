@@ -35,9 +35,9 @@ def get_used_prot(used_protein, convert=None):
     local_list = []
     index = "%s_index.csv" % os.path.splitext(used_protein)[0]
     if convert is not None:
-        convert = pd.read_csv(convert, sep='\t')
-        convert.columns = ['uniprotID', 'local_id']
-        local_list = convert["local_id"].tolist()
+        convert_df = pd.read_csv(convert, sep='\t', header=None)
+        convert_df.columns = ['uniprotID', 'local_id']
+        local_list = convert_df["local_id"].tolist()
     if os.path.exists(index) and os.path.getsize(index) > 0:
         index_df = pd.read_csv(index, sep=';')
         initial_id_list = set(index_df["initial_id"].value_counts().keys().tolist())
@@ -78,7 +78,8 @@ def get_used_prot(used_protein, convert=None):
                 if convert is not None:
                     tmp = prot.split(".")[0]
                     if tmp in local_list:
-                        writer.writerow([convert[convert["local_id"] == tmp]["uniprotID"].values[0], prot])
+                        writer.writerow([convert_df[convert_df["local_id"] == tmp]["uniprotID"].values[0],
+                                         prot])
                     else:
                         writer.writerow([None, prot])
                 else:
