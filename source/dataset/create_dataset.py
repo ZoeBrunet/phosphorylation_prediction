@@ -138,9 +138,9 @@ class fill_table(Thread):
             nb_orthologs_metazoa = 0
             nb_orthologs_non_metazoa = 0
             path2cluster = "%s/%s.fasta" % (path2fastas, clusterID)
-            path2aligncluster = "%s/%s_align.fasta" % (path2align, clusterID)
-            path2alignclustermetazoa = "%s/metazoa/%s_align_metazoa.fasta" % (path, clusterID)
-            path2alignclusternonmetazoa = "%s/non_metazoa/%s_align_non_metazoa.fasta" % (path, clusterID)
+            path2aligncluster = ""
+            path2alignclustermetazoa = ""
+            path2alignclusternonmetazoa = ""
 
             # align fasta
             pssm_metazoa = None
@@ -153,8 +153,6 @@ class fill_table(Thread):
                 sorted_file = "%s/sorted_fastas/%s_sorted.fasta" % (path, clusterID)
                 seq_find = False
                 sorted = os.path.exists(sorted_file)
-                aligned = os.path.exists(path2aligncluster)
-                split = os.path.exists(path2alignclustermetazoa) or os.path.exists(path2alignclusternonmetazoa)
                 if not sorted:
                     for record in SeqIO.parse(open(path2cluster), "fasta"):
                         to_add = True
@@ -174,12 +172,14 @@ class fill_table(Thread):
                         print("No corresponding sequence in fasta for %s" % clusterID)
                     else:
                         sorted = True
-                if sorted and not aligned:
-                    t = threading.Thread(target=run_muscle, args=(sorted_file,))
-                    t.start()
-                    t.join()
-                if aligned and not split:
-                    split_fasta(path2aligncluster)
+                if sorted:
+                    que = queue.Queue()
+                    path2aligncluster = function_in_thread(que, [sorted_file], run_muscle)
+                if path2aligncluster != "":
+                    que = queue.Queue()
+                    metnonmet = function_in_thread(que, [path2aligncluster], split_fasta)
+                    path2alignclustermetazoa = metnonmet["metazoa"]
+                    path2alignclusternonmetazoa = metnonmet["nonmetazoa"]
                 if os.path.exists(path2alignclustermetazoa):
                     with open(path2alignclustermetazoa) as f_metazoa:
                         align_metazoa = AlignIO.read(f_metazoa, "fasta", alphabet=alpha)

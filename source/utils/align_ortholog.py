@@ -40,15 +40,17 @@ def split_fasta(file):
     path = os.path.dirname(os.path.dirname(file))
     os.makedirs("%s/metazoa" % path, exist_ok=True)
     os.makedirs("%s/non_metazoa" % path, exist_ok=True)
-    path2metazoa = "%s/metazoa/%s_metazoa.fasta" % (path, file_name[:-6])
-    path2nonmetazoa = "%s/non_metazoa/%s_non_metazoa.fasta" % (path, file_name[:-6])
-    for record in SeqIO.parse(open(file), "fasta"):
-        mt = get_client("taxon")
-        position = str(record.id).find(":")
-        taxID = record.id[:position]
-        metazoa = is_metazoan(float(taxID), mt)
-        f_out = path2metazoa if metazoa else path2nonmetazoa
-        SeqIO.write([record], open(f_out, 'a'), "fasta")
+    path2metazoa = "%s/metazoa/%s_metazoa.fasta" % (path, os.path.splitext(file_name)[0])
+    path2nonmetazoa = "%s/non_metazoa/%s_non_metazoa.fasta" % (path, os.path.splitext(file_name)[0])
+    if not os.path.exists(path2nonmetazoa) and not os.path.exists(path2metazoa):
+        for record in SeqIO.parse(open(file), "fasta"):
+            mt = get_client("taxon")
+            position = str(record.id).find(":")
+            taxID = record.id[:position]
+            metazoa = is_metazoan(float(taxID), mt)
+            f_out = path2metazoa if metazoa else path2nonmetazoa
+            SeqIO.write([record], open(f_out, 'a'), "fasta")
+    return {"metazoa": path2metazoa, "nonmetazoa": path2nonmetazoa}
 
 
 def add_seq(record, f_out, taxid_list, taxid):
