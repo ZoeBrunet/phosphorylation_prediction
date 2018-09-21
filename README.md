@@ -229,7 +229,7 @@ Use compare_tools.py to get performance of models.
 If necessary the program create a prediction directory in which you will find all the results
 
 ```console
-foo@bar:~$ python compare_toold.py benchmark model_directory
+foo@bar:~$ python compare_tool.py benchmark model_directory
 ```
 
 #### Parameters
@@ -249,6 +249,31 @@ foo@bar:~$ python compare_toold.py benchmark model_directory
 ```console
 foo@bar:~$ python compare_tools.py /path/2/phosphorylation_prediction/data_for_test/csv/T/phospho_sites_T_benchmark.csv /path/2/phosphorylation_prediction/data_for_test/models
 foo@bar:~$ python compare_tools.py /path/2/phosphorylation_prediction/data_for_test/csv/T/phospho_sites_T_benchmark.csv /path/2/phosphorylation_prediction/data_for_test/models -models  GBM_grid_0_AutoML_20180917_124949_model_46,XRT_0_AutoML_2
+```
+
+### model info
+
+#### How to use it
+
+Use print_models.py to get info and variable importance of models.
+
+The program create an info file in which you find the parameters of the model. Il also plot the variable importance of the model for GBM, GLM, RDF and XRT
+
+```console
+foo@bar:~$ python print_models.py model
+```
+
+#### Parameters
+
+| Name          |     type           |           description              |
+| ------------- |    -------------   | -------------                    | 
+| model          | string   | Path to the model     | 
+
+
+#### Example
+
+```console
+foo@bar:~$ python print_models.py /path/2/phosphorylation_prediction/data_for_test/models/GBM_grid_0_AutoML_20180917_124949_model_46,XRT_0_AutoML_2
 ```
 
 ## Figures

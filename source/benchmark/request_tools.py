@@ -128,8 +128,8 @@ def tools_prediction(inputfile, tool_list):
             formergb = []
             if os.path.exists(outputfile) and os.path.getsize(outputfile) > 0:
                 formerpos = pd.read_csv(outputfile, sep=';')
-                formergb = formerpos.groupby(("uniprotID", "position",
-                                              "phosphorylation_site", "sequence")).groups
+                formergb = formerpos.groupby(["uniprotID", "position",
+                                              "phosphorylation_site", "sequence"]).groups
             gbtoconvert = list(set(gb) - set(formergb))
             l = len(gbtoconvert)
             with open(outputfile, 'a+', newline='') as g:
@@ -179,11 +179,17 @@ def model_prediction(output_directory, model_directory, models, benchmark):
 def benchmark_result(path, tool_list):
     prediction_df = []
     column_prediction = []
+    columns = []
     result = "%s/global_results.csv" % path
+    if os.path.exists(result):
+        df = pd.read_csv(result, sep=';')
+        columns = df.columns
+        prediction_df.append(df)
     for key in tool_list:
-        path2pred = "%s/%s.csv" % (path, key)
-        prediction_df.append(pd.read_csv(path2pred, sep=';'))
-        column_prediction.append("prediction_%s" % key)
+        if "prediction_%s" % key not in columns:
+            path2pred = "%s/%s.csv" % (path, key)
+            prediction_df.append(pd.read_csv(path2pred, sep=';'))
+            column_prediction.append("prediction_%s" % key)
     global_df = reduce(lambda left, right: pd.merge(left, right, on=['uniprotID', "position",
                                                                      "phosphorylation_site", "sequence"]),
                        prediction_df)
@@ -206,7 +212,7 @@ def get_result_info(result_file, step):
         if "prediction" in column:
             pred.append(column)
     Path(stat_file).touch(exist_ok=True)
-    with open(stat_file, 'r+', newline='') as g:
+    with open(stat_file, 'w+', newline='') as g:
         writer = csv.writer(g, delimiter=";")
         writer.writerow(["tool", "threshold", "TP", "TN", "FP", "FN",
                          "recall", "precision", "specificity",
@@ -239,24 +245,25 @@ def get_result_info(result_file, step):
     return stat_file
 
 
-def plot_curves(stat_file):
+def plot_curves(stat_file, tool_list):
     stat = pd.read_csv(stat_file, sep=';')
-    tools = stat["tool"].value_counts().keys().tolist()
-    plt.subplot(121)
-    plt.xlabel('recall')
-    plt.ylabel('precision')
-    plt.title('Precision-Recall Curve')
+    tools = []
+    for tool in tool_list:
+        tools.append("prediction_%s" % tool)
+    plt.close('all')
+    fig, ((ax1, ax2)) = plt.subplots(nrows=1, ncols=2)
+    ax1.set_xlabel('recall')
+    ax1.set_ylabel('precision')
+    ax1.set_title('Precision-Recall Curve')
     color = iter(cm.rainbow(np.linspace(0, 1, len(tools))))
     for tool in tools:
         c = next(color)
         recall = stat[stat["tool"] == tool].sort_values(by=['threshold'])["recall"]
         precision = stat[stat["tool"] == tool].sort_values(by=['threshold'])["precision"]
-        plt.plot(recall, precision, c=c, label=tool.replace('prediction_', ''))
-    plt.legend(loc="lower left")
-    plt.subplot(122)
-    plt.xlabel('1 - specificity')
-    plt.ylabel('recall')
-    plt.title('ROC Curve')
+        ax1.plot(recall, precision, c=c)
+    ax2.set_xlabel('1 - specificity')
+    ax2.set_ylabel('recall')
+    ax2.set_title('ROC Curve')
     colorbis = iter(cm.rainbow(np.linspace(0, 1, len(tools))))
     for tool in tools:
         c = next(colorbis)
@@ -264,9 +271,12 @@ def plot_curves(stat_file):
         antispecificity = stat[stat["tool"] == tool].sort_values(by=['threshold'])["antispecificity"]
         antispecificity_without_none = [0 if elem is None else elem for elem in antispecificity]
         auc = abs(np.trapz(recall, antispecificity_without_none))
-        plt.plot(antispecificity_without_none, recall, c=c, label='%s (area = %0.4f)' %
-                                                                  (tool.replace('prediction_', ''), auc))
+        ax2.plot(antispecificity_without_none, recall, c=c, label='%s (area = %0.4f)'
+                                                                   % (tool.replace('prediction_', ''), auc))
     lims = [np.min([0, 0]), np.max([1, 1]), ]
-    plt.plot(lims, lims, '--b', label='Random classifier')
-    plt.legend(loc="lower right")
+    ax2.plot(lims, lims, '--b', label='Random classifier')
+    handles, labels = ax2.get_legend_handles_labels()
+    fig.legend(handles, labels, ncol=3, loc="lower center")
+    plt.tight_layout()
     plt.show()
+

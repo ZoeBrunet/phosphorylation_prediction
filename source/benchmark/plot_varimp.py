@@ -27,9 +27,16 @@ def plot_variable_distribution(color_list, ax, dict, str_contain, title):
         plt.ylabel("%")
         plt.title(title)
         former_length = length
-        value = value[value["Variable"].str.contains(str_contain)].sort_values(by=['Variable'])
+        value = value[value["Variable"].str.contains(str_contain)]
+        value = value.sort_values(by=['Variable'])
+        s = value["Variable"].index
+        list_len = value["Variable"].str.len().value_counts().keys().tolist()
+        percentage =[]
+        for l in list_len:
+        	tmp = value[value["Variable"].str.len() == l]
+        	percentage += tmp["Percentage"].tolist()
+        value = value.reindex(s)
         length += len(value)
-        percentage = value["Percentage"].tolist()
         feature = [x for x in range(former_length, length)]
         axe = [-0.003] * (length - former_length)
         plt.plot(feature, percentage, '-%s' % color_curve)

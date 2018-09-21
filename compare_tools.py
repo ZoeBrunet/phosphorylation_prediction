@@ -32,4 +32,4 @@ tool_list = [key for (key, value) in tool_dict.items() if value]
 model_list += tool_list
 results = benchmark_result(directory, model_list)
 stat = get_result_info(results, args.step)
-plot_curves(stat)
+plot_curves(stat, model_list)

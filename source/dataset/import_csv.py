@@ -33,68 +33,68 @@ lock = RLock()
 
 class fill_csv(Thread):
     def __init__(self, group_acc_seq,uniprot_id_list,
-                 pattern, mt, path, s, writer, resp):
+                 pattern, mt, path, writer, resp):
         Thread.__init__(self)
         self.group_acc_seq = group_acc_seq
         self.uniprot_id_list = uniprot_id_list
         self.pattern = pattern
         self.mt = mt
         self.path = path
-        self.s = s
         self.writer = writer
         self.resp = resp
 
     def run(self):
         for i, (acc, group) in enumerate(self.group_acc_seq):
             print("import %s from csv file" % acc)
-            if acc not in self.uniprot_id_list:
-                pos_list = []
-                seq_list = []
-                que = queue.Queue()
-                # Info from gene
-                r = (self.resp).loc[[acc]]
-                geneID = None
-                taxID = None
+            with requests.Session() as s:
+                if acc not in self.uniprot_id_list:
+                    pos_list = []
+                    seq_list = []
+                    que = queue.Queue()
+                    # Info from gene
+                    r = (self.resp).loc[[acc]]
+                    geneID = None
+                    taxID = None
 
-                if "_id" in r:
-                    geneID = r["_id"].values[0]
-                if "taxid" in r:
-                    taxID = r["taxid"].values[0]
-                metazoan = is_metazoan(taxID, self.mt)
-                clusterID = function_in_thread(que, [acc,
-                                                     geneID,
-                                                     self.path,
-                                                     self.s],
-                                               request_cluster_id)
-                name = "%s.fasta" % acc
-                path2fastas = "%s/fastas" % self.path
-                path2cluster = "%s/%s" % (path2fastas, name)
-                sequence = function_in_thread(que, [path2cluster,
-                                                    group["seq_in_window"].tolist(),
-                                                    taxID], find_sequence)
-                if sequence != "None":
-                    for position, seq in zip(group["position"], group["seq_in_window"]):
-                        match = function_in_thread(que, [seq, sequence], find_pattern)
-                        tmp_position = None
-                        if len(match):
-                            for r in match:
-                                if tmp_position is None:
-                                    dist = len(sequence) + 1
-                                else:
-                                    dist = abs(tmp_position - position)
-                                if dist > abs(6 + r.start() - position):
-                                    tmp_position = 6 + r.start()
-                            position = tmp_position
-                        else:
-                            position = None
-                        if position not in pos_list and position is not None:
-                            pos_list.append(position)
-                            seq_list.append(seq)
+                    if "_id" in r:
+                        geneID = r["_id"].values[0]
+                    if "taxid" in r:
+                        taxID = r["taxid"].values[0]
+                    metazoan = is_metazoan(taxID, self.mt)
+                    clusterID = function_in_thread(que, [acc,
+                                                         geneID,
+                                                         self.path,
+                                                         s],
+                                                   request_cluster_id)
+                    name = "%s.fasta" % acc
+                    path2fastas = "%s/fastas" % self.path
+                    path2cluster = "%s/%s" % (path2fastas, name)
+                    sequence = function_in_thread(que, [path2cluster,
+                                                        group["seq_in_window"].tolist(),
+                                                        taxID], find_sequence)
+                    if sequence != "None":
+                        for position, seq in zip(group["position"], group["seq_in_window"]):
+                            match = function_in_thread(que, [seq, sequence], find_pattern)
+                            tmp_position = None
+                            if len(match):
+                                for r in match:
+                                    if tmp_position is None:
+                                        dist = len(sequence) + 1
+                                    else:
+                                        dist = abs(tmp_position - position)
+                                    if dist > abs(6 + r.start() - position):
+                                        tmp_position = 6 + r.start()
+                                position = tmp_position
+                            else:
+                                position = None
+                            if position not in pos_list and position is not None:
+                                pos_list.append(position)
+                                seq_list.append(seq)
 
-                    with lock:
-                        if len(pos_list):
-                            (self.writer).writerow([acc, geneID, taxID, metazoan, self.pattern, seq_list,
-                                                    pos_list, clusterID, sequence])
+                        with lock:
+                            if len(pos_list):
+                                (self.writer).writerow([acc, geneID, taxID, metazoan, self.pattern, seq_list,
+                                                        pos_list, clusterID, sequence])
 
 
 def import_csv(csv):
@@ -203,15 +203,15 @@ def import_ortholog(csv_file, pattern, nthread):
         if not first_char:
             writer.writerow(['uniprotID', 'geneID', 'taxID', 'metazoan', 'code',
                              'seq_in_window', 'pos_sites', 'clusterID', 'sequence'])
-        with requests.Session() as s:
-            group_acc_seq = sub_df.groupby(["acc"], observed=True)
-            data_thread = np.array_split(group_acc_seq, nthread)
-            thread_list = []
-            for data in data_thread:
-                thread_list.append(fill_csv(data, uniprot_id_list,
-                                            pattern, mt, path, s, writer, resp))
-            for thread in thread_list:
-                thread.start()
-            for thread in thread_list:
-                thread.join()
+
+        group_acc_seq = sub_df.groupby(["acc"], observed=True)
+        data_thread = np.array_split(group_acc_seq, nthread)
+        thread_list = []
+        for data in data_thread:
+            thread_list.append(fill_csv(data, uniprot_id_list,
+                                        pattern, mt, path, writer, resp))
+        for thread in thread_list:
+            thread.start()
+        for thread in thread_list:
+            thread.join()
     return index_file
