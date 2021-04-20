@@ -31,7 +31,7 @@ numpy==1.14.2
 pandas==0.23.4
 plotly==2.5.1
 pluggy==0.6.0
-py==1.5.3
+py==1.10.0
 PyEntrezId==1.5.8.2
 pyfasta==0.5.2
 Pygments==2.1.3
