@@ -19,7 +19,7 @@ jsonschema==2.6.0
 jupyter-core==4.4.0
 kiwisolver==1.0.1
 lxml==4.2.4
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.0
 matplotlib==2.2.2
 MechanicalSoup==0.10.0
