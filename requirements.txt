@@ -4,7 +4,7 @@ beautifulsoup4==4.6.3
 biopython==1.71
 biothings-client==0.1.1
 bottle==0.12.13
-certifi==2018.1.18
+certifi==2022.12.7
 chardet==3.0.4
 colorama==0.3.7
 CProfileV==1.0.7
